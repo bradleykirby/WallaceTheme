@@ -1,4 +1,16 @@
 # WallaceTheme
-Wallace is a next-generation WordPress theme built with the Rest API and Angular2.
+Wallace is a next-generation WordPress theme built with the Rest API and Angular2. 
 
+## Installation
+Navigate to your WP theme directory and run:
 
+`git clone https://github.com/bkirby989/WallaceTheme`
+
+`npm install`
+
+## Usage
+For development with automatic compilation:
+`webpack --watch`
+
+For a production build:
+`npm run build-prod`
