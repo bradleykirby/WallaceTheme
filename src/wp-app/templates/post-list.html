@@ -1,0 +1,9 @@
+<div id="post-list">
+
+    {% for post in posts %}
+        {{include ('post-item.html')}}
+    {% endfor %}
+
+    <h3 id="post-load-status">Loading more posts...</h3>
+    
+</div>

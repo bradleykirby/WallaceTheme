@@ -1,0 +1,14 @@
+<div id="post-list" [@postLeave]='leave'>
+	<template ngFor let-post [ngForOf]="posts">
+		<wal-post-item (itemClickedEvent) = "handleItemClick($event)" class="post-preview"  *ngIf="post.featured" [@postEnter]='startup'
+		 [post]="post" [class.featured]="post.featured" class="post-preview">
+    	</wal-post-item>
+    </template>
+	<template ngFor let-post [ngForOf]="posts">
+		<wal-post-item (itemClickedEvent) = "handleItemClick($event)" class="post-preview"  *ngIf="!post.featured" [@postEnter]='startup'
+		 [post]="post" [class.featured]="post.featured" class="post-preview">
+    </wal-post-item>
+    </template>
+	
+	<h3 id="post-load-status" #postLoadStatus [@postsLoading]='postsLoading' >Loading more posts...</h3>
+</div>

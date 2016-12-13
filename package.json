@@ -1,0 +1,65 @@
+{
+  "name": "wallace-theme",
+  "version": "0.1.0",
+  "description": "A next-generation WordPress theme powered by the WP Rest API and Angular2",
+  "main": "index.php",
+  "scripts": {
+    "ngc": "ngc -p ./tsconfig.aot.json",
+    "build-prod": "webpack --config webpack.prod.config.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bkirby989/WallaceTheme.git"
+  },
+  "author": "Bradley Kirby (Black Coffee Interactive LLC)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/bkirby989/WallaceTheme/issues"
+  },
+  "homepage": "https://wallacetheme.com",
+  "devDependencies": {
+    "@ngtools/webpack": "1.1.7",
+    "@types/core-js": "^0.9.34",
+    "@types/node": "^6.0.48",
+    "angular2-template-loader": "^0.6.0",
+    "awesome-typescript-loader": "2.2.4",
+    "css-loader": "^0.25.0",
+    "extract-text-webpack-plugin": "2.0.0-beta.4",
+    "html-loader": "^0.4.4",
+    "modularscale-sass": "^2.1.1",
+    "node-sass": "^3.11.1",
+    "postcss-loader": "^1.2.1",
+    "postcss-object-fit-images": "^1.1.2",
+    "raw-loader": "0.5.1",
+    "sass-loader": "^4.0.2",
+    "style-loader": "^0.13.1",
+    "ts-loader": "1.0.0",
+    "typescript": "2.0.10",
+    "webpack": "2.1.0-beta.27",
+    "webpack-livereload-plugin": "^0.9.0"
+  },
+  "dependencies": {
+    "@angular/common": "~2.2.4",
+    "@angular/compiler": "~2.2.4",
+    "@angular/compiler-cli": "~2.2.4",
+    "@angular/core": "~2.2.4",
+    "@angular/forms": "~2.2.4",
+    "@angular/http": "~2.2.4",
+    "@angular/platform-browser": "~2.2.4",
+    "@angular/platform-browser-dynamic": "~2.2.4",
+    "@angular/platform-server": "~2.2.4",
+    "@angular/router": "3.2.4",
+    "@angular/upgrade": "~2.2.4",
+    "@ngrx/core": "^1.0.0",
+    "@ngrx/effects": "^2.0.0",
+    "@ngrx/store": "^2.0.0",
+    "@ngrx/store-devtools": "^3.1.0",
+    "core-js": "^2.4.1",
+    "ngrx-store-freeze": "^0.1.4",
+    "object-fit-images": "^2.5.9",
+    "reflect-metadata": "^0.1.8",
+    "rxjs": "5.0.0-beta.12",
+    "web-animations-js": "^2.2.1",
+    "zone.js": "^0.6.26"
+  }
+}

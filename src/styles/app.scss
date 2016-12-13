@@ -1,0 +1,70 @@
+$ms-base:  1rem;
+
+@import 'reset';
+@import '~modularscale-sass/stylesheets/modular-scale';
+@import 'home-view';
+@import 'post-list';
+@import 'post';
+
+
+
+html{
+
+	font-size: 1.3vw;
+	line-height: 1.5;
+	-webkit-tap-highlight-color: rgba(0,0,0,0);
+
+	//font-size: 16px;
+
+	@media screen and (max-width: 700px){
+		font-size: 10px;
+	}
+	@media screen and (min-width: 975px){
+		font-size: 13px;
+	}
+
+	//font-family: Futura;
+	font-family: 'Fjord One', sans-serif;
+	font-weight: 400;
+ 	background-color: #FFFFF7;
+    color: lighten(black, 3%);
+}
+
+h1{
+	font-family: 'Montserrat', sans-serif;
+	font-weight: 300;
+	line-height: 1;
+}
+
+h2{
+	font-family: 'Open Sans', sans-serif;
+	font-family: 'Montserrat', sans-serif;
+
+	font-weight: 300;
+	line-height: 1;
+}
+
+h3{
+	font-family: 'Open Sans', sans-serif;
+	font-family: 'Montserrat', sans-serif;
+	
+	font-weight: 300;
+	line-height: 1;
+}
+
+button:focus {
+	outline:0;
+}
+
+
+
+
+a{
+	text-decoration: none;
+	color: black;
+	
+}
+
+body{
+	margin: 0;
+}

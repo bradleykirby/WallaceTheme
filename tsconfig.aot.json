@@ -1,0 +1,35 @@
+//not used yet
+{
+  "compilerOptions": {
+    "target": "es5",
+    "module": "es2015",
+    "moduleResolution": "node",
+    "sourceMap": true,
+    "declaration": false,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "skipLibCheck": true,
+    "noImplicitAny": true,
+    "suppressImplicitAnyIndexErrors": true,
+    "outDir": "./ngfactory",
+    "rootDir": "./src",
+    "noFallthroughCasesInSwitch": true,
+    "typeRoots": [ "./node_modules/@types" ],
+    "types": [
+      "core-js",
+      "node"
+    ]
+
+  },
+  "compileOnSave": false,
+  "angularCompilerOptions": {
+    "debug": true    
+ },
+ "files": [
+    "src/app/app.module.ts"
+  ],
+ "exclude": [
+    "node_modules",
+    "dist"
+  ]
+}

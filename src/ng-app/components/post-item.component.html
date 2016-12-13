@@ -1,0 +1,12 @@
+<div class="post-image-wrapper" (click)="postItemClick($event)" *ngIf="post.imageURLHiRes !== 'NONE'">
+	<img class="post-image" [src]="post.featured == true ? post.imageURLHiRes : post.imageURLLowRes"/>
+</div>
+<a class="post-info" (click)="postItemClick($event)" href="{{post.path+'/'}}">
+	<h2 class="post-title" [innerHTML]="post.title"></h2>
+	<div  class="excerpt" [innerHTML]="post.excerpt"></div>
+	<div class="category">
+		<span [innerHTML]="post.categoryString">Category</span>
+	</div>
+</a>
+<p class="excerpt-drawer" (click)="postItemClick($event)" [innerHTML]="post.excerpt"></p>
+<hr class ="post-divider">

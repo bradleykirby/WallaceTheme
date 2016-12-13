@@ -1,0 +1,120 @@
+		$header-bg: #040430;
+
+#home-header{
+//	margin-top: ms(1);
+		background: $header-bg;
+		display: flex;
+		align-items: center;
+		position: relative;
+		z-index: 3;
+		transition: opacity 0.5s;
+		
+	img{
+		width: ms(3);
+		padding: ms(1);
+		padding-right: 0;
+		//display:none;
+	}
+	#site-title{
+		font-size: ms(1);
+		padding: ms(2) ms(4) ms(2) ms(1);
+		max-width: 65%;
+		//text-transform: uppercase;
+		//letter-spacing: ms(1);
+		@media screen and (min-width: 600px){
+			text-transform: uppercase;
+			letter-spacing: ms(1);
+		}
+		color: white;
+		font-family: 'Open Sans', sans-serif;
+
+		font-weight: 300;
+		margin-right: 110px;
+		//radial-gradient(farthest-corner at bottom right,rgba(217,217,217,0),rgba(217,217,217,.15)),linear-gradient(175deg,#040430,#020218)
+		&.active{
+		}
+	}
+	#page-menu-button{
+		position: absolute;
+		right: 0;
+		top: 50%;
+		font-family: 'Open Sans', sans-serif;
+
+		font-size: 1rem;
+		transform: translateY(-50%);
+		background-color: rgba(0,0,0,0);
+		border: 1px solid white;
+		color: white;
+		text-transform: uppercase;
+		letter-spacing: ms(1)/5;
+		text-align: center;
+		margin-right: ms(1);
+		padding: ms(1);
+		padding-left: ms(1) + ms(1)/5;
+		transition: color 0.5s, background-color 0.5s;
+		&:hover{
+			cursor: hand;
+			color: #040430;
+			background-color: white;
+		}
+		&.active{
+			color: #040430;
+			background-color: white;
+		}
+
+	}
+}
+
+nav{
+	width: ms(6);
+	max-width: 100%;
+	position: absolute;
+	right: 0;
+	background-color: lighten($header-bg, 5%);
+	background-color: $header-bg;
+	transform: translateY(-100%);
+	z-index: 2;
+	transition: transform 0.5s;
+	.page-item{
+		color: white;
+    	 font-family: 'Open Sans', sans-serif;
+
+		//text-align: center;
+		font-size: ms(1)/1.5;
+		padding: ms(1);
+		background-color: rgba(white, 0.1);
+
+		transition: background-color 0.5s;
+		//color: white;
+		display: block;
+		//border-radius: 5px;
+		border-bottom: 1px solid white;
+		text-transform: uppercase;
+
+		&:first-of-type{
+			border-bottom: none;
+			border-top: 5px solid transparent;
+			padding-top: ms(1)*.85;
+			//border: 10px solid transparent;
+			//border-image: linear-gradient(rgba($header-bg, 0.50), rgba($header-bg, 1));
+			border-image: linear-gradient(rgba(black, 0.25), rgba(black, 0) 10%);
+			border-image-slice: 8;
+					
+		}
+
+		&:last-of-type{
+			border: none;
+		}
+		&:nth-of-type(2){
+			border-top: 1px solid white;
+		}
+		
+		&:hover{
+			background-color: rgba(white, 0.25);
+		}
+		
+	}
+	&.active{
+			transform: translateY(0);
+		}
+}

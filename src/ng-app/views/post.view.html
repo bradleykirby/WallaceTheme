@@ -1,0 +1,40 @@
+        
+<div>
+    <article *ngIf="post.imageURLHiRes !== 'NONE'">
+        <div class="header-image-wrapper" [@flyIn]='true' [@flyOutTop]='toHome'>
+            <img [src]="post.imageURLHiRes" class="post-image"/>
+                <a  class="site-logo-anchor" href="/" (click)='goHome($event)'><img class="site-logo" [src]="logoSrc$ | async"/></a>
+            <h1 class="post-title" [innerHTML]="post.title"></h1>
+        </div>
+        <div class="post-content" *ngIf="post.contentLoaded" [innerHTML]="post.content"  [@flyOutBottom]='toHome'></div>
+        <div class="content-loading" *ngIf="!post.contentLoaded" [@contentLoaded]='true'>Loading Post...</div>
+    </article>
+
+    <article *ngIf="post.imageURLHiRes == 'NONE'">
+        <a  class="site-logo-anchor" routerLink="/"><img class="site-logo" [src]="logoSrc$ | async"/></a>
+        <h1 class="post-title no-image" [innerHTML]="post.title"></h1>
+
+        <div class="post-content no-image" [innerHTML]="post.content" *ngIf="post.contentLoaded" [@contentLoaded]='startup'></div>
+        <div class="content-loading" *ngIf="!post.contentLoaded">Loading Post...</div>
+
+    </article>
+
+</div>
+<!-- <div *ngIf="activePost.imageURL === 'NONE'" >
+    <header id='home-header'> 
+        <a routerLink="/"><img [src]="logoSrc"/></a>
+        <h1 id="site-title">{{siteTitle}}</h1>
+        <button id="page-menu-button">Menu</button>
+    </header>
+    <nav id="page-links">
+        <a href='' class="page-item">Legal</a> 
+    </nav>
+    <article>
+        <div class="header-image-wrapper no-image">
+            <h1 class="post-title" [innerHTML]="activePost.title"></h1>
+        </div>
+        <div class="post-content" [innerHTML]="activePost.content"></div>'
+
+    </article>
+</div> -->
+

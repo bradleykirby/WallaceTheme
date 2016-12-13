@@ -1,0 +1,41 @@
+{% if post.featured == true %}
+    <wal-post-item class="post-preview featured">
+
+    {% if post.imageURLHiRes != 'NONE' %}
+        <div class="post-image-wrapper">
+            <img class="post-image" src="{{post.imageURLHiRes}}"/>
+        </div>
+    {% endif %}
+
+        <a class="post-info" href="{{post.path}}">
+            <h2 class="post-title">{{post.title|raw}}</h2>
+            <div class="excerpt">{{post.excerpt|raw}}</div>
+            <div class="category">
+                <span>{{post.categoryString}}</span>
+            </div>
+        </a>
+        <div class="excerpt-drawer">{{post.excerpt|raw}}</div>
+        <hr class ="post-divider">
+    </wal-post-item>
+{% endif %}
+
+{% if post.featured == false %}
+    <wal-post-item class="post-preview">
+
+        {% if post.imageURLLowRes != 'NONE' %}
+            <div class="post-image-wrapper">
+                <img class="post-image" src="{{post.imageURLLowRes}}"/>
+            </div>
+        {% endif %}
+
+        <a class="post-info" href="{{post.path}}">
+            <h2 class="post-title">{{post.title|raw}}</h2>
+            <div class="excerpt">{{post.excerpt|raw}}</div>
+            <div class="category">
+                <span>{{post.categoryString}}</span>
+            </div>
+        </a>
+        <div class="excerpt-drawer">{{post.excerpt|raw}}</div>
+        <hr class ="post-divider">
+    </wal-post-item>
+{% endif %}

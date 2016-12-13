@@ -1,0 +1,20 @@
+<div>
+    <article>
+		{% if post.imageURLHiRes != 'NONE' %}
+	        <div class="header-image-wrapper">
+	            <img src="{{post.imageURLHiRes}}" class="post-image"/>
+	                <a  class="site-logo-anchor" href="/"><img class="site-logo" src="{{siteData.iconUrl}}"/></a>
+	            <h1 class="post-title">{{post.title|raw}}</h1>
+	        </div>
+        	<div class="post-content" >{{post.content|raw}}</div>
+
+		{% endif %}
+		{% if post.imageURLHiRes == 'NONE' %}
+			<a  class="site-logo-anchor" href="/"><img class="site-logo" src="{{siteData.iconUrl}}"/></a>
+            <h1 class="post-title no-image">{{post.title|raw}}</h1>
+        	<div class="post-content no-image" >{{post.content|raw}}</div>
+		{% endif %}
+
+    </article>
+
+</div>

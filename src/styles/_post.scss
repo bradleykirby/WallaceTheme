@@ -1,0 +1,133 @@
+$header-bg: #040430;
+$body-bg: #FFFFF7;
+
+article{
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+
+	.site-logo-anchor{
+			position: absolute;
+			z-index: 3;
+			top: 0;
+			left: 0;
+
+			.site-logo{
+				width: ms(3);
+				padding: ms(1);
+			}
+		}
+
+	.post-title{
+		font-size: ms(3);
+		@media screen and (max-width: 600px){
+			font-size: ms(2);
+		}
+
+		&.no-image{
+			//font-size: ms(4);
+			color: $header-bg;
+			position: static;
+			margin-top: ms(2);
+			@media screen and (max-width: 600px){
+				//font-size: ms(3);
+			}
+		}
+		//font-weight: 400;
+		//text-transform: uppercase;
+		position: absolute;
+		z-index: 2;
+		bottom: 5%;
+		color: $body-bg;
+		text-align: center;
+		width: 80%;
+		left: 10%;
+
+	}
+	
+	.header-image-wrapper{
+		width: 100vw;
+		display: flex;
+		height: 66vh;
+		position: absolute;
+		left: 0;
+		z-index: 2;
+		.post-image{
+			width: 100%;
+  			object-fit: cover;
+  			-webkit-filter: brightness(75%);
+  			filter: brightness(75%);
+
+		}
+
+		&.no-image{
+			.post-title{
+				position: static;
+				color: lighten(black, 3%);
+				transform: none;
+				margin: ms(3) auto ms(2) auto;
+				z-index: -1;
+			}
+
+		}
+		
+
+		
+	}
+	.content-loading{
+		position: relative;
+		top: 66vh;
+		margin-top: ms(2);
+		font-size: ms(2);
+	}
+	.post-content{
+		width: 90vw;
+		max-width: 750px;
+		font-size: ms(1);
+		margin-top: ms(2);
+		padding: 0 ms(1);
+		position: relative;
+		top: 66vh;
+		&.no-image{
+			top: 0;
+		}
+		p{
+			margin-top: ms(1);
+		}
+		h1, h2, h3{
+			margin: ms(1) 0;
+		}
+		a{
+			color: lighten($header-bg, 25%);
+		}
+		ol, ul{
+			margin:ms(1) 0 ms(1) ms(3);
+			li{
+				list-style: decimal;
+			}
+		}
+
+		code{
+			font-size: ms(1)*0.8;
+			background: $header-bg;
+			color: $body-bg;
+			padding: 0px 5px;
+		}
+    	//font-weight: 300;
+
+
+	}
+}
+
+.opacity-gradient{
+	position: absolute;
+	top: 0;
+	width: 100vw;
+	height: 120vh;
+	z-index: 1;
+	background: linear-gradient(rgba($body-bg, 0), rgba($body-bg, 1) 60%);
+	transition: transform 1s;
+
+
+	//background: linear-gradient(rgba($body-bg, 0), rgba(0,0,0))
+}

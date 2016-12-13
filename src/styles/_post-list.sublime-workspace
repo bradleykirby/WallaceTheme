@@ -1,0 +1,1019 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"al",
+				"align-self"
+			],
+			[
+				"bore",
+				"border-radius"
+			],
+			[
+				"cate",
+				"category_string"
+			],
+			[
+				"category",
+				"category_string"
+			],
+			[
+				"catego",
+				"category_string"
+			],
+			[
+				"image",
+				"imageURL"
+			],
+			[
+				"head",
+				"header-bg"
+			],
+			[
+				"hea",
+				"header-bg"
+			],
+			[
+				"acti",
+				"activeRouteService	parameter"
+			],
+			[
+				"array",
+				"array_push"
+			],
+			[
+				"tran",
+				"transitionAnim	property"
+			],
+			[
+				"Postli",
+				"PostListAnimationType	enum"
+			],
+			[
+				"PageTra",
+				"PageTransitionService	alias"
+			],
+			[
+				"h",
+				"HOME_TO_POST	var"
+			],
+			[
+				"Acit",
+				"ActiveRouteService	alias"
+			],
+			[
+				"resource",
+				"ResourceType	enum"
+			],
+			[
+				"active",
+				"activePost	property"
+			],
+			[
+				"post",
+				"post_preview"
+			],
+			[
+				"up",
+				"updateNextPostToLoadContent	window.PostService"
+			],
+			[
+				"next",
+				"nextItemToPreloadContent	local var"
+			],
+			[
+				"po",
+				"postItems	property"
+			],
+			[
+				"find",
+				"findIndex	method"
+			],
+			[
+				"act",
+				"activeRoute	local var"
+			],
+			[
+				"urlP",
+				"urlPath	property"
+			],
+			[
+				"posts",
+				"postsToAdd	local var"
+			],
+			[
+				"check",
+				"checkForMorePosts	method"
+			],
+			[
+				"post_pre",
+				"post_previews"
+			],
+			[
+				"url",
+				"urlPath	property"
+			],
+			[
+				"on",
+				"onResolve	window.ZoneAwarePromise"
+			],
+			[
+				"Resou",
+				"ResourceType	alias"
+			],
+			[
+				"content",
+				"contentLoaded	property"
+			],
+			[
+				"ac",
+				"actionType	property"
+			],
+			[
+				"Init",
+				"InitialActionType	alias"
+			],
+			[
+				"Ini",
+				"InitialActionType	enum"
+			],
+			[
+				"Active",
+				"ActiveRouteService	alias"
+			],
+			[
+				"activ",
+				"activeRoute$	property"
+			],
+			[
+				"Res",
+				"ResourceType	enum"
+			],
+			[
+				"conte",
+				"contentLoaded	local var"
+			],
+			[
+				"psot",
+				"postService	parameter"
+			],
+			[
+				"ROU",
+				"ROUTER_PROVIDERS	alias"
+			],
+			[
+				"back",
+				"background-color"
+			],
+			[
+				"json",
+				"json_encode"
+			],
+			[
+				"get_the_ex",
+				"get_the_excerpt"
+			],
+			[
+				"new",
+				"new_response"
+			],
+			[
+				"print",
+				"print_r"
+			],
+			[
+				"req",
+				"request_with_params"
+			],
+			[
+				"reques",
+				"request_with_params"
+			],
+			[
+				"getP",
+				"getPostContent	method"
+			],
+			[
+				"l",
+				"preLoaded	property"
+			],
+			[
+				"to",
+				"toArray	method"
+			],
+			[
+				"request",
+				"request_uri"
+			],
+			[
+				"wp",
+				"wpPost"
+			],
+			[
+				"html",
+				"htmlWikiText"
+			],
+			[
+				"is",
+				"isDuplicate	local function"
+			],
+			[
+				"the_ti",
+				"the_title"
+			],
+			[
+				"An",
+				"AnimationBuilder	alias"
+			],
+			[
+				"Ele",
+				"ElementRef	alias"
+			],
+			[
+				"marg",
+				"margin-right"
+			],
+			[
+				"margin",
+				"margin-left"
+			],
+			[
+				"Com",
+				"ComponentInstruction	alias"
+			],
+			[
+				"Ca",
+				"CanReuse	alias"
+			],
+			[
+				"c",
+				"component	property"
+			],
+			[
+				"ru",
+				"routeData	property"
+			],
+			[
+				"_",
+				"_routeData	parameter"
+			],
+			[
+				"rou",
+				"routeData	property"
+			],
+			[
+				"Route",
+				"RouteData	alias"
+			],
+			[
+				"Rou",
+				"RouteData	alias"
+			],
+			[
+				"Rout",
+				"RouteData	alias"
+			],
+			[
+				"r",
+				"registry	property"
+			],
+			[
+				"Router",
+				"Router	alias"
+			],
+			[
+				"Post",
+				"PostService	alias"
+			],
+			[
+				"p",
+				"path	property"
+			],
+			[
+				"navigateB",
+				"navigateByUrl	method"
+			],
+			[
+				"PRO",
+				"providers	property"
+			],
+			[
+				"cu",
+				"_currentView	property"
+			],
+			[
+				"Ob",
+				"Observable	alias"
+			],
+			[
+				"Con",
+				"ContentType	alias"
+			],
+			[
+				"ROUT",
+				"ROUTER_DIRECTIVES	const"
+			],
+			[
+				"it",
+				"itemClickedId	property"
+			],
+			[
+				"Quer",
+				"QueryList	alias"
+			],
+			[
+				"get",
+				"getPostListRecord	method"
+			],
+			[
+				"type",
+				"typeof	keyword"
+			],
+			[
+				"Preloade",
+				"PreLoader	class"
+			],
+			[
+				"PostL",
+				"PostListPreloadEvent	interface"
+			],
+			[
+				"Pre",
+				"PreLoadEventTypes	enum"
+			],
+			[
+				"PRE",
+				"PreLoadEventTypes	enum"
+			],
+			[
+				"event",
+				"eventType	parameter"
+			],
+			[
+				"typ",
+				"typeof	keyword"
+			],
+			[
+				"AC",
+				"ACTIVATING	var"
+			],
+			[
+				"Injec",
+				"Injectable	alias"
+			],
+			[
+				"Inj",
+				"Injectable	var"
+			],
+			[
+				"resolve",
+				"resolveAndCreate	method"
+			],
+			[
+				"res",
+				"resolveAndCreate	method"
+			],
+			[
+				"pro",
+				"provide	alias"
+			],
+			[
+				"app",
+				"AppComponent2	alias"
+			],
+			[
+				"const",
+				"constructor	keyword"
+			],
+			[
+				"get_temp",
+				"get_template_directory_uri"
+			],
+			[
+				"feat",
+				"feature-menu-item"
+			],
+			[
+				"chrom",
+				"chromeIos"
+			],
+			[
+				"fade",
+				"fadeStatus"
+			],
+			[
+				"thro",
+				"throttleReset"
+			],
+			[
+				"intro",
+				"intro-emphasis"
+			],
+			[
+				"an",
+				"answer1"
+			],
+			[
+				"op",
+				"opacity"
+			],
+			[
+				"scroll",
+				"scrollDepth"
+			],
+			[
+				"padd",
+				"padding-bottom"
+			],
+			[
+				"$inter",
+				"$interval	AngularJS"
+			],
+			[
+				"theme",
+				"theme_path"
+			],
+			[
+				"text-",
+				"text-align"
+			],
+			[
+				"call",
+				"call-action-complement"
+			],
+			[
+				"header",
+				"header-bleed-color"
+			],
+			[
+				"backgorun",
+				"background-color"
+			],
+			[
+				"linear",
+				"linear-gradient"
+			],
+			[
+				"canc",
+				"cancelPromises"
+			],
+			[
+				"tim",
+				"timeouts"
+			],
+			[
+				"tar",
+				"targetDemo"
+			],
+			[
+				"target",
+				"targetDemoDirectory"
+			],
+			[
+				"nextS",
+				"nextSegment"
+			],
+			[
+				"nex",
+				"nextSegment"
+			],
+			[
+				"gifSt",
+				"gifStill1"
+			],
+			[
+				"nextSE",
+				"nextSegmentStillPath"
+			],
+			[
+				"gifStill",
+				"gifStill4"
+			],
+			[
+				"gifStil",
+				"gifStill2"
+			],
+			[
+				"gifSeg",
+				"gifSegment2"
+			],
+			[
+				"gif",
+				"gifContainer"
+			],
+			[
+				"pause",
+				"pauseFlag"
+			],
+			[
+				"gifSti",
+				"gifStill4"
+			],
+			[
+				"qua",
+				"quality"
+			]
+		]
+	},
+	"buffers":
+	[
+	],
+	"build_system": "",
+	"build_system_choices":
+	[
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 400.0,
+		"last_filter": "inst",
+		"selected_items":
+		[
+			[
+				"inst",
+				"Package Control: Install Package"
+			],
+			[
+				"angular",
+				"Set Syntax: HTML (Angular.js)"
+			],
+			[
+				"install",
+				"Package Control: Install Package"
+			],
+			[
+				"instal",
+				"Package Control: Install Package"
+			],
+			[
+				"insta",
+				"Package Control: Install Package"
+			],
+			[
+				"settings",
+				"Preferences: Settings - User"
+			],
+			[
+				"toggle",
+				"View: Toggle Side Bar"
+			],
+			[
+				"prefe",
+				"Preferences: Settings - User"
+			],
+			[
+				"pacck",
+				"Package Control: Discover Packages"
+			],
+			[
+				"togg",
+				"View: Toggle Side Bar"
+			],
+			[
+				"",
+				"Project: Add Folder"
+			],
+			[
+				"view",
+				"View: Toggle Status Bar"
+			],
+			[
+				"vmen",
+				"View: Toggle Minimap"
+			]
+		],
+		"width": 538.0
+	},
+	"console":
+	{
+		"height": 126.0,
+		"history":
+		[
+			"import urllib.request,os,hashlib; h = '7183a2d3e96f11eeadd761d777e62404' + 'e330c659d4bb41d3bdf022e94cab3cd0'; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); by = urllib.request.urlopen( 'http://sublime.wbond.net/' + pf.replace(' ', '%20')).read(); dh = hashlib.sha256(by).hexdigest(); print('Error validating download (got %s instead of %s), please try manual install' % (dh, h)) if dh != h else open(os.path.join( ipp, pf), 'wb' ).write(by)"
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"file_history":
+	[
+		"/Users/bradleykirby/Code/wallace-local/wp-content/themes/Wallace-Beta-2/styles/scss/_header.scss",
+		"/Users/bradleykirby/Code/wallace-local/wp-content/themes/Wallace-Beta-2/functions.php",
+		"/Users/bradleykirby/Code/wallace-local/wp-content/themes/Wallace-Beta-2/styles/scss/app.scss",
+		"/Users/bradleykirby/Code/wallace-local/wp-content/themes/Wallace-Beta-2/package.json",
+		"/Users/bradleykirby/Code/wallace-local/wp-content/themes/Wallace-Beta-2/index.php",
+		"/Users/bradleykirby/Code/wallace-local/wp-content/themes/Wallace-Beta-2/app/views/home.view.ts",
+		"/Users/bradleykirby/Code/wallace-local/wp-content/themes/Wallace-Beta-2/styles/scss/_reset.scss",
+		"/Users/bradleykirby/Code/wallace-local/wp-content/themes/Wallace-Beta-2/styles/scss/_modular-scale.scss",
+		"/Users/bradleykirby/Code/wallace-local/wp-content/themes/Wallace-Beta-2/styles/css/app.css.map",
+		"/Users/bradleykirby/Code/wallace-local/wp-content/themes/Wallace-Beta-2/styles/scss/_home-view.scss",
+		"/Users/bradleykirby/Code/wallace-local/wp-content/themes/Wallace-Beta-2/scripts/build.js",
+		"/Users/bradleykirby/Code/wallace-local/wp-content/themes/Wallace-Beta-2/app/main.ts",
+		"/Users/bradleykirby/Code/wallace-local/wp-content/themes/Wallace-Beta-2/app.js.map",
+		"/Users/bradleykirby/Code/wallace-local/wp-content/themes/Wallace-Beta-2/tsconfig.json",
+		"/Users/bradleykirby/Code/wallace-local/wp-content/themes/Wallace-Beta-2/app/views/page.view.ts",
+		"/Users/bradleykirby/Code/wallace-local/wp-content/themes/Wallace-Beta-2/app.js",
+		"/Users/bradleykirby/Code/wallace-local/wp-content/themes/Wallace-Beta-2/app/interfaces/resource.ts",
+		"/Users/bradleykirby/Code/wallace-local/wp-content/themes/Wallace-Beta-2/systemjs.config.js",
+		"/Users/bradleykirby/Code/wallace-local/wp-content/themes/Wallace-Beta-2/app/components/app.component.ts",
+		"/Users/bradleykirby/Code/wallace-local/wp-content/themes/Wallace-Beta-2/app/services/page.service.ts",
+		"/Users/bradleykirby/Code/wallace-local/wp-content/themes/Wallace-Beta-2/app/reducers/page-reducer.ts",
+		"/Users/bradleykirby/Code/wallace-local/wp-content/themes/Wallace-Beta-2/app/interfaces/appstate.ts",
+		"/Users/bradleykirby/Code/wallace-local/wp-content/themes/Wallace-Beta-2/app/main.js",
+		"/Users/bradleykirby/Code/wallace-local/wp-content/themes/Wallace-Beta-2/styles/scss/_post-list.scss",
+		"/Users/bradleykirby/Code/wallace-local/wp-content/themes/Wallace-Beta-2/bin/build.js",
+		"/Users/bradleykirby/Code/wallace-local/wp-content/themes/Wallace-Beta-2/single.php",
+		"/Users/bradleykirby/Code/wallace-local/wp-content/themes/Wallace-Beta-2/endpoints.php",
+		"/Users/bradleykirby/Code/wallace-local/wp-content/themes/Wallace-Beta-2/app/services/active-route.service.ts",
+		"/Users/bradleykirby/Code/wallace-local/wp-content/themes/Wallace-Beta-2/app/services/page-transition.service.ts",
+		"/Users/bradleykirby/Code/wallace-local/wp-content/themes/Wallace-Beta-2/app/components/post-list.component.ts",
+		"/Users/bradleykirby/Code/wallace-local/wp-content/themes/Wallace-Beta-2/app/reducers/animation-reducer.ts",
+		"/Users/bradleykirby/Code/wallace-local/wp-content/themes/Wallace-Beta-2/app/reducers/post-reducer.ts",
+		"/Users/bradleykirby/Code/wallace-local/wp-content/themes/Wallace-Beta-2/app/services/page-transition.service.js.map",
+		"/Users/bradleykirby/Code/wallace-local/wp-content/themes/Wallace-Beta-2/node_modules/@angular/core/src/util/decorators.d.ts",
+		"/Users/bradleykirby/Code/wallace-local/wp-content/themes/Wallace-Beta-2/styles/scss/post-list.scss",
+		"/Users/bradleykirby/Code/wallace-local/wp-content/themes/Wallace-Beta-2/app/views/post.view.ts",
+		"/Users/bradleykirby/Code/wallace-local/wp-content/themes/Wallace-Beta-2/styles/scss/home-view.scss",
+		"/Users/bradleykirby/Code/wallace-local/wp-content/themes/Wallace-Beta-2/app/components/post-item.component.ts",
+		"/Users/bradleykirby/Code/wallace-local/wp-content/themes/Wallace-Beta-2/app/services/post.service.ts",
+		"/Users/bradleykirby/Code/wallace-local/wp-content/themes/Wallace-Beta-2/app/components/post-list.component.js.map",
+		"/Users/bradleykirby/Code/wallace-local/wp-content/themes/Wallace-Beta-2/app/interfaces/post.ts",
+		"/Users/bradleykirby/Code/wallace-local/wp-content/themes/Wallace-Beta-2/app/reducers/active-route-reducer.ts",
+		"/Users/bradleykirby/Code/wallace-local/wp-content/themes/Wallace-Beta-2/app/components/post-item.component.js.map",
+		"/Users/bradleykirby/Code/wallace-local/wp-content/themes/Wallace-Beta-2/app/services/view-router.service.js",
+		"/Users/bradleykirby/Code/wallace-local/wp-content/themes/Wallace-Beta-2/app/views/post.view.js",
+		"/Users/bradleykirby/Code/wallace-local/wp-content/themes/Wallace-Beta-2/app/services/view-router.service.ts",
+		"/Users/bradleykirby/Code/wallace-local/wp-content/themes/Wallace-Beta-2/typings.json",
+		"/Users/bradleykirby/Code/wallace-local/wp-content/themes/Wallace-Beta-2/app/preloader.ts",
+		"/Users/bradleykirby/Code/wallace-local/wp-content/themes/Wallace-Beta-2/app/components/post-item.component.js",
+		"/Users/bradleykirby/Code/wallace-local/wp-content/themes/Wallace-Beta-2/caching/jp-rest-cache.php",
+		"/Users/bradleykirby/Code/wallace-local/wp-content/themes/Wallace-Beta-2/caching/class-tlc-transient.php",
+		"/Users/bradleykirby/Code/wallace-local/wp-content/themes/Wallace-Beta-2/caching/class-tlc-transient-update-server.php",
+		"/Users/bradleykirby/Code/wallace-local/wp-content/themes/Wallace-Beta-2/caching/tlc-transients.php",
+		"/Users/bradleykirby/Code/wallace-local/wp-content/themes/Wallace-Beta-2/caching/functions.php",
+		"/Users/bradleykirby/Code/wikicrawl/output.html",
+		"/Users/bradleykirby/.bash_profile",
+		"/Users/bradleykirby/Code/wikicrawl/test.js",
+		"/Users/bradleykirby/Code/red-eye-wp/wp-content/themes/Wallace-Beta-2/app/components/app.component.ts",
+		"/Users/bradleykirby/Code/red-eye-wp/wp-content/themes/Wallace-Beta-2/app/views/post.view.ts",
+		"/Users/bradleykirby/Code/red-eye-wp/wp-content/themes/Wallace-Beta-2/app/services/post.service.ts",
+		"/Users/bradleykirby/Code/red-eye-wp/wp-content/themes/Wallace-Beta-2/single.php",
+		"/Users/bradleykirby/Code/red-eye-wp/wp-content/themes/Wallace-Beta-2/index.php",
+		"/Users/bradleykirby/Code/red-eye-wp/wp-content/themes/Wallace-Beta-2/app/main.ts",
+		"/Users/bradleykirby/Code/red-eye-wp/wp-content/themes/Wallace-Beta-2/app/views/post.view.js",
+		"/Users/bradleykirby/Code/red-eye-wp/wp-content/themes/Wallace-Beta-2/app/preloader.js",
+		"/Users/bradleykirby/Code/red-eye-wp/wp-content/themes/Wallace-Beta-2/app/components/post-list.component.ts",
+		"/Users/bradleykirby/Code/red-eye-wp/wp-content/themes/Wallace-Beta-2/app/views/home.view.ts",
+		"/Users/bradleykirby/Code/red-eye-wp/wp-content/themes/Wallace-Beta-2/app/preloader.js.map",
+		"/Users/bradleykirby/Code/red-eye-wp/wp-content/themes/Wallace-Beta-2/package.json",
+		"/Users/bradleykirby/Code/red-eye-wp/wp-content/themes/Wallace-Beta-2/styles/scss/post-list.scss",
+		"/Users/bradleykirby/Code/red-eye-wp/wp-content/themes/Wallace-Beta-2/app/components/post-item.component.ts",
+		"/Users/bradleykirby/Code/red-eye-wp/wp-content/themes/Wallace-Beta-2/app/interfaces/post.ts",
+		"/Users/bradleykirby/Code/red-eye-wp/wp-content/themes/Wallace-Beta-2/app/services/view-router.service.ts",
+		"/Users/bradleykirby/Code/red-eye-wp/wp-content/themes/Wallace-Beta-2/app/services/post-list.service.ts",
+		"/Users/bradleykirby/Code/red-eye-wp/wp-content/themes/Wallace-Beta-2/app/views/poly.view.ts",
+		"/Users/bradleykirby/Code/red-eye-wp/wp-content/themes/Wallace-Beta-2/app/interfaces/content-type.ts",
+		"/Users/bradleykirby/Code/red-eye-wp/wp-content/themes/Wallace-Beta-2/functions.php",
+		"/Users/bradleykirby/Code/red-eye-wp/wp-content/themes/Wallace-Beta-2/app/components/post.component.ts",
+		"/Users/bradleykirby/Code/red-eye-wp/wp-content/themes/Wallace-Beta-2/styles/css/post-list.css",
+		"/Users/bradleykirby/Code/red-eye-wp/wp-content/themes/Wallace-Beta-2/styles/post-list.scss",
+		"/Users/bradleykirby/Code/red-eye-wp/wp-content/themes/Wallace-Beta-2/app/post.component.ts",
+		"/Users/bradleykirby/Code/red-eye-wp/wp-content/themes/Wallace-Beta-2/app/post-list.component.ts",
+		"/Users/bradleykirby/Code/red-eye-wp/wp-content/themes/Wallace-Beta-2/app/app.component.ts",
+		"/Users/bradleykirby/Code/red-eye-wp/wp-content/themes/Wallace-Beta-2/app/post.view.ts",
+		"/Users/bradleykirby/Code/red-eye-wp/wp-content/themes/Wallace-Beta-2/app/home.view.ts",
+		"/Users/bradleykirby/Code/red-eye-wp/wp-content/themes/Wallace-Beta-2/app/post-list.service.ts",
+		"/Users/bradleykirby/Code/red-eye-wp/wp-content/themes/Wallace-Beta-2/app/post.ts",
+		"/Users/bradleykirby/Code/red-eye-wp/wp-content/themes/Wallace-Beta-2/app/post.js",
+		"/Users/bradleykirby/Code/red-eye-wp/wp-content/themes/Wallace-Beta-2/app/preloader.ts",
+		"/Users/bradleykirby/Code/red-eye-wp/wp-content/themes/Wallace-Beta-2/app/preload.service.ts",
+		"/Users/bradleykirby/Code/red-eye-wp/wp-content/themes/Wallace-Beta-2/app/post-list.service.js",
+		"/Users/bradleykirby/Code/red-eye-wp/wp-content/themes/Wallace-Beta-2/app/post.component.js",
+		"/Users/bradleykirby/Code/red-eye-wp/wp-content/themes/Wallace-Beta-2/app/main.js",
+		"/Users/bradleykirby/Code/red-eye-wp/wp-content/themes/Wallace-Beta-2/style.css",
+		"/Users/bradleykirby/Code/red-eye-wp/wp-content/themes/Wallace-Beta-2/typings.json",
+		"/Users/bradleykirby/Code/red-eye-wp/wp-content/themes/Wallace-Beta-2/tsconfig.son",
+		"/Users/bradleykirby/Code/red-eye-wp/wp-content/themes/isotheme/app/post-list.component.js",
+		"/Users/bradleykirby/Code/red-eye-wp/wp-content/themes/isotheme/package.json",
+		"/Users/bradleykirby/Code/red-eye-wp/wp-content/themes/isotheme/index.php",
+		"/Users/bradleykirby/Code/red-eye-wp/wp-content/themes/isotheme/app/app.component.ts",
+		"/Users/bradleykirby/Code/red-eye-wp/wp-content/themes/isotheme/app/main.ts",
+		"/Users/bradleykirby/Code/red-eye-wp/wp-content/themes/isotheme/node_modules/typescript/package.json",
+		"/Users/bradleykirby/Code/red-eye-wp/wp-content/themes/isotheme/app/app.component.js",
+		"/Users/bradleykirby/Code/red-eye-wp/wp-content/themes/isotheme/app/app2.component.ts",
+		"/Users/bradleykirby/Code/red-eye-wp/wp-content/themes/isotheme/app/preloadservice.ts",
+		"/Users/bradleykirby/Code/red-eye-wp/wp-content/themes/typescript/node_modules/angular2/bundles/angular2.dev.js",
+		"/Users/bradleykirby/Code/red-eye-wp/wp-content/themes/typescript/style.css",
+		"/Users/bradleykirby/Code/red-eye-wp/wp-content/themes/typescript/index.php",
+		"/Users/bradleykirby/Code/red-eye-wp/wp-content/themes/typescript/package.json",
+		"/Users/bradleykirby/Code/red-eye-wp/wp-content/themes/typescript/tsconfig.json",
+		"/Users/bradleykirby/Code/red-eye-wp/wp-content/themes/typescript/app/main.js",
+		"/Users/bradleykirby/Code/red-eye-wp/wp-content/themes/typescript/app/app.ts",
+		"/Users/bradleykirby/Code/red-eye-wp/wp-content/themes/isotheme/app/main.js",
+		"/Users/bradleykirby/Code/red-eye-wp/wp-content/themes/isotheme/style.css",
+		"/Users/bradleykirby/Code/red-eye-wp/wp-content/themes/isotheme/main.ts",
+		"/Users/bradleykirby/Documents/Wallace Beta Demo On GitHub.html",
+		"/Users/bradleykirby/WebApps/red-eye-theme/wordpress/wp-content/themes/themeDEV/angular/app.js",
+		"/Users/bradleykirby/WebApps/red-eye-theme/wordpress/wp-content/themes/themeDEV/functions.php",
+		"/Users/bradleykirby/Code/red-eye-wp/wp-content/themes/themeDEV/functions.php",
+		"/Users/bradleykirby/Code/RedEyeCloudCode/public/59872419874112/Red_Eye 3/app.js",
+		"/Users/bradleykirby/Code/red-eye-wp/wp-content/themes/RedEyeOmni/gruntfile.js",
+		"/Users/bradleykirby/Code/red-eye-wp/wp-content/themes/RedEyeOmni/scss/_dynamic-content.scss",
+		"/Users/bradleykirby/Code/red-eye-wp/wp-content/themes/RedEyeOmni/package.json",
+		"/Users/bradleykirby/Code/red-eye-wp/wp-content/themes/RedEyeOmni/js/directives/walDemo.js",
+		"/Users/bradleykirby/Code/red-eye-wp/wp-content/themes/RedEyeOmni/index.php",
+		"/Users/bradleykirby/Code/red-eye-wp/wp-content/themes/RedEyeOmni/dist/untitled",
+		"/Users/bradleykirby/Code/red-eye-wp/wp-content/themes/RedEyeOmni/html/dynamic-content.html",
+		"/Users/bradleykirby/Code/red-eye-wp/wp-content/themes/RedEyeOmni/scss/_email-form.scss"
+	],
+	"find":
+	{
+		"height": 23.0
+	},
+	"find_in_files":
+	{
+		"height": 94.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"hover",
+			"cursor",
+			"font-size",
+			"font",
+			"endpoint",
+			"font",
+			"bootstrap",
+			"',\n",
+			"'@angular/",
+			"'@angular/common',\n    '@angular/compiler',\n    '@angular/core',\n    '@angular/http',\n    '@angular/platform-browser',\n    '@angular/router',\n    '@angular/router-deprecated',\n    '@angular/testing',\n    '@angular/upgrade',\n    '@ngrx/store'",
+			"source",
+			"-o",
+			"output",
+			"animationstyleMeta",
+			"absolute",
+			"f",
+			"filter",
+			"activePost",
+			"resource",
+			"theme_path",
+			"initialState",
+			"themePath",
+			"theme_path",
+			"preload",
+			"viewrouter",
+			"themepath",
+			"for",
+			"postItems",
+			"check_read_p",
+			"get_items",
+			"post_type",
+			"$this",
+			"skip",
+			"rebuild",
+			"parse",
+			"PostList",
+			"clicked",
+			"'angular2/platform/browser'",
+			"core",
+			"app/",
+			"initsite",
+			"call-acti",
+			"call-actin",
+			"ng-click",
+			"startDemo",
+			"start",
+			"console",
+			"console.log",
+			"gifStill1",
+			"demo2",
+			"gifStill1",
+			"pause",
+			"loaded",
+			"listener",
+			"gifTag",
+			"themepath",
+			"javascript",
+			"feature-2",
+			"contentHeight",
+			"height",
+			"class",
+			"border-rad",
+			"todo",
+			"right",
+			"$scope",
+			"scope",
+			"timeout",
+			"931",
+			"932",
+			"0",
+			"172",
+			"silver",
+			"demoStarted",
+			"style=\"fill:#010002;\"",
+			"demoRunning",
+			".power-bu",
+			"transition",
+			"margin-",
+			"hiResDirectory",
+			"themePath",
+			"var gifStill1 = themePath+\"/seg1-still.jpg\";\n	var gifStill2 = themePath+\"/seg2-still.jpg\";\n	var gifStill3 = themePath+\"/seg3-still.jpg\";\n	var gifStill4 = themePath+\"/seg3-last-still.jpg\";\n\n\n	var gifSegment1 = themePath+\"/seg1.gif\";\n	var gifSegment2 = themePath+\"/seg2.gif\";\n	var gifSegment3 = themePath+\"/seg3.gif\";",
+			"parseGif",
+			"doParse",
+			"demoNum",
+			"resetFlag",
+			"resetFlat",
+			":",
+			"category",
+			"loading = false",
+			"max_width",
+			"auto_play",
+			"max-width",
+			"pause",
+			"width=\"",
+			"get_canvas_scale",
+			"getCanvasScale",
+			"options.max_width",
+			"canvas",
+			"articleContent",
+			"addClass",
+			"@media",
+			"svg",
+			"transform",
+			"transition",
+			"800px",
+			"60%",
+			"recentPost",
+			"recentPostData",
+			"recent",
+			"postHas",
+			"select",
+			"postHas",
+			"categories",
+			"activePo",
+			"posts.acti",
+			"pages",
+			"compile",
+			"posts.posts",
+			"getPostsCon",
+			"blogname",
+			"siteInfo",
+			"@media",
+			"video-1-act",
+			"buy-form",
+			"comments.length",
+			"button",
+			"addClass('acti",
+			"addClass(\"active"
+		],
+		"highlight": false,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+			"'@angular/common',\n    '@angular/compiler',\n    '@angular/core',\n    '@angular/http',\n    '@angular/platform-browser',\n    '@angular/router',\n    '@angular/ro'uter-deprecated',\n    '@angular/testing',\n    '@angular/upgrade',\n    '@ngrx/store'",
+			"",
+			"'",
+			"",
+			"'@angular/common',\n    '@angular/compiler',\n    '@angular/core',\n    '@angular/http',\n    '@angular/platform-browser',\n    '@angular/router',\n    '@angular/router-deprecated',\n    '@angular/testing',\n    '@angular/upgrade',\n    '@ngrx/store'",
+			"wal_theme_path",
+			"walInitialState",
+			"walThemePath",
+			"153",
+			"0",
+			"id=\"spin-icon\"",
+			"targetDemoDirectory",
+			"hiResDirectory",
+			"var gifStill1 = themePath+\"/seg1-still.jpg\";\n	var gifStill2 = themePath+\"/seg2-still.jpg\";\n	var gifStill3 = themePath+\"/seg3-still.jpg\";\n	var gifStill4 = themePath+\"/seg3-last-still.jpg\";\n\n\n	var gifSegment1 = themePath+\"/seg1.gif\";\n	var gifSegment2 = themePath+\"/seg2.gif\";\n	var gifSegment3 = themePath+\"/seg3.gif\";",
+			"$body-font-color",
+			"scope.postAndMenu.menu.showButton",
+			"scope.topBar.visible",
+			"largePostMenu",
+			"smallPostMenu",
+			"article",
+			"pageWidthCategory",
+			"commentService",
+			"comments",
+			"scope",
+			"newComment",
+			"../fonts/foundation-icons"
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": false,
+		"whole_word": false,
+		"wrap": false
+	},
+	"groups":
+	[
+		{
+			"sheets":
+			[
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 23.0
+	},
+	"input":
+	{
+		"height": 32.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.doc":
+	{
+		"height": 0.0
+	},
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"pinned_build_system": "",
+	"project": "_post-list.sublime-project",
+	"replace":
+	{
+		"height": 42.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"",
+				".htaccess"
+			]
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_symbol":
+	{
+		"height": 400.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 586.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": false,
+	"show_open_files": true,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 206.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}

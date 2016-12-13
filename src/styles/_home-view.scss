@@ -1,0 +1,47 @@
+@import 'header';
+
+#home-view{
+	//position: absolute;
+	#site-title{
+		margin-left: auto;
+		margin-right: auto;
+		text-align: center;
+		font-size: 6.5em;
+   		font-family: Futura, 'Trebuchet MS', Arial, sans-serif;
+   		//text-transform: uppercase;
+	}
+}
+
+h1{
+}
+
+.article-image{
+	width: 100%;
+	height: 400px;
+	background-position: center;
+    background-size: cover;
+    position: relative;
+	display: flex;
+    	align-items: center;
+
+    #overlay{
+    	
+    	position: absolute;
+    	width: 100%;
+   		font-family: Futura, 'Trebuchet MS', Arial, sans-serif;
+   		color: white;
+   		text-align: center;
+
+
+		h1{
+	    	font-size: 4em;
+
+	    }
+
+	    p{
+	    	font-size: 1em;
+    	}
+    }
+   
+}
+
