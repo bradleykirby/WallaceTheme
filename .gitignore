@@ -1,2 +1,3 @@
 node_modules/
-src/wp-app/templates/template-cache/**
+src/wp-app/templates/template-cache/*
+!somefolder/.gitkeep 
