@@ -5,6 +5,8 @@ https://demo.wallacetheme.com
 Wallace uses an API-first approach to rendering both on the server and client. You get all the performance of a single page app with all the SEO benefits and wp-admin compatibility of a traditional server-rendered theme. 
 
 ## Installation
+A fully built and ready-to-install .zip will be provided soon. In the meantime you can build and install the project yourself by doing the following: 
+
 Navigate to your WP theme directory and run:
 
 `git clone https://github.com/bkirby989/WallaceTheme`
