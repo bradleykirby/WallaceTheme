@@ -19,5 +19,7 @@ navigate to the Wallace theme folder and run:
 To develop with automatic compilation:
 `webpack --watch`
 
+Be sure to disable Twig template cache before editing Twig templates. 
+
 To make a production build:
 `npm run build-prod`
