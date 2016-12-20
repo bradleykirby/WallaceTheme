@@ -14,7 +14,7 @@
         <a  class="site-logo-anchor" routerLink="/"><img class="site-logo" [src]="logoSrc$ | async"/></a>
         <h1 class="post-title no-image" [innerHTML]="post.title"></h1>
 
-        <div class="post-content no-image" [innerHTML]="post.content" *ngIf="post.contentLoaded" [@contentLoaded]='startup'></div>
+        <div class="post-content no-image" [innerHTML]="post.content" *ngIf="post.contentLoaded" [@flyOutTop]='fireAnimation' (@flyOutTop.done)='animationComplete($event)'></div>
         <div class="content-loading" *ngIf="!post.contentLoaded">Loading Post...</div>
 
     </article>

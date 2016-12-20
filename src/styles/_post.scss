@@ -6,6 +6,8 @@ article{
 	flex-direction: column;
 	align-items: center;
 
+
+
 	.site-logo-anchor{
 			position: absolute;
 			z-index: 3;
@@ -89,6 +91,13 @@ article{
 		padding: 0 ms(1);
 		position: relative;
 		top: 66vh;
+		.wp-caption-text{
+			font-size: ms(1)*.65;
+			margin-top: 5px;
+		}
+		img{
+			margin-top: ms(1);
+		}
 		&.no-image{
 			top: 0;
 		}
