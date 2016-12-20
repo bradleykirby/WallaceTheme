@@ -6,7 +6,18 @@ $ms-base:  1rem;
 @import 'post-list';
 @import 'post';
 
-
+.change-opacity{
+    will-change: opacity;
+  	transform: translateZ(0);
+}
+.change-opacity-transform{
+	will-change: opacity, transform;
+  	transform: translateZ(0);
+}
+.change-transform{
+	will-change: transform;
+	transform: translateZ(0);
+}
 
 html{
 

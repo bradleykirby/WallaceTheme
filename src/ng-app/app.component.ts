@@ -1,6 +1,6 @@
 import 'rxjs/add/operator/let';
 
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { Router, Route} from '@angular/router'; 
 import { Store } from '@ngrx/store';
 
@@ -15,11 +15,12 @@ import {AppState} from './app.state';
 })
 
 export class AppComponent { 
-	constructor(private store: Store<AppState>, private router: Router){
+	constructor(private store: Store<AppState>, private router: Router, private cd: ChangeDetectorRef){
 		
 
 		store.let(appSelectors.getRoutes).subscribe(routes => {
 			router.resetConfig(routes);
 		});
+		
 	}
 }

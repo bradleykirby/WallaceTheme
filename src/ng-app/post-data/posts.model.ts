@@ -4,6 +4,7 @@ export interface Post {
 	title: string,
 	excerpt: string,
 	featured: boolean,
+	categoryString: string,
 	content: string,
 	contentLoaded: boolean,
 	date: string,
@@ -11,7 +12,8 @@ export interface Post {
 	imageURLLowRes: string,
 	imageURLHiRes: string,
 	itemVisible: string,
-	navigatingTo: boolean	
+	navigatingTo: boolean,
+	loadedAfterBootstrap: boolean	
 }
 
 export interface Posts {

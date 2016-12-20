@@ -43,7 +43,9 @@ export function reducer(state = initialState, action: posts.Actions): Posts {
 		case posts.ActionTypes.LOAD_POST_PREVIEWS_COMPLETE: {
 
 			const posts = action.payload;
-			const newPosts = posts.filter(post => !state.entities[post.id]);
+			const newPosts = posts.filter(post => !state.entities[post.id]).map(post => {
+				return Object.assign({}, post, {loadedAfterBootstrap: true});
+			});
 			const featuredPostIncluded = posts.filter(post => post.featured).length > 0 ? true : false;
 			const newPostIds = newPosts.map(post => post.id);
 			const newPostEntities = newPosts.reduce((entities: { [id: string]: Post}, post:Post) => {

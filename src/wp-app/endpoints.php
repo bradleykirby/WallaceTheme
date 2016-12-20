@@ -76,6 +76,7 @@ function wal_modify_post($raw_post, $get_content){
 	        $post['contentLoaded'] = false;
 		}
 
+		$post['loadedAfterBootstrap'] = false;
 		
       	$post['date'] = get_the_date();
         $post['path'] = substr(parse_url($raw_post['link'], PHP_URL_PATH), 1, -1);

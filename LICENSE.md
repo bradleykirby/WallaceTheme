@@ -1,3 +1,6 @@
+Copyright (c) 2016 Bradley Kirby
+Copyright (c) 2016 Black Coffee Interactive LLC
+
                     GNU GENERAL PUBLIC LICENSE
                        Version 3, 29 June 2007
 

@@ -8,7 +8,6 @@
     	<wallace>
 
 			<?php 
-
 				echo $wal_twig->render('post.html', array(
 				'post' => $wal_app_state['posts'][0], 
 				'siteData' => $wal_app_state['site_data'])); 

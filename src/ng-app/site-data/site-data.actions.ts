@@ -5,7 +5,10 @@ import { Route } from '@angular/router';
 
 export const ActionTypes = {
   EDIT_TITLE:   type('[SiteData] Edit Title'),
-  ADD_ROUTES: 	type('[SiteData] Add Routes')
+  ADD_ROUTES: 	type('[SiteData] Add Routes'),
+  ADD_ANIMATION: type('[Animation] Add Animation'),
+  REMOVE_ANIMATION: type('[Animation] Remove Animation'),
+  SET_TRANSITION: type('[Animation] Set Animation Transition State'),
 };
 
 
@@ -19,7 +22,28 @@ export class AddRoutesAction implements Action {
 	constructor(public payload: Route[]){}
 }
 
+export class AddBlockingAnimationAction implements Action {
+	type = ActionTypes.ADD_ANIMATION;
+	constructor(){}
+}
+
+export class RemoveBlockingAnimationAction implements Action {
+	type = ActionTypes.REMOVE_ANIMATION;
+	constructor(){}
+}
+
+export class SetTransitionAction implements Action {
+	type = ActionTypes.SET_TRANSITION;
+	constructor(public payload: boolean){}
+}
+
+
+
+
 
 export type Actions
   = EditSiteTitleAction
-  | AddRoutesAction;
+  | AddRoutesAction
+  | AddBlockingAnimationAction
+  | RemoveBlockingAnimationAction
+  | SetTransitionAction;

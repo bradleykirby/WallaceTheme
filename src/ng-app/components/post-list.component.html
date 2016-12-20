@@ -1,11 +1,15 @@
-<div id="post-list" [@postLeave]='leave'>
+<div id="post-list" [@fadeOut]='fireTransition' (@fadeOut.done) = "handleTransitionDone($event)" 
+[class.change-opacity]='prepareAnimation'>
 	<template ngFor let-post [ngForOf]="posts">
-		<wal-post-item (itemClickedEvent) = "handleItemClick($event)" class="post-preview"  *ngIf="post.featured" [@postEnter]='startup'
+		<wal-post-item (itemClickedEvent) = "handleItemClick($event)" 
+		(itemAnimationDoneEvent) = "handleItemAnimationDone($event)"
+		 class="post-preview"  *ngIf="post.featured" [@postEnter]='startup'
 		 [post]="post" [class.featured]="post.featured" class="post-preview">
     	</wal-post-item>
     </template>
 	<template ngFor let-post [ngForOf]="posts">
-		<wal-post-item (itemClickedEvent) = "handleItemClick($event)" class="post-preview"  *ngIf="!post.featured" [@postEnter]='startup'
+		<wal-post-item (itemClickedEvent) = "handleItemClick($event)" 
+		(itemAnimationDoneEvent) = "handleItemAnimationDone($event)" class="post-preview"  *ngIf="!post.featured" [@postEnter]='startup'
 		 [post]="post" [class.featured]="post.featured" class="post-preview">
     </wal-post-item>
     </template>

@@ -1,13 +1,13 @@
         
 <div>
     <article *ngIf="post.imageURLHiRes !== 'NONE'">
-        <div class="header-image-wrapper" [@flyIn]='true' [@flyOutTop]='toHome'>
+        <div class="header-image-wrapper" [@flyOutTop]='fireAnimation' (@flyOutTop.done)='animationComplete($event)' [class.change-opacity]='true'>
             <img [src]="post.imageURLHiRes" class="post-image"/>
                 <a  class="site-logo-anchor" href="/" (click)='goHome($event)'><img class="site-logo" [src]="logoSrc$ | async"/></a>
-            <h1 class="post-title" [innerHTML]="post.title"></h1>
+            <h1 class="post-title" [innerHTML]="safeTitle"></h1>
         </div>
-        <div class="post-content" *ngIf="post.contentLoaded" [innerHTML]="post.content"  [@flyOutBottom]='toHome'></div>
-        <div class="content-loading" *ngIf="!post.contentLoaded" [@contentLoaded]='true'>Loading Post...</div>
+        <div class="post-content" [@contentLoaded]='true' *ngIf="post.contentLoaded" [innerHTML]="safeContent"  [@flyOutBottom]='fireAnimation' [class.change-opacity]='true'></div>
+        <div class="content-loading" [@contentLoaded]='true' *ngIf="!post.contentLoaded" >Loading Post...</div>
     </article>
 
     <article *ngIf="post.imageURLHiRes == 'NONE'">

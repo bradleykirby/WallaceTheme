@@ -1,10 +1,11 @@
-<header id='home-header' [@toPost]='flyOut'> 
+<header id='home-header' [@flyOutLeft]='fireTransition' (@flyOutLeft.done)="animationDone($event)"
+[class.change-opacity]='true'> 
     <a href="/"><img [src]="logoSrc$ | async"></a>
     <h1 id="site-title">{{siteTitle$ | async}}</h1>
     <button id="page-menu-button" style='display: none'>Menu</button>
 </header>
 	
-<wal-post-list [posts]="posts$ | async" 
+<wal-post-list  [posts]="posts$ | async"
 [allPreviewsLoaded]="allPreviewsLoaded$ | async"
 [postsLoading]="postsLoading$ | async"
 (endOfListReachedEvent)=endOfListReachedEvent() 

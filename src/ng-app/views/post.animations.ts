@@ -7,9 +7,9 @@ export const animations = [
    		transition('void <=> 1', animate('5s'))
 		]),
 	trigger('contentLoaded', [
-		state('void', style({opacity: 0})),
-		state('true', style({opacity: 1})),
-		transition('void <=> 1', animate('.5s'))
+		//state('void', style({opacity: 0})),
+		//state('true', style({opacity: 1})),
+		//transition('void <=> 1', animate('.5s'))
 		]),
 	trigger('flyIn', [
 		state('void', style({opacity: 0, transform: 'translateY(-100%)'})),
@@ -17,36 +17,29 @@ export const animations = [
 		transition('void => 1', animate('.5s'))
 		]),
 	trigger('flyOutLeft', [
-		state('false', style({transform: 'translateX(0%)'})),
-		state('true', style({transform: 'translateX(-100%)'})),
-		state('void', style({transform: 'translateX(-100%)'})),
-		transition('void => 0', animate('.5s')),
-		transition('0 => 1', animate('.5s'))
+		state('in', style({transform: 'translateX(0%)'})),
+		state('out', style({transform: 'translateX(-100%)'})),
+		transition('in <=> out', animate('.45s')),
 		]),
 	trigger('flyOutTop', [
-		state('false', style({transform: 'translateY(0%)'})),
-		state('true', style({transform: 'translateY(-100%)'})),
-		state('void', style({transform: 'translateY(-100%)'})),
-		transition('void => 0', animate('.5s')),
-		transition('0 => 1', animate('.5s'))
+		state('in', style({transform: 'translateY(0%)'})),
+		state('out', style({transform: 'translateY(-100%)'})),
+		transition('in <=> out', animate('.45s')),
 		]),
 	trigger('flyOutBottom', [
-		state('false', style({transform: 'translateY(0vh)'})),
-		state('true', style({transform: 'translateY(33vh)'})),
-		state('void', style({transform: 'translateY(33vh)'})),
-		transition('void => 0', animate('.5s')),
-		transition('0 => 1', animate('.5s'))
+		state('in', style({transform: 'translateY(0vh)'})),
+		state('out', style({transform: 'translateY(33vh)'})),
+		transition('in <=> out', animate('.45s')),
 		]),
 	trigger('toHome', [
 		state('false', style({transform: 'translateX(0%)'})),
 		state('true', style({transform: 'translateY(100%)'})),
-		transition('0 => 1', animate('.5s'))
+		transition('0 => 1', animate('.45s'))
 		]),
 	trigger('toPost', [
 		state('false', style({transform: 'translateX(0%)'})),
 		state('true', style({transform: 'translateX(-100%)'})),
-		state('void', style({transform: 'translateX(-100%)'})),
 
-		transition('* => *', animate('.5s'))
+		transition('0 => 1', animate('.5s'))
 		])
 ]; 

@@ -64,10 +64,5 @@ class Wallace{
 
 
 
-function wal_alter_number_of_posts($query){
-	if ( is_home() ) {
-        $query->set( 'posts_per_page', 8 );
-        return;
-    }
-}
+
 ?>

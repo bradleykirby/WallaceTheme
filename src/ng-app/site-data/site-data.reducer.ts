@@ -11,7 +11,12 @@ declare var walInitialState: any;
 const initialState: SiteData = {
 	title: walInitialState.site_data.title,
 	iconUrl: walInitialState.site_data.iconUrl,
-	routes: initialRoutes
+	routes: initialRoutes,
+	animationData: {
+		pageTransitionActive: false,
+		blockingAnimations: 0
+	}
+	
 }
 
 export function reducer(state = initialState, action: siteData.Actions): SiteData {
@@ -20,6 +25,30 @@ export function reducer(state = initialState, action: siteData.Actions): SiteDat
 			return Object.assign({}, state, {
 				routes: [...state.routes, ...action.payload]
 			});
+		}
+		case siteData.ActionTypes.ADD_ANIMATION: {
+			return Object.assign({}, state, {
+				animationData: {
+					blockingAnimations: state.animationData.blockingAnimations + 1,
+					pageTransitionActive: state.animationData.pageTransitionActive
+				}
+			})
+		}
+		case siteData.ActionTypes.REMOVE_ANIMATION: {
+			return Object.assign({}, state, {
+				animationData: {
+					blockingAnimations: state.animationData.blockingAnimations - 1,
+					pageTransitionActive: state.animationData.pageTransitionActive
+				}
+			})
+		}
+		case siteData.ActionTypes.SET_TRANSITION: {
+			return Object.assign({}, state, {
+				animationData: {
+					blockingAnimations: state.animationData.blockingAnimations,
+					pageTransitionActive: action.payload
+				}
+			})
 		}
 		default: {
     		return state;

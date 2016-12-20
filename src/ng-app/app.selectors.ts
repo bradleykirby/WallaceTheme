@@ -16,6 +16,8 @@ export function getPostsState(state$: Observable<AppState>){
 export const getSiteIconSrc = compose(fromSiteData.getSiteIconSrc, getSiteDataState);
 export const getSiteTitle = compose(fromSiteData.getSiteTitle, getSiteDataState);
 export const getRoutes = compose(fromSiteData.getRoutes, getSiteDataState);
+export const getAnimationData = compose(fromSiteData.getAnimationData, getSiteDataState);
+
 
 export const getPostEntities = compose(fromPosts.getPostEntities, getPostsState);
 export const getPosts = compose(fromPosts.getPosts, getPostsState);

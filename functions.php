@@ -1,24 +1,22 @@
 <?php
 
-require_once dirname( __FILE__ ) . '/src/wp-app/wallace-util.php';
-require_once dirname( __FILE__ ) . '/src/wp-app/endpoints.php';
+require_once 'src/wp-app/wallace-util.php';
+require_once 'src/wp-app/endpoints.php';
 
 if (!class_exists('Twig_Autoloader')){
 	require_once 'php-libs/Twig/lib/Twig/Autoloader.php';
 	Twig_Autoloader::register();
 }
 
-$wal_loader = new Twig_Loader_Filesystem(dirname( __FILE__ ).'/src/wp-app/templates' );
+$wal_loader = new Twig_Loader_Filesystem(get_template_directory() . '/src/wp-app/templates' );
 $wal_twig = new Twig_Environment($wal_loader, array(
-    'cache' => dirname( __FILE__ ).'/src/wp-app/templates/template-cache',
+    'cache' => get_template_directory() . '/src/wp-app/templates/template-cache',
 ));
 
 
-add_filter('show_admin_bar', '__return_false');
-add_theme_support( 'post-thumbnails' ); 
-
-
 function wal_init(){
+	
+	add_theme_support( 'post-thumbnails' ); 
 
 	$featured_post_id = -1;
 
@@ -49,13 +47,13 @@ function wal_handle_stuck_post($stuck_post_id){
 add_action( 'post_stuck', 'wal_handle_stuck_post', 10, 1);
 
 
+
 function wal_add_async_attribute($tag, $handle) {
     if ( 'wal-script' !== $handle )
         return $tag;
     return str_replace( ' src', ' async="async" src', $tag );
 }
 add_filter('script_loader_tag', 'wal_add_async_attribute', 10, 2);
-
 
 
 
@@ -69,16 +67,8 @@ function wal_add_scripts_and_styles(){
 		wp_enqueue_script('wal-script', get_template_directory_uri() .
 		'/dist/app.bundle.js', false, '0.1.0', true);
 	}
-
-	
-
 }
-
 add_action( 'wp_enqueue_scripts', 'wal_add_scripts_and_styles' );
-
-
-
-
 
 
 

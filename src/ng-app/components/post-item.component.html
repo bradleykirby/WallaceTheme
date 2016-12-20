@@ -2,11 +2,12 @@
 	<img class="post-image" [src]="post.featured == true ? post.imageURLHiRes : post.imageURLLowRes"/>
 </div>
 <a class="post-info" (click)="postItemClick($event)" href="{{post.path+'/'}}">
-	<h2 class="post-title" [innerHTML]="post.title"></h2>
-	<div  class="excerpt" [innerHTML]="post.excerpt"></div>
+	<h2 class="post-title" [innerHTML]="safeTitle"></h2>
+	<div  class="excerpt" [innerHTML]="safeExcerpt"></div>
 	<div class="category">
-		<span [innerHTML]="post.categoryString">Category</span>
+		<span [innerHTML]="safeCategoryTag">Category</span>
 	</div>
+	
 </a>
-<p class="excerpt-drawer" (click)="postItemClick($event)" [innerHTML]="post.excerpt"></p>
+<p class="excerpt-drawer" (click)="postItemClick($event)" [innerHTML]="safeExcerpt"></p>
 <hr class ="post-divider">
