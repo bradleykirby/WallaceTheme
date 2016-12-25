@@ -4,7 +4,9 @@ export interface SiteData {
 	title: string,
 	iconUrl: string,
 	routes: Route[],
-	animationData: AnimationData
+	animationData: AnimationData,
+	pathToIndex: string
+	
 }
 
 export interface AnimationData {

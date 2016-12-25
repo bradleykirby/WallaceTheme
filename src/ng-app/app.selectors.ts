@@ -17,6 +17,7 @@ export const getSiteIconSrc = compose(fromSiteData.getSiteIconSrc, getSiteDataSt
 export const getSiteTitle = compose(fromSiteData.getSiteTitle, getSiteDataState);
 export const getRoutes = compose(fromSiteData.getRoutes, getSiteDataState);
 export const getAnimationData = compose(fromSiteData.getAnimationData, getSiteDataState);
+export const getPathToIndex = compose(fromSiteData.getPathToIndex, getSiteDataState);
 
 
 export const getPostEntities = compose(fromPosts.getPostEntities, getPostsState);

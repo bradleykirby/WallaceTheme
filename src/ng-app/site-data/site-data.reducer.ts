@@ -15,7 +15,9 @@ const initialState: SiteData = {
 	animationData: {
 		pageTransitionActive: false,
 		blockingAnimations: 0
-	}
+	},
+	pathToIndex: walInitialState.site_data.pathToIndex
+	
 	
 }
 

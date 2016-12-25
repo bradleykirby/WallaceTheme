@@ -31,6 +31,8 @@ export class PostViewComponent {
 	private fireAnimation: string;
 	private deferredPost:Post;
 	private activeTransitionAnimation: boolean;
+	private pathToIndex: string;
+
 	subscriptions: Subscription[] = [];
 
 	postSub: Subscription;
@@ -68,6 +70,9 @@ export class PostViewComponent {
 			}
 		});
 		this.logoSrc$ = this.store.let(appSelectors.getSiteIconSrc);
+		this.store.let(appSelectors.getPathToIndex).subscribe(_pathToIndex => {
+			this.pathToIndex = _pathToIndex;
+		})
 		
 
 		if(this.activeTransitionAnimation){
@@ -102,7 +107,7 @@ export class PostViewComponent {
 				this.store.dispatch(new siteDataActions.SetTransitionAction(false));
 			}
 			else if($event.toState === 'out'){
-		 		this.router.navigateByUrl('/');
+		 		this.router.navigateByUrl(this.pathToIndex);
 			}
 		}
 	}

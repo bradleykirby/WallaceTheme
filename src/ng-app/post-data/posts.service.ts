@@ -5,10 +5,11 @@ import { Observable } from 'rxjs/Observable';
 import { Post } from './posts.model';
 
 
+declare var walInitialState: any;
 
 @Injectable()
 export class PostService{
-	private POSTS_PATH: string = '/wp-json/wallace/v1/posts';
+	private POSTS_PATH: string = walInitialState.site_data.pathToIndex + '/wp-json/wallace/v1/posts';
 	constructor(private http: Http){}
 
 	loadPostPreviews(apiPage: number, getFeaturedPost){

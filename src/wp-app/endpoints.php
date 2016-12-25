@@ -27,6 +27,8 @@ function wal_request_site_data($request){
 	$site_data = [
 		'title' => get_bloginfo(),
 		'iconUrl' => get_site_icon_url(),
+		'pathToIndex' => substr(home_url('', 'relative'), 1)
+		
 	];
 	return $site_data;
 }

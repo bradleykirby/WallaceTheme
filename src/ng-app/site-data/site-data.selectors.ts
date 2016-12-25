@@ -19,3 +19,7 @@ export function getRoutes(siteData$: Observable<SiteData>){
 export function getAnimationData(siteData$: Observable<SiteData>){
 	return siteData$.select(siteData => siteData.animationData);
 }
+
+export function getPathToIndex(siteData$: Observable<SiteData>){
+	return siteData$.select(siteData => siteData.pathToIndex);
+}

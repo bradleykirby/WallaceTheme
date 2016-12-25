@@ -13,6 +13,12 @@ $wal_twig = new Twig_Environment($wal_loader, array(
     'cache' => get_template_directory() . '/src/wp-app/templates/template-cache',
 ));
 
+require_once 'php-libs/theme-updates/theme-update-checker.php';
+$wal_update_checker = new ThemeUpdateChecker(
+    'Wallace',
+    'https://wallacetheme.com/update.json'
+);
+
 
 function wal_init(){
 	
@@ -38,11 +44,24 @@ function wal_init(){
 
 add_action( 'after_setup_theme', 'wal_init' );
 
+function wal_activate(){
+	wp_remote_post('https://9i0adtg0rg.execute-api.us-east-1.amazonaws.com/prod/updateInstallCount?action=activate');
+}
+add_action('after_switch_theme', 'wal_activate');
+
+
+function wal_deactivate() {
+	wp_remote_post('https://9i0adtg0rg.execute-api.us-east-1.amazonaws.com/prod/updateInstallCount?action=deactivate');
+}
+add_action('switch_theme', 'wal_deactivate');
+
+
 function wal_handle_stuck_post($stuck_post_id){
 	Wallace::set_featured_post_id($stuck_post_id);
 	$sticky_posts = get_option( 'sticky_posts' );
-
-	unstick_post($sticky_posts[count($sticky_posts)-2]);
+	if (count($sticky_posts) > 1){
+		unstick_post($sticky_posts[count($sticky_posts)-2]);
+	}
 }
 add_action( 'post_stuck', 'wal_handle_stuck_post', 10, 1);
 
@@ -60,12 +79,12 @@ add_filter('script_loader_tag', 'wal_add_async_attribute', 10, 2);
 function wal_add_scripts_and_styles(){
 
 	wp_enqueue_style( 'wal-style', get_template_directory_uri() . 
-		'/dist/styles.css', false, '1.0.0', false );
+		'/dist/styles.css', false, '1.0.1', false );
 	
 	if ( is_customize_preview() === false ){
 
 		wp_enqueue_script('wal-script', get_template_directory_uri() .
-		'/dist/app.bundle.js', false, '1.0.0', true);
+		'/dist/app.bundle.js', false, '1.0.1', true);
 	}
 }
 add_action( 'wp_enqueue_scripts', 'wal_add_scripts_and_styles' );
