@@ -25,20 +25,23 @@ function wal_init(){
 	add_theme_support( 'post-thumbnails' ); 
 
 	$featured_post_id = -1;
-
-	$sticky_posts = get_option( 'sticky_posts' );
-	$most_recent_post_id = wp_get_recent_posts(array(
-			'numberposts' => 1,
-			'post_type' => 'post'))[0]['ID'];
-	if (empty($sticky_posts)){
-		stick_post($most_recent_post_id );
-		$featured_post_id = $most_recent_post_id;
+	if(wp_count_posts()->publish > 0){
+		$sticky_posts = get_option( 'sticky_posts' );
+		$most_recent_post_id = wp_get_recent_posts(array(
+				'numberposts' => 1,
+				'post_type' => 'post'))[0]['ID'];
+		if (empty($sticky_posts)){
+			stick_post($most_recent_post_id );
+			$featured_post_id = $most_recent_post_id;
+		}
+		else if (count($sticky_posts) >= 1){
+			$featured_post_id = end($sticky_posts);
+		}
+		
 	}
-	else if (count($sticky_posts) >= 1){
-		$featured_post_id = end($sticky_posts);
-	}
+		Wallace::set_featured_post_id($featured_post_id);
 
-	Wallace::set_featured_post_id($featured_post_id);
+	
 
 }
 

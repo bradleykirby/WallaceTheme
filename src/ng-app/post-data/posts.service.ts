@@ -6,7 +6,7 @@ import { Post } from './posts.model';
 
 
 declare var walInitialState: any;
-
+var pathToIndex = walInitialState.site_data.pathToIndex === '/' ? '' : walInitialState.site_data.pathToIndex;
 @Injectable()
 export class PostService{
 	private POSTS_PATH: string = walInitialState.site_data.pathToIndex + '/wp-json/wallace/v1/posts';

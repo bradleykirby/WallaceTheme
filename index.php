@@ -15,6 +15,7 @@
     	<script>
 
 			var walInitialState = <?php echo json_encode($wal_app_state); ?>;
+			console.log(walInitialState);
 			walInitialState.selectedPostId = -1;
 
 		</script>

@@ -19,6 +19,7 @@ export class AppComponent {
 		
 
 		store.let(appSelectors.getRoutes).subscribe(routes => {
+			console.log(routes);
 			router.resetConfig(routes);
 		});
 		

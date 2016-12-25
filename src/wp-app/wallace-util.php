@@ -1,6 +1,7 @@
 <?php
 class Wallace{
-	private static $featured_post_id = -1;
+
+	private static $featured_post_id = null;
 
 	public static function get_initial_state($view, $id){
 		if($view === 'home'){
@@ -27,10 +28,14 @@ class Wallace{
 	}
 
 	public static function get_featured_post(){
-		$request = new WP_REST_Request('GET', '/wallace/v1/posts/'.self::$featured_post_id);
-		$response = rest_get_server()->dispatch($request);
-		return $response->data['posts'][0];
-
+		if(self::get_featured_post_id() == -1){
+			return null;
+		}
+		else{
+			$request = new WP_REST_Request('GET', '/wallace/v1/posts/'.self::get_featured_post_id());
+			$response = rest_get_server()->dispatch($request);
+			return $response->data['posts'][0];
+		}
 	}
 
 	public static function get_site_data(){
@@ -51,12 +56,14 @@ class Wallace{
 	}
 
 	public static function set_featured_post_id($id){
-		//print_r($id);
 		self::$featured_post_id = $id;
 	}
 
 
 	public static function get_featured_post_id(){
+		if(self::$featured_post_id === null){
+			self::$featured_post_id = -1;
+		}
 		return self::$featured_post_id;
 	}
 }

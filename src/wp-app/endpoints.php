@@ -27,10 +27,22 @@ function wal_request_site_data($request){
 	$site_data = [
 		'title' => get_bloginfo(),
 		'iconUrl' => get_site_icon_url(),
-		'pathToIndex' => substr(home_url('', 'relative'), 1)
-		
+		'pathToIndex' => wal_get_index()
+
 	];
 	return $site_data;
+}
+
+function wal_get_index(){
+	$index = '';
+	$home_url = home_url('', 'relative');
+	if($home_url === ''){
+		//$index = '/';
+	}
+	else{
+		$index = substr($home_url, 1);
+	}
+	return $index;
 }
 
 function wal_request_post($request){
@@ -117,7 +129,9 @@ function wal_request_posts($request){
 	if($show_featured == 'true'){
 
 		$featured_post = Wallace::get_featured_post();
-		array_push($posts, $featured_post);
+		if($featured_post !== null){
+			array_push($posts, $featured_post);
+		}
 
 	}
 	foreach ($data as $raw_post){

@@ -12,9 +12,9 @@
 
     <article *ngIf="post.imageURLHiRes == 'NONE'">
         <a  class="site-logo-anchor" href="{{pathToIndex}}" (click)='goHome($event)'><img class="site-logo" [src]="logoSrc$ | async"/></a>
-        <h1 class="post-title no-image" [innerHTML]="post.title"></h1>
+        <h1 class="post-title no-image" [innerHTML]="post.title" [@flyOutTop]='fireAnimation' (@flyOutTop.done)='animationComplete($event)'></h1>
 
-        <div class="post-content no-image" [innerHTML]="post.content" *ngIf="post.contentLoaded" [@flyOutTop]='fireAnimation' (@flyOutTop.done)='animationComplete($event)'></div>
+        <div class="post-content no-image" [innerHTML]="post.content" *ngIf="post.contentLoaded" [@flyOutBottom]='fireAnimation'></div>
         <div class="content-loading" *ngIf="!post.contentLoaded">Loading Post...</div>
 
     </article>
