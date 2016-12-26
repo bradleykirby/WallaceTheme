@@ -3,7 +3,8 @@
 	$wal_app_state = Wallace::get_initial_state('post', get_the_ID());
 	get_header();
 ?>
-
+	<title><?php echo the_title(); ?></title>
+    </head>
     <body>
     	<wallace>
 

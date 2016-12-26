@@ -3,6 +3,8 @@
 	$wal_app_state = Wallace::get_initial_state('home', null);
 	get_header();
 ?>
+<title><?php echo bloginfo(); ?></title>
+    </head>
 
     <body>
     	<wallace>
