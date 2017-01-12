@@ -9,7 +9,6 @@ Wallace uses an API-first approach for rendering both on the server and client. 
 ## Installation
 A fully built and ready-to-install .zip is available at https://wallacetheme.com. You can also build and install the project yourself by doing the following: 
 
-**Warning: Code on master currently contains updating and analytics code in functions.php. This will eventually be removed and migrated to a build option, but in the meantime you'll need to comment out this functionality if you don't want your theme to get updates from the update checker or send activation/deactivation statistics to an external server.**
 
 Navigate to your WP theme directory and run:
 
