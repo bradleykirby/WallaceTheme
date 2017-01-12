@@ -3,6 +3,8 @@
 require_once 'src/wp-app/wallace-util.php';
 require_once 'src/wp-app/endpoints.php';
 
+define("WAL_VERSION", "1.0.1");
+
 if (!class_exists('Twig_Autoloader')){
 	require_once 'php-libs/Twig/lib/Twig/Autoloader.php';
 	Twig_Autoloader::register();
@@ -69,12 +71,12 @@ add_filter('script_loader_tag', 'wal_add_async_attribute', 10, 2);
 function wal_add_scripts_and_styles(){
 
 	wp_enqueue_style( 'wal-style', get_template_directory_uri() . 
-		'/dist/styles.css', false, '1.0.1', false );
+		'/dist/styles.css', false, $WAL_VERSION, false );
 	
 	if ( is_customize_preview() === false ){
 
 		wp_enqueue_script('wal-script', get_template_directory_uri() .
-		'/dist/app.bundle.js', false, '1.0.1', true);
+		'/dist/app.bundle.js', false, $WAL_VERSION, true);
 	}
 }
 add_action( 'wp_enqueue_scripts', 'wal_add_scripts_and_styles' );
