@@ -2,6 +2,7 @@
 class Wallace{
 
 	private static $featured_post_id = null;
+	private static $WAL_VERSION = "1.0.1";
 
 	public static function get_initial_state($view, $id){
 		if($view === 'home'){
@@ -65,6 +66,10 @@ class Wallace{
 			self::$featured_post_id = -1;
 		}
 		return self::$featured_post_id;
+	}
+
+	public static function get_version(){
+		return self::$WAL_VERSION;
 	}
 }
 
