@@ -27,3 +27,6 @@ Be sure to disable Twig template cache before editing Twig templates.
 
 To make a production build:
 `npm run build-prod`
+
+Copyright (c) 2016 Black Coffee Interactive LLC
+

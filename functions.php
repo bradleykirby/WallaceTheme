@@ -13,11 +13,7 @@ $wal_twig = new Twig_Environment($wal_loader, array(
     'cache' => get_template_directory() . '/src/wp-app/templates/template-cache',
 ));
 
-require_once 'php-libs/theme-updates/theme-update-checker.php';
-$wal_update_checker = new ThemeUpdateChecker(
-    'Wallace',
-    'https://wallacetheme.com/update.json'
-);
+
 
 
 function wal_init(){
@@ -47,16 +43,7 @@ function wal_init(){
 
 add_action( 'after_setup_theme', 'wal_init' );
 
-function wal_activate(){
-	wp_remote_post('https://9i0adtg0rg.execute-api.us-east-1.amazonaws.com/prod/updateInstallCount?action=activate');
-}
-add_action('after_switch_theme', 'wal_activate');
 
-
-function wal_deactivate() {
-	wp_remote_post('https://9i0adtg0rg.execute-api.us-east-1.amazonaws.com/prod/updateInstallCount?action=deactivate');
-}
-add_action('switch_theme', 'wal_deactivate');
 
 
 function wal_handle_stuck_post($stuck_post_id){
