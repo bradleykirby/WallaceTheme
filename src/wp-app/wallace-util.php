@@ -2,7 +2,7 @@
 class Wallace{
 
 	private static $featured_post_id = null;
-	private static $WAL_VERSION = "1.0.1";
+	private static $WAL_VERSION = "1.0.2";
 
 	public static function get_initial_state($view, $id){
 		if($view === 'home'){
