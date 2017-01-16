@@ -1,4 +1,4 @@
-<header id='home-header' [@flyOutLeft]='fireTransition' (@flyOutLeft.done)="animationDone($event)"
+<header id='home-header' [@flyOutTop]='fireTransition' (@flyOutTop.done)="animationDone($event)"
 [class.change-opacity]='true'> 
     <a href="/"><img [src]="logoSrc$ | async"></a>
     <h1 id="site-title">{{siteTitle$ | async}}</h1>
