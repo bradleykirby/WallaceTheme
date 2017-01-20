@@ -12,7 +12,7 @@ if (!class_exists('Twig_Autoloader')){
 
 $wal_loader = new Twig_Loader_Filesystem(get_template_directory() . '/src/wp-app/templates' );
 $wal_twig = new Twig_Environment($wal_loader, array(
-    'cache' => get_template_directory() . '/src/wp-app/templates/template-cache',
+    //'cache' => get_template_directory() . '/src/wp-app/templates/template-cache',
 ));
 
 
