@@ -1,4 +1,4 @@
-import './polyfills.ts';
+import './vendor.ts';
 import '../styles/app.scss';
 
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';

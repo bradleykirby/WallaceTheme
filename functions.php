@@ -75,9 +75,13 @@ function wal_add_scripts_and_styles(){
 		'/dist/styles.css', false, Wallace::get_version(), false );
 	
 	if ( is_customize_preview() === false ){
-
 		wp_enqueue_script('wal-script', get_template_directory_uri() .
 		'/dist/app.bundle.js', false, Wallace::get_version(), true);
+
+		wp_localize_script( 'wal-script', 'WP_API_Settings', array(
+		        'endpoint' => esc_url_raw( rest_url() ),
+		        'nonce' => wp_create_nonce('wp_rest') )
+		    );
 	}
 }
 add_action( 'wp_enqueue_scripts', 'wal_add_scripts_and_styles' );

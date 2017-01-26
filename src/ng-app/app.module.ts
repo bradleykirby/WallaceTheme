@@ -40,4 +40,5 @@ import { CanDeactivateHomeGuard, CanDeactivatePostGuard } from './views/guards';
   ]
 })
 
-export class AppModule {}
+export class AppModule {
+}
