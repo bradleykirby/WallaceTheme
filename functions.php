@@ -79,8 +79,10 @@ function wal_add_scripts_and_styles(){
 		'/dist/app.bundle.js', false, Wallace::get_version(), true);
 
 		wp_localize_script( 'wal-script', 'WP_API_Settings', array(
+				'isAdmin' => current_user_can('administrator') ? 'true' : 'false'
 		        'endpoint' => esc_url_raw( rest_url() ),
-		        'nonce' => wp_create_nonce('wp_rest') )
+		        'nonce' => wp_create_nonce('wp_rest') 
+		        )
 		    );
 	}
 }
