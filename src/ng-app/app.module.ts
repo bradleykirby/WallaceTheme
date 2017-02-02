@@ -10,6 +10,8 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { AppComponent }   from './app.component';
 import { HomeViewComponent, PostViewComponent } from './views';
 import { PostItemComponent, PostListComponent } from './components';
+import { AppService } from './app.service';
+import { SiteDataService } from './site-data/site-data.service';
 import { PostService } from './post-data/posts.service';
 import { reducer } from './app.reducer';
 import { initialRoutes } from './app.routes';
@@ -34,6 +36,8 @@ import { CanDeactivateHomeGuard, CanDeactivatePostGuard } from './views/guards';
 	  PostItemComponent 
   ],
   providers: [
+    AppService,
+    SiteDataService,
     PostService,
     CanDeactivateHomeGuard,
     CanDeactivatePostGuard

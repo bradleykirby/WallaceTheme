@@ -1,5 +1,6 @@
 import { AppService } from '../app.service';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs/Observable';
 
 @Injectable()
 export class SiteDataService{
@@ -9,20 +10,10 @@ export class SiteDataService{
 		this.wp = this.appService.getApiInstance();
 	}
 
-	isUserAdmin(){
-		this.wp.users().me().update({}, (err, data) => {
-			if (err){
-				return false;
-			}
-			else{
-				if(data.role.contains('administrator')){
-					return true;
-				}
-				else{
-					return false;
-				}
-			}
-		});
-	}
+	getUserName(){
+		return Observable.from(this.wp.users().me().get().then(function(resp){
+			return resp.name;
+		}));
+	}	
 }
 

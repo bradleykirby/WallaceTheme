@@ -5,7 +5,9 @@ export interface SiteData {
 	iconUrl: string,
 	routes: Route[],
 	animationData: AnimationData,
-	pathToIndex: string
+	pathToIndex: string,
+	isAdmin: boolean,
+	adminModeActive: boolean
 	
 }
 

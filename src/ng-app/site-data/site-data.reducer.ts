@@ -8,6 +8,8 @@ import { initialRoutes } from '../app.routes';
 //from server-side php (index.php, single.php) 
 //TODO: shard this into just initialSiteData
 declare var walInitialState: any;
+declare var window: any;
+
 const initialState: SiteData = {
 	title: walInitialState.site_data.title,
 	iconUrl: walInitialState.site_data.iconUrl,
@@ -16,7 +18,9 @@ const initialState: SiteData = {
 		pageTransitionActive: false,
 		blockingAnimations: 0
 	},
-	pathToIndex: walInitialState.site_data.pathToIndex
+	pathToIndex: walInitialState.site_data.pathToIndex,
+	isAdmin: window.WP_API_Settings.isAdmin === 'true' ? true : false,
+	adminModeActive: false
 	
 	
 }
@@ -50,6 +54,11 @@ export function reducer(state = initialState, action: siteData.Actions): SiteDat
 					blockingAnimations: state.animationData.blockingAnimations,
 					pageTransitionActive: action.payload
 				}
+			})
+		}
+		case siteData.ActionTypes.TOGGLE_ADMIN: {
+			return Object.assign({}, state, {
+				adminModeActive: action.payload
 			})
 		}
 		default: {
