@@ -87,7 +87,15 @@ body{
 	bottom: 10px;
 	left: 10px;
 	z-index: 99;
+	background-color: rgba($header-bg, 0.8);
+	padding: 10px;
+	border: none;
+	border-radius: 2px;
+	color: $body-bg;
+	transition: background-color 0.5s;
 	&:hover{
 		cursor: pointer;
 	}
+
 }
+

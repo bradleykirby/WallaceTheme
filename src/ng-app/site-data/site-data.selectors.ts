@@ -23,3 +23,7 @@ export function getAnimationData(siteData$: Observable<SiteData>){
 export function getPathToIndex(siteData$: Observable<SiteData>){
 	return siteData$.select(siteData => siteData.pathToIndex);
 }
+
+export function isAdminActive(siteData$: Observable<SiteData>){
+	return siteData$.select(siteData => siteData.adminModeActive);
+}

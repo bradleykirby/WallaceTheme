@@ -1,4 +1,8 @@
-<div class="post-image-wrapper" (click)="postItemClick($event)" *ngIf="post.imageURLHiRes !== 'NONE'">
+<div class="post-image-wrapper" [class.bubble]='isAdminActive' (click)="postImageClick($event)" *ngIf="post.imageURLHiRes !== 'NONE'">
+	<div *ngIf='isAdminActive' [@simpleFade]='true' class="post-image-admin">
+		
+	</div> 
+
 	<img class="post-image" [src]="post.featured == true ? post.imageURLHiRes : post.imageURLLowRes"/>
 </div>
 <a class="post-info" (click)="postItemClick($event)" href="{{post.path+'/'}}">

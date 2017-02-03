@@ -25,6 +25,7 @@ import {animations} from './post-list.animations';
 
 export class PostItemComponent{
 	@Input() post: Post;
+	@Input() isAdminActive: boolean;
 	@Output() itemClickedEvent = new EventEmitter<Post>();
 	@Output() itemAnimationDoneEvent = new EventEmitter();
 
@@ -64,6 +65,12 @@ export class PostItemComponent{
 		}
 	}
 
+	ngOnChanges(){
+
+	}
+
+	
+
 	// ngOnChanges(){
 	// 	console.log(this.fireAnimation);
 	// }
@@ -79,6 +86,19 @@ export class PostItemComponent{
 		
 
 
+	}
+
+	postImageClick($event: Event){
+		if(this.isAdminActive){
+			console.log('open file prompt');
+		}
+		else{
+			this.prepareAnimation = true;
+			this.timerSub = Observable.timer(50).subscribe(() => {
+				this.fireAnimation = true;
+				this.itemClickedEvent.emit(this.post);
+			});
+		}		
 	}
 	animationDone($event: AnimationTransitionEvent){
 

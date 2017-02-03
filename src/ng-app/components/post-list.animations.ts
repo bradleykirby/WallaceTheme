@@ -22,6 +22,11 @@ export const animations = [
 				]))
 		])
 		]),
+	trigger('simpleFade', [
+		state('void', style({opacity: 0})),
+		state('*', style({opacity: 1})),
+		transition('* => *', animate('.5s'))
+		]),
 	trigger('itemSelected', [
 	//	state('false', style({opacity: 1, transform: 'scale(1)'})),
 		state('true', style({opacity: 1, transform: 'scale(0.9) translateY(-50%)'})),

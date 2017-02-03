@@ -14,7 +14,7 @@ import { SiteDataService } from './site-data/site-data.service';
   selector: 'wallace',
   //changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-  <button *ngIf='isAdmin' (click)='toggleAdmin()' id='admin-button'>{{adminButtonMessage}}</button>
+  <button *ngIf='isAdmin' [style.background-color]="adminButtonBackground" (click)='toggleAdmin()' id='admin-button'>{{adminButtonMessage}}</button>
   <router-outlet></router-outlet>
   `
 })
@@ -23,6 +23,7 @@ export class AppComponent {
 	private isAdmin: boolean;
 	private adminModeActive: boolean;
 	private adminButtonMessage: string;
+	private adminButtonBackground: string;
 
 	constructor(private store: Store<AppState>, private router: Router, private cd: ChangeDetectorRef,
 		private siteDataService: SiteDataService){
@@ -39,10 +40,13 @@ export class AppComponent {
 		store.let(appSelectors.getSiteDataState).subscribe(siteData => {
 			this.adminModeActive = siteData.adminModeActive;
 			if(this.adminModeActive){
-				this.adminButtonMessage = 'Deactivate Admin Mode';
+				this.adminButtonMessage = 'Admin Mode: On';
+				this.adminButtonBackground = 'green';
 			}
 			else{
-				this.adminButtonMessage = 'Activate Admin Mode';
+				this.adminButtonMessage = 'Admin Mode: Off';
+				this.adminButtonBackground = '';
+
 			}
 		});
 		

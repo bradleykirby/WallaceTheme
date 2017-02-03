@@ -28,6 +28,7 @@ export class HomeViewComponent {
 	allPreviewsLoaded$: Observable<boolean>;
 	selectedPostId$: Observable<string>;
 	postsLoading$: Observable<boolean>;
+	isAdminActive$: Observable<boolean>;
 
 	allPreviewsLoaded: boolean;
 	loadingPostPreviews: boolean;
@@ -46,6 +47,7 @@ export class HomeViewComponent {
 		this.siteTitle$ = store.let(appSelectors.getSiteTitle);
 		this.postsLoading$ = store.let(appSelectors.getPostsLoading);
 		this.allPreviewsLoaded$ = store.let(appSelectors.getAllPostPreviewsLoadedStatus);
+		this.isAdminActive$ = store.let(appSelectors.isAdminActive);
 		//this.selectedPostId$ = store.let(appSelectors.getSelectedPostId);
 		this.subscriptions.push(this.store.let(appSelectors.getPostPreviewsLoadingStatus).subscribe( status => {
 			this.loadingPostPreviews = status;
