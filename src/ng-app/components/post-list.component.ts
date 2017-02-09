@@ -22,7 +22,7 @@ export class PostListComponent{
 	@Input() posts: Post[];
 	@Input() allPreviewsLoaded: boolean;
 	@Input() postsLoading: boolean;
-	@Input() isAdminActive: Observable<boolean>;
+	@Input() adminState: Observable<{adminMode: boolean, editMode: boolean}>;
 	@Output() endOfListReachedEvent = new EventEmitter();
 	@Output() activatePostPreviewEvent = new EventEmitter<Post>();
 	@ViewChild('postLoadStatus') postLoadStatus: ElementRef;

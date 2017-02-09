@@ -1,7 +1,9 @@
 import '@ngrx/core/add/operator/select';
 
 import { Observable } from 'rxjs/Observable';
-import {SiteData, AnimationData} from './site-data.model';
+import { combineLatest } from 'rxjs/observable/combineLatest';
+
+import { SiteData, AnimationData } from './site-data.model';
 import { Route } from '@angular/router';
 
 export function getSiteIconSrc(siteData$: Observable<SiteData>){
@@ -24,6 +26,15 @@ export function getPathToIndex(siteData$: Observable<SiteData>){
 	return siteData$.select(siteData => siteData.pathToIndex);
 }
 
-export function isAdminActive(siteData$: Observable<SiteData>){
-	return siteData$.select(siteData => siteData.adminModeActive);
+export function getAdminState(siteData$: Observable<SiteData>){
+		
+	var adminMode$ = siteData$.select(siteData => siteData.adminModeActive);
+	var editMode$ = siteData$.select(siteData => siteData.editModeActive);
+	return adminMode$.combineLatest(editMode$).map(([admin, edit]) => 
+		Object.assign({}, 
+			{adminMode: admin},
+			{editMode: edit})
+	);
+		
+
 }

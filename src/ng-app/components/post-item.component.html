@@ -1,9 +1,9 @@
-<div class="post-image-wrapper" [class.bubble]='isAdminActive' (click)="postImageClick($event)" *ngIf="post.imageURLHiRes !== 'NONE'">
-	<div *ngIf='isAdminActive' [@simpleFade]='true' class="post-image-admin">
-		
+<div class="post-image-wrapper" [class.bubble]='adminState.adminMode' (click)="postImageClick($event)" *ngIf="post.imageURLHiRes !== 'NONE'">
+	<div *ngIf='adminState.adminMode' [@simpleFade]='true' class="post-image-admin">
+		<input #filePicker (change)='previewNewImage($event)' type='file'>
 	</div> 
 
-	<img class="post-image" [src]="post.featured == true ? post.imageURLHiRes : post.imageURLLowRes"/>
+	<img class="post-image" [src]="postImageUrl()"/>
 </div>
 <a class="post-info" (click)="postItemClick($event)" href="{{post.path+'/'}}">
 	<h2 class="post-title" [innerHTML]="safeTitle"></h2>

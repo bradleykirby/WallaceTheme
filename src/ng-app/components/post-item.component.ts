@@ -1,12 +1,15 @@
-import {Component, Input, Output, EventEmitter, ChangeDetectionStrategy, ChangeDetectorRef, NgZone, AnimationTransitionEvent} from '@angular/core';
+import { Component, Input, Output, ViewChild, ElementRef, EventEmitter, ChangeDetectionStrategy, ChangeDetectorRef, NgZone, AnimationTransitionEvent} from '@angular/core';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
-import {Observable} from 'rxjs/Rx';
+import { Observable } from 'rxjs/Rx';
 import { Subscription } from 'rxjs/Subscription';
+import { AppState } from '../app.state';
+import { Store } from '@ngrx/store';
 
 
-import {Post, Posts} from '../post-data/posts.model';
-import {RouterLink, Router} from '@angular/router';
-import {animations} from './post-list.animations';
+import { Post, Posts } from '../post-data/posts.model';
+import { RouterLink, Router } from '@angular/router';
+import { animations } from './post-list.animations';
+import * as postActions from '../post-data/posts.actions';
 
 @Component({
 	selector: 'wal-post-item',
@@ -25,9 +28,10 @@ import {animations} from './post-list.animations';
 
 export class PostItemComponent{
 	@Input() post: Post;
-	@Input() isAdminActive: boolean;
+	@Input() adminState: {adminMode: boolean, editMode: boolean};
 	@Output() itemClickedEvent = new EventEmitter<Post>();
 	@Output() itemAnimationDoneEvent = new EventEmitter();
+	@ViewChild('filePicker') filePicker: ElementRef;
 
 	fireAnimation: boolean;
 	prepareAnimation: boolean;
@@ -38,8 +42,9 @@ export class PostItemComponent{
 	timerSub2: Subscription;
 	fade: string;
 
-	constructor(private ds: DomSanitizer, private _ngZone: NgZone){
 
+	constructor(private ds: DomSanitizer, private _ngZone: NgZone, private store: Store<AppState>){
+		
 	}
 
 	ngOnInit(){
@@ -66,10 +71,17 @@ export class PostItemComponent{
 	}
 
 	ngOnChanges(){
-
 	}
 
-	
+	postImageUrl(){
+		if(this.post.newImageURL === 'null' || !this.adminState.adminMode){
+			return this.post.featured == true ? this.post.imageURLHiRes : this.post.imageURLLowRes;
+		}
+		else{
+			return this.post.newImageURL;
+		}
+
+	}
 
 	// ngOnChanges(){
 	// 	console.log(this.fireAnimation);
@@ -89,8 +101,9 @@ export class PostItemComponent{
 	}
 
 	postImageClick($event: Event){
-		if(this.isAdminActive){
+		if(this.adminState.adminMode){
 			console.log('open file prompt');
+			this.filePicker.nativeElement.click();
 		}
 		else{
 			this.prepareAnimation = true;
@@ -99,6 +112,25 @@ export class PostItemComponent{
 				this.itemClickedEvent.emit(this.post);
 			});
 		}		
+	}
+
+	previewNewImage(fileInput: any){
+		if (fileInput.target.files && fileInput.target.files[0]) {
+
+			var file = fileInput.target.files[0];
+		    console.log(file);
+		   
+
+	        var reader = new FileReader();
+
+	        reader.onload = (e:any) => {
+	        	var imgRep: string;
+	        	imgRep = e.target.result;
+	        	this.store.dispatch(new postActions.DisplayImagePreviewAction({postId: this.post.id, imgUrl: imgRep}));
+        	}
+	        reader.readAsDataURL(fileInput.target.files[0]);
+
+    	}
 	}
 	animationDone($event: AnimationTransitionEvent){
 

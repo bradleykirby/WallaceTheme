@@ -7,7 +7,8 @@ export const ActionTypes = {
   LOAD_POST_PREVIEWS: type('[Posts] Load Posts'), 
   LOAD_POST_PREVIEWS_COMPLETE: type('[Posts] Load Posts Complete') ,
   ALL_POST_PREVIEWS_LOADED: type('[Posts] All Posts Loaded'),
-  LOAD_POST_CONTENT: type('[Posts} Load Post Content')
+  LOAD_POST_CONTENT: type('[Posts] Load Post Content'),
+  DISPLAY_IMAGE_PREVIEW: type('[Posts] Preview New Featured Image')
 
 };
 
@@ -38,10 +39,16 @@ export class LoadPostContentAction implements Action {
   constructor(public payload: {id: string, content: string}) {}
 }
 
+export class DisplayImagePreviewAction implements Action {
+  type = ActionTypes.DISPLAY_IMAGE_PREVIEW;
+  constructor(public payload: {postId: string, imgUrl: string}){}
+}
+
 
 export type Actions
   = SelectPostAction
   | LoadPostPreviewsAction
   | LoadPostPreviewsCompleteAction
   | AllPostsLoadedAction
-  | LoadPostContentAction;
+  | LoadPostContentAction
+  | DisplayImagePreviewAction;

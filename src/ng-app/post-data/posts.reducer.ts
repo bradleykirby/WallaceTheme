@@ -80,6 +80,18 @@ export function reducer(state = initialState, action: posts.Actions): Posts {
 				})
 			});
 		}
+		case posts.ActionTypes.DISPLAY_IMAGE_PREVIEW: {
+			const idOfPost = action.payload.postId;
+			const newImgUrl = action.payload.imgUrl;
+			const postEntityToUpdate = state.entities[idOfPost];
+			const updatedPost = Object.assign({}, postEntityToUpdate, {newImageURL: newImgUrl});
+			console.log(updatedPost);
+			return Object.assign({}, state, {
+				entities: Object.assign({}, state.entities, {
+					[idOfPost]: updatedPost
+				})
+			});
+		}
 		default: {
       		return state;
 		}
@@ -91,7 +103,7 @@ function getPostEntitiesFromPostArray(posts: Post[]){
 
 	return posts.reduce((entities: { [id: string]: Post}, post: Post) => {
 		return Object.assign(entities, {
-			[post.id]: post
+			[post.id]: Object.assign({}, post, {newImageURL: 'null'})
 		});
 	}, {});
 }

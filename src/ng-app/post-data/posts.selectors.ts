@@ -1,5 +1,8 @@
 import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/let';
+
 import '@ngrx/core/add/operator/select';
+
 
 import { Observable } from 'rxjs/Observable';
 import { combineLatest } from 'rxjs/observable/combineLatest';

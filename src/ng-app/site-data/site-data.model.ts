@@ -7,8 +7,8 @@ export interface SiteData {
 	animationData: AnimationData,
 	pathToIndex: string,
 	isAdmin: boolean,
-	adminModeActive: boolean
-	
+	adminModeActive: boolean,
+	editModeActive: boolean
 }
 
 export interface AnimationData {

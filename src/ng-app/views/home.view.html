@@ -8,6 +8,6 @@
 <wal-post-list  [posts]="posts$ | async"
 [allPreviewsLoaded]="allPreviewsLoaded$ | async"
 [postsLoading]="postsLoading$ | async"
-[isAdminActive]="isAdminActive$"
+[adminState]="getAdminState$"
 (endOfListReachedEvent)=endOfListReachedEvent() 
 (activatePostPreviewEvent)=navigateToPost($event)></wal-post-list>

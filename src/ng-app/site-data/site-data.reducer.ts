@@ -20,7 +20,8 @@ const initialState: SiteData = {
 	},
 	pathToIndex: walInitialState.site_data.pathToIndex,
 	isAdmin: window.WP_API_Settings.isAdmin === 'true' ? true : false,
-	adminModeActive: false
+	adminModeActive: false,
+	editModeActive: false
 	
 	
 }

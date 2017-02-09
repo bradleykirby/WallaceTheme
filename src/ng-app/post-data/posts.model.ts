@@ -13,7 +13,8 @@ export interface Post {
 	imageURLHiRes: string,
 	itemVisible: string,
 	navigatingTo: boolean,
-	loadedAfterBootstrap: boolean	
+	loadedAfterBootstrap: boolean,
+	newImageURL: string	
 }
 
 export interface Posts {

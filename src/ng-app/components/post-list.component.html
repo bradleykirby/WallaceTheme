@@ -4,13 +4,13 @@
 		<wal-post-item (itemClickedEvent) = "handleItemClick($event)" 
 		(itemAnimationDoneEvent) = "handleItemAnimationDone($event)"
 		 class="post-preview"  *ngIf="post.featured" [@postEnter]='startup'
-		 [post]="post" [isAdminActive]="isAdminActive | async" [class.featured]="post.featured" class="post-preview">
+		 [post]="post" [adminState]="adminState | async" [class.featured]="post.featured" class="post-preview">
     	</wal-post-item>
     </template>
 	<template ngFor let-post [ngForOf]="posts">
 		<wal-post-item (itemClickedEvent) = "handleItemClick($event)" 
 		(itemAnimationDoneEvent) = "handleItemAnimationDone($event)" class="post-preview"  *ngIf="!post.featured" [@postEnter]='startup'
-		 [post]="post" [class.featured]="post.featured" [isAdminActive]="isAdminActive | async" class="post-preview">
+		 [post]="post" [class.featured]="post.featured" [adminState]="adminState | async" class="post-preview">
     </wal-post-item>
     </template>
 	
