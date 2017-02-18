@@ -27,6 +27,11 @@ export const animations = [
 		state('*', style({opacity: 1})),
 		transition('* => *', animate('.5s'))
 		]),
+	trigger('heightEnter', [
+		state('void', style({height: '0px'})),
+		state('*', style({height: '100px'})),
+		transition('* <=> void', animate('.5s'))
+		]),
 	trigger('itemSelected', [
 	//	state('false', style({opacity: 1, transform: 'scale(1)'})),
 		state('true', style({opacity: 1, transform: 'scale(0.9) translateY(-50%)'})),

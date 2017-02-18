@@ -25,6 +25,7 @@ const initialState: Posts = {
 	featuredPostLoaded: false,
 	currentAPIPage: 1,
 	allPostPreviewsLoaded: false,
+
 }
 
 export function reducer(state = initialState, action: posts.Actions): Posts {
@@ -85,7 +86,17 @@ export function reducer(state = initialState, action: posts.Actions): Posts {
 			const newImgUrl = action.payload.imgUrl;
 			const postEntityToUpdate = state.entities[idOfPost];
 			const updatedPost = Object.assign({}, postEntityToUpdate, {newImageURL: newImgUrl});
-			console.log(updatedPost);
+			return Object.assign({}, state, {
+				entities: Object.assign({}, state.entities, {
+					[idOfPost]: updatedPost
+				})
+			});
+		}
+		case posts.ActionTypes.SHOW_EDIT_MENU: {
+			const idOfPost = action.payload.postId;
+			const newEditingValue = action.payload.editing;
+			const postEntityToUpdate = state.entities[idOfPost];
+			const updatedPost = Object.assign({}, postEntityToUpdate, {editing: newEditingValue});
 			return Object.assign({}, state, {
 				entities: Object.assign({}, state.entities, {
 					[idOfPost]: updatedPost
@@ -103,7 +114,7 @@ function getPostEntitiesFromPostArray(posts: Post[]){
 
 	return posts.reduce((entities: { [id: string]: Post}, post: Post) => {
 		return Object.assign(entities, {
-			[post.id]: Object.assign({}, post, {newImageURL: 'null'})
+			[post.id]: Object.assign({}, post, {newImageURL: 'null', editing: 'null'})
 		});
 	}, {});
 }

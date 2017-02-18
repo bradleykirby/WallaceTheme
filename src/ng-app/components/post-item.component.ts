@@ -10,6 +10,8 @@ import { Post, Posts } from '../post-data/posts.model';
 import { RouterLink, Router } from '@angular/router';
 import { animations } from './post-list.animations';
 import * as postActions from '../post-data/posts.actions';
+import * as siteActions from '../site-data/site-data.actions';
+
 
 @Component({
 	selector: 'wal-post-item',
@@ -22,7 +24,7 @@ import * as postActions from '../post-data/posts.actions';
       '(@fadeOut.done)': 'fadeDone($event)',
      '[class.change-opacity-transform]':'prepareAnimation'
    },
-    changeDetection: ChangeDetectionStrategy.OnPush
+    //changeDetection: ChangeDetectionStrategy.OnPush
 
 })
 
@@ -41,6 +43,8 @@ export class PostItemComponent{
 	timerSub: Subscription;
 	timerSub2: Subscription;
 	fade: string;
+	showEditPostMenu: boolean = false;
+	adminIcon = 'thin-x';
 
 
 	constructor(private ds: DomSanitizer, private _ngZone: NgZone, private store: Store<AppState>){
@@ -102,8 +106,11 @@ export class PostItemComponent{
 
 	postImageClick($event: Event){
 		if(this.adminState.adminMode){
-			console.log('open file prompt');
-			this.filePicker.nativeElement.click();
+			var editing = this.post.editing === 'FEATURED_IMAGE' ? 'null' : 'FEATURED_IMAGE';
+			this.store.dispatch(new postActions.ShowEditPostMenuAction({postId: this.post.id, editing: editing}));
+			//this.;
+			this.showEditPostMenu = !this.showEditPostMenu;
+			this.adminIcon = this.post.editing === 'FEATURED_IMAGE' ? 'thin-x' : 'gear';
 		}
 		else{
 			this.prepareAnimation = true;
@@ -112,6 +119,10 @@ export class PostItemComponent{
 				this.itemClickedEvent.emit(this.post);
 			});
 		}		
+	}
+
+	activateFilePicker(){
+		this.filePicker.nativeElement.click();
 	}
 
 	previewNewImage(fileInput: any){
@@ -127,10 +138,19 @@ export class PostItemComponent{
 	        	var imgRep: string;
 	        	imgRep = e.target.result;
 	        	this.store.dispatch(new postActions.DisplayImagePreviewAction({postId: this.post.id, imgUrl: imgRep}));
+        		this.adminIcon = 'eye';
         	}
 	        reader.readAsDataURL(fileInput.target.files[0]);
 
     	}
+	}
+	showAdminActionMenu(){
+		if(this.adminState.adminMode && (this.post.editing === 'FEATURED_IMAGE')){
+			return true;
+		}
+		else{
+			return false;
+		}
 	}
 	animationDone($event: AnimationTransitionEvent){
 
@@ -148,6 +168,7 @@ export class PostItemComponent{
 	}
 
 	ngOnDestroy(){
+		console.log(this.post.id + ' destroyed');
 		if(this.timerSub){
 			this.timerSub.unsubscribe();
 		}

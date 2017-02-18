@@ -62,6 +62,11 @@ export function reducer(state = initialState, action: siteData.Actions): SiteDat
 				adminModeActive: action.payload
 			})
 		}
+		case siteData.ActionTypes.TOGGLE_EDIT: {
+			return Object.assign({}, state, {
+				editModeActive: action.payload
+			})
+		}
 		default: {
     		return state;
 		}

@@ -1,10 +1,39 @@
 <div class="post-image-wrapper" [class.bubble]='adminState.adminMode' (click)="postImageClick($event)" *ngIf="post.imageURLHiRes !== 'NONE'">
 	<div *ngIf='adminState.adminMode' [@simpleFade]='true' class="post-image-admin">
-		<input #filePicker (change)='previewNewImage($event)' type='file'>
+		
+		<svg class="thin-x" [@simpleFade]='true' *ngIf="adminIcon === 'thin-x'">
+		    <use xlink:href="#thin-x"></use>
+		</svg>
+
+		<svg class="gear-container" [@simpleFade]='true' *ngIf="adminIcon === 'gear'">
+		    <use xlink:href="#gear"></use>
+		</svg>
+
+		<svg class="eye-container" [@simpleFade]='true' *ngIf="adminIcon === 'eye'">
+		    <use xlink:href="#eye"></use>
+		</svg>
+
+		<svg class="cloud" [@simpleFade]='true' *ngIf="adminIcon === 'cloud'">
+		    <use xlink:href="#cloud"></use>
+		</svg>
+
 	</div> 
+
 
 	<img class="post-image" [src]="postImageUrl()"/>
 </div>
+<ul class='admin-action-menu' [@heightEnter]='true' *ngIf="showAdminActionMenu() && this.post.featured">
+
+		<button (click)="activateFilePicker()">
+			<svg class="add-image-container">
+			    <use xlink:href="#add-image"></use>
+			</svg>
+			<label>Upload New Image</label>
+		</button>
+		
+</ul>
+		<input #filePicker (change)='previewNewImage($event)' type='file'>
+
 <a class="post-info" (click)="postItemClick($event)" href="{{post.path+'/'}}">
 	<h2 class="post-title" [innerHTML]="safeTitle"></h2>
 	<div  class="excerpt" [innerHTML]="safeExcerpt"></div>
@@ -14,4 +43,14 @@
 	
 </a>
 <p class="excerpt-drawer" (click)="postItemClick($event)" [innerHTML]="safeExcerpt"></p>
+
 <hr class ="post-divider">
+<ul class='admin-action-menu' [@heightEnter]='true' *ngIf="showAdminActionMenu() && !this.post.featured">
+		<button (click)="activateFilePicker()">
+			<svg class="add-image-container">
+			    <use xlink:href="#add-image"></use>
+			</svg>
+			<label>Upload New Image</label>
+		</button>
+</ul>
+

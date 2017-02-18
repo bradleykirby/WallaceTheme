@@ -1,4 +1,6 @@
 
+
+
 export interface Post {
 	id: string,
 	title: string,
@@ -14,7 +16,8 @@ export interface Post {
 	itemVisible: string,
 	navigatingTo: boolean,
 	loadedAfterBootstrap: boolean,
-	newImageURL: string	
+	newImageURL: string,
+	editing: string
 }
 
 export interface Posts {

@@ -1,18 +1,19 @@
 <div id="post-list" [@fadeOut]='fireTransition' (@fadeOut.done) = "handleTransitionDone($event)" 
 [class.change-opacity]='prepareAnimation'>
-	<template ngFor let-post [ngForOf]="posts">
+	<ng-container *ngFor='let post of posts; trackBy:getPostId'>
 		<wal-post-item (itemClickedEvent) = "handleItemClick($event)" 
 		(itemAnimationDoneEvent) = "handleItemAnimationDone($event)"
 		 class="post-preview"  *ngIf="post.featured" [@postEnter]='startup'
 		 [post]="post" [adminState]="adminState | async" [class.featured]="post.featured" class="post-preview">
     	</wal-post-item>
-    </template>
-	<template ngFor let-post [ngForOf]="posts">
+    </ng-container>
+    
+	<ng-container *ngFor='let post of posts; trackBy:getPostId'>
 		<wal-post-item (itemClickedEvent) = "handleItemClick($event)" 
 		(itemAnimationDoneEvent) = "handleItemAnimationDone($event)" class="post-preview"  *ngIf="!post.featured" [@postEnter]='startup'
 		 [post]="post" [class.featured]="post.featured" [adminState]="adminState | async" class="post-preview">
-    </wal-post-item>
-    </template>
+    	</wal-post-item>
+    </ng-container>
 	
 	<h3 id="post-load-status" #postLoadStatus [@postsLoading]='postsLoading' >Loading more posts...</h3>
 </div>

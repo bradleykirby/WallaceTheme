@@ -1,5 +1,5 @@
 import {Component, Input, Output, ViewChild, ElementRef, NgZone,
-	EventEmitter,  trigger, state, style, transition, animate, ChangeDetectorRef, AnimationTransitionEvent} from '@angular/core';
+	EventEmitter,  trigger, state, style, transition, animate, ChangeDetectionStrategy, ChangeDetectorRef, AnimationTransitionEvent} from '@angular/core';
 import { Store } from '@ngrx/store';
 import {Subscription} from 'rxjs/Subscription';
 import {Observable} from 'rxjs/Rx';
@@ -14,6 +14,7 @@ import * as appSelectors from '../app.selectors';
 	selector: 'wal-post-list',
 	templateUrl: 'post-list.component.html',
 	animations: animations,
+
 
 })
 
@@ -69,6 +70,9 @@ export class PostListComponent{
 		});	
 	}
 
+	getPostId(index, item){
+		return item.id;
+	}
 
 	handleItemClick(selectedPost: Post){
 		this.cd.detach();

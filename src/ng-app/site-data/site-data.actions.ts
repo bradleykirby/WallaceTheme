@@ -9,7 +9,9 @@ export const ActionTypes = {
   ADD_ANIMATION: type('[Animation] Add Animation'),
   REMOVE_ANIMATION: type('[Animation] Remove Animation'),
   SET_TRANSITION: type('[Animation] Set Animation Transition State'),
-  TOGGLE_ADMIN: type('[SiteData] Toggle Admin View')
+  TOGGLE_ADMIN: type('[SiteData] Toggle Admin View'),
+  TOGGLE_EDIT: type('[SiteData] Toggle Edit View')
+
 };
 
 
@@ -43,6 +45,12 @@ export class ToggleAdminAction implements Action {
   constructor(public payload: boolean){}
 }
 
+export class ToggleEditAction implements Action {
+  type = ActionTypes.TOGGLE_EDIT;
+  constructor(public payload: boolean){}
+}
+
+
 
 
 
@@ -53,4 +61,5 @@ export type Actions
   | AddBlockingAnimationAction
   | RemoveBlockingAnimationAction
   | SetTransitionAction
-  | ToggleAdminAction;
+  | ToggleAdminAction
+  | ToggleEditAction;
