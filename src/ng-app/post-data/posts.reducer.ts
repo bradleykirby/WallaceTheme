@@ -32,8 +32,9 @@ export function reducer(state = initialState, action: posts.Actions): Posts {
 	switch(action.type) {
 
 		case posts.ActionTypes.SELECT_POST: {
+			const post = <Post>action.payload;
 			return Object.assign({}, state, {
-				selectedPostId: action.payload.id
+				selectedPostId: post.id
 			});
 		}
 		case posts.ActionTypes.LOAD_POST_PREVIEWS: {
@@ -43,7 +44,7 @@ export function reducer(state = initialState, action: posts.Actions): Posts {
 		}
 		case posts.ActionTypes.LOAD_POST_PREVIEWS_COMPLETE: {
 
-			const posts = action.payload;
+			const posts = <Post[]>action.payload;
 			const newPosts = posts.filter(post => !state.entities[post.id]).map(post => {
 				return Object.assign({}, post, {loadedAfterBootstrap: true});
 			});
@@ -71,8 +72,9 @@ export function reducer(state = initialState, action: posts.Actions): Posts {
 			});
 		}
 		case posts.ActionTypes.LOAD_POST_CONTENT: {
-			const idOfPostToLoad = action.payload.id;
-			const content = action.payload.content;
+			const post = <Post>action.payload;
+			const idOfPostToLoad = post.id;
+			const content = post.content;
 			const postEntityToUpdate = state.entities[idOfPostToLoad];
 			const updatedPost = Object.assign({}, postEntityToUpdate, {content: content, contentLoaded: true});
 			return Object.assign({}, state, {
@@ -82,8 +84,9 @@ export function reducer(state = initialState, action: posts.Actions): Posts {
 			});
 		}
 		case posts.ActionTypes.DISPLAY_IMAGE_PREVIEW: {
-			const idOfPost = action.payload.postId;
-			const newImgUrl = action.payload.imgUrl;
+			const payload = <{postId: string, imgUrl: string}>action.payload;
+			const idOfPost = payload.postId;
+			const newImgUrl = payload.imgUrl;
 			const postEntityToUpdate = state.entities[idOfPost];
 			const updatedPost = Object.assign({}, postEntityToUpdate, {newImageURL: newImgUrl});
 			return Object.assign({}, state, {
@@ -93,10 +96,58 @@ export function reducer(state = initialState, action: posts.Actions): Posts {
 			});
 		}
 		case posts.ActionTypes.SHOW_EDIT_MENU: {
-			const idOfPost = action.payload.postId;
-			const newEditingValue = action.payload.editing;
+			const payload = <{postId: string, editing: {active: boolean, target: string}}>action.payload;
+			const idOfPost = payload.postId;
+			const newEditingValue = payload.editing;
 			const postEntityToUpdate = state.entities[idOfPost];
 			const updatedPost = Object.assign({}, postEntityToUpdate, {editing: newEditingValue});
+			return Object.assign({}, state, {
+				entities: Object.assign({}, state.entities, {
+					[idOfPost]: updatedPost
+				})
+			});
+		}
+		case posts.ActionTypes.UPLOAD_FEATURED_IMAGE: {
+
+			const payload = <{postId: string, file: File}>action.payload;
+			const idOfPost = payload.postId;
+			const postEntityToUpdate = state.entities[idOfPost];
+			const updatedPost = Object.assign({}, postEntityToUpdate, {newImageUploadProgress: 0.1});
+			return Object.assign({}, state, {
+				entities: Object.assign({}, state.entities, {
+					[idOfPost]: updatedPost
+				})
+			});
+		}
+
+		case posts.ActionTypes.UPLOAD_FEATURED_IMAGE_FAILED: {
+
+			const idOfPost = <string>action.payload;
+			const postEntityToUpdate = state.entities[idOfPost];
+			const updatedPost = Object.assign({}, postEntityToUpdate, {editing:{active: true, target: 'FEATURED_IMAGE_ERROR'}, newImageUploadProgress: 0});
+			return Object.assign({}, state, {
+				entities: Object.assign({}, state.entities, {
+					[idOfPost]: updatedPost
+				})
+			});
+		}
+		case posts.ActionTypes.UPLOAD_FEATURED_IMAGE_COMPLETE: {
+
+			const payload = <{postId: string, mediaId: string}>action.payload;
+			const idOfPost = payload.postId;
+			const postEntityToUpdate = state.entities[idOfPost];
+			const newVal = postEntityToUpdate.newImageUploadProgress+0.1;
+			const updatedPost = Object.assign({}, postEntityToUpdate, {newImageUploadProgress: 0.3});
+			return Object.assign({}, state, {
+				entities: Object.assign({}, state.entities, {
+					[idOfPost]: updatedPost
+				})
+			});
+		}
+		case posts.ActionTypes.ASSOCIATE_FEATURED_IMAGE_COMPLETE: {
+			const idOfPost = <string>action.payload;
+			const postEntityToUpdate = state.entities[idOfPost];
+			const updatedPost = Object.assign({}, postEntityToUpdate, {newImageUploadProgress: 0.6, ree: 'reeee'});
 			return Object.assign({}, state, {
 				entities: Object.assign({}, state.entities, {
 					[idOfPost]: updatedPost
@@ -114,7 +165,8 @@ function getPostEntitiesFromPostArray(posts: Post[]){
 
 	return posts.reduce((entities: { [id: string]: Post}, post: Post) => {
 		return Object.assign(entities, {
-			[post.id]: Object.assign({}, post, {newImageURL: 'null', editing: 'null'})
+			[post.id]: Object.assign({}, post, {newImageURL: 'null', 
+				editing: {active: false, target: 'null'}, newImageUploadProgress: 0})
 		});
 	}, {});
 }

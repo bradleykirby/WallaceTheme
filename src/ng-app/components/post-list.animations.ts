@@ -25,8 +25,30 @@ export const animations = [
 	trigger('simpleFade', [
 		state('void', style({opacity: 0})),
 		state('*', style({opacity: 1})),
-		transition('* => *', animate('.5s'))
+		transition('void => *', animate('.5s')),
+		transition('* => void', animate('.5s')),
+
 		]),
+	trigger('simpleSlide', [
+		state('void', style({transform: 'translateY(-100%'})),
+		state('*', style({transform: 'translateY(0)'})),
+		transition('void => *', animate('.5s')),
+		transition(':leave', [animate(500, style({transform: 'translateY(100%)'}))])
+
+		]),
+	trigger('flash', [
+		state('off', style({background: 'rgba(4, 4, 48, 0.2)'})),
+		state('on-white', style({background: 'white'})),
+		state('on-red', style({background: 'rgba(222, 33, 33, 1)'})),
+		state('off-red', style({background: 'rgba(222, 33, 33, 1)'})),
+
+		transition('off => on-white', animate('0.5s')),
+		transition('on-white => off', animate('1s')),
+		transition('off => on-red', animate('0.5s')),
+
+		]),
+
+
 	trigger('heightEnter', [
 		state('void', style({height: '0px'})),
 		state('*', style({height: '100px'})),

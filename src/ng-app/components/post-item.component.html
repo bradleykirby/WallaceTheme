@@ -1,5 +1,5 @@
-<div class="post-image-wrapper" [class.bubble]='adminState.adminMode' (click)="postImageClick($event)" *ngIf="post.imageURLHiRes !== 'NONE'">
-	<div *ngIf='adminState.adminMode' [@simpleFade]='true' class="post-image-admin">
+<div class="post-image-wrapper" (click)="postImageClick($event)" *ngIf="post.imageURLHiRes !== 'NONE'">
+	<div  *ngIf='adminState.adminMode' [@flash]='flash' [@simpleFade]='true' (@flash.done)='onFlash($event)' class="post-image-admin" >
 		
 		<svg class="thin-x" [@simpleFade]='true' *ngIf="adminIcon === 'thin-x'">
 		    <use xlink:href="#thin-x"></use>
@@ -13,8 +13,12 @@
 		    <use xlink:href="#eye"></use>
 		</svg>
 
-		<svg class="cloud" [@simpleFade]='true' *ngIf="adminIcon === 'cloud'">
+		<svg class="cloud-container" [@simpleFade]='true' *ngIf="adminIcon === 'cloud'">
 		    <use xlink:href="#cloud"></use>
+		</svg>
+
+		<svg class="eye-container" [@simpleFade]='true' *ngIf="adminIcon === 'error'">
+		    <use xlink:href="#error"></use>
 		</svg>
 
 	</div> 
@@ -23,16 +27,57 @@
 	<img class="post-image" [src]="postImageUrl()"/>
 </div>
 <ul class='admin-action-menu' [@heightEnter]='true' *ngIf="showAdminActionMenu() && this.post.featured">
+		<div [@simpleSlide]='true' class="action-button-collection" *ngIf='post.editing.target==="FEATURED_IMAGE_ACTION"'>
+			<button (click)="activateFilePicker()" >
+				<svg class="add-image-container">
+				    <use xlink:href="#add-image"></use>
+				</svg>
+				<label>Upload New Image</label>
+			</button>
+		</div>
+		<div [@simpleSlide]='true' class="action-button-collection" *ngIf='post.editing.target==="FEATURED_IMAGE_PREVIEW"'>
 
-		<button (click)="activateFilePicker()">
-			<svg class="add-image-container">
-			    <use xlink:href="#add-image"></use>
-			</svg>
-			<label>Upload New Image</label>
-		</button>
+			<button (click)="cancelPreview()">
+				<svg class="add-image-container">
+				    <use xlink:href="#undo"></use>
+				</svg>
+				<label>Cancel</label>
+			</button>
+
+			<button (click)="startImageUpload()" class='confirm-button' >
+				<svg class="add-image-container">
+				    <use xlink:href="#check"></use>
+				</svg>
+				<label>Confirm</label>
+			</button>
+		</div>
+
+		<div [@simpleSlide]='true' class='action-button-collection'
+		*ngIf='post.editing.target==="FEATURED_IMAGE_ERROR"'>
+			<div class='error-message'>
+				<h3>Error</h3>
+				<p>Invalid File Type. Please use an image with extention: jpg, jpeg, png, gif, or ico</p>
+			</div>
+			<button (click)="cancelPreview()">
+				<svg class="add-image-container">
+				    <use xlink:href="#undo"></use>
+				</svg>
+				<label>Cancel</label>
+			</button>
+		</div>
+
+		<div [@simpleSlide]='true' class='action-button-collection' (click)="cancelPreview()"
+		*ngIf='post.editing.target==="FEATURED_IMAGE_UPLOAD"'>
+			<div class='progress-indicator'>
+				<h3>Uploading Image...</h3>
+				<p>{{getProgress()}}
+			</div>
+
+		</div>
 		
 </ul>
-		<input #filePicker (change)='previewNewImage($event)' type='file'>
+		<input #filePicker *ngIf="showAdminActionMenu()" (change)='previewNewImage($event)' type='file' accept='image/jpg,
+		image/jpeg, image/png, image/gif, image/ico'>
 
 <a class="post-info" (click)="postItemClick($event)" href="{{post.path+'/'}}">
 	<h2 class="post-title" [innerHTML]="safeTitle"></h2>
@@ -46,11 +91,50 @@
 
 <hr class ="post-divider">
 <ul class='admin-action-menu' [@heightEnter]='true' *ngIf="showAdminActionMenu() && !this.post.featured">
-		<button (click)="activateFilePicker()">
-			<svg class="add-image-container">
-			    <use xlink:href="#add-image"></use>
-			</svg>
-			<label>Upload New Image</label>
-		</button>
+		<div [@simpleSlide]='true' class="action-button-collection" *ngIf='post.editing.target==="FEATURED_IMAGE_ACTION"'>
+			<button (click)="activateFilePicker()" >
+				<svg class="add-image-container">
+				    <use xlink:href="#add-image"></use>
+				</svg>
+				<label>Upload New Image</label>
+			</button>
+		</div>
+		<div [@simpleSlide]='true' class="action-button-collection" *ngIf='post.editing.target==="FEATURED_IMAGE_PREVIEW"'>
+
+			<button (click)="cancelPreview()">
+				<svg class="add-image-container">
+				    <use xlink:href="#undo"></use>
+				</svg>
+				<label>Cancel</label>
+			</button>
+
+			<button (click)="startImageUpload()" class='confirm-button' >
+				<svg class="add-image-container">
+				    <use xlink:href="#check"></use>
+				</svg>
+				<label>Confirm</label>
+			</button>
+		</div>
+		<div [@simpleSlide]='true' class='action-button-collection'
+		*ngIf='post.editing.target==="FEATURED_IMAGE_ERROR"'>
+			<div class='error-message'>
+				<h3>Error</h3>
+				<p>Invalid File Type. Please use an image with extention: jpg, jpeg, png, gif, or ico</p>
+			</div>
+			<button (click)="cancelPreview()">
+				<svg class="add-image-container">
+				    <use xlink:href="#undo"></use>
+				</svg>
+				<label>Cancel</label>
+			</button>
+		</div>
+		<div [@simpleSlide]='true' class='action-button-collection' (click)="cancelPreview()"
+		*ngIf='post.editing.target==="FEATURED_IMAGE_UPLOAD"'>
+			<div class='progress-indicator'>
+				<h3>Uploading Image...</h3>
+
+			</div>
+
+		</div>
 </ul>
 

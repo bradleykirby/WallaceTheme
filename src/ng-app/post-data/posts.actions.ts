@@ -9,7 +9,11 @@ export const ActionTypes = {
   ALL_POST_PREVIEWS_LOADED: type('[Posts] All Posts Loaded'),
   LOAD_POST_CONTENT: type('[Posts] Load Post Content'),
   DISPLAY_IMAGE_PREVIEW: type('[Posts] Preview New Featured Image'),
-  SHOW_EDIT_MENU: type('[Posts] Show Edit Post Menu')
+  SHOW_EDIT_MENU: type('[Posts] Show Edit Post Menu'),
+  UPLOAD_FEATURED_IMAGE: type('[Posts] Upload Featured Image'),
+  UPLOAD_FEATURED_IMAGE_FAILED: type('[Posts] Upload Featured Image Failed'),
+  UPLOAD_FEATURED_IMAGE_COMPLETE: type('[Posts] Upload Featured Image Complete'),
+  ASSOCIATE_FEATURED_IMAGE_COMPLETE: type('[Posts] Associate Featured Image Complete')
 };
 
 
@@ -46,7 +50,30 @@ export class DisplayImagePreviewAction implements Action {
 
 export class ShowEditPostMenuAction implements Action {
   type = ActionTypes.SHOW_EDIT_MENU;
-  constructor(public payload: {postId: string, editing: string}){}
+  constructor(public payload: {postId: string, editing: {active: boolean, target: string}}){}
+}
+
+export class UploadFeaturedImageAction implements Action {
+  type = ActionTypes.UPLOAD_FEATURED_IMAGE;
+  constructor(public payload: {postId: string, file: File}){}
+}
+
+
+
+export class UploadFeaturedImageFailedAction implements Action {
+  type = ActionTypes.UPLOAD_FEATURED_IMAGE_FAILED;
+  constructor(public payload: string){}
+}
+
+
+export class UploadFeaturedImageCompleteAction implements Action {
+  type = ActionTypes.UPLOAD_FEATURED_IMAGE_COMPLETE;
+  constructor(public payload: {postId: string, mediaId: string}){}
+}
+
+export class AssociateFeaturedImageCompleteAction implements Action {
+  type = ActionTypes.ASSOCIATE_FEATURED_IMAGE_COMPLETE;
+  constructor(public payload: string){}
 }
 
 
@@ -57,4 +84,8 @@ export type Actions
   | AllPostsLoadedAction
   | LoadPostContentAction
   | DisplayImagePreviewAction
-  | ShowEditPostMenuAction;
+  | ShowEditPostMenuAction
+  | UploadFeaturedImageAction
+  | UploadFeaturedImageFailedAction
+  | UploadFeaturedImageCompleteAction
+  | AssociateFeaturedImageCompleteAction;

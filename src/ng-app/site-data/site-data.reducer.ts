@@ -5,6 +5,8 @@ import {AppState} from '../app.state';
 import {SiteData} from './site-data.model';
 import * as siteData from './site-data.actions';
 import { initialRoutes } from '../app.routes';
+import { Route } from '@angular/router';
+
 //from server-side php (index.php, single.php) 
 //TODO: shard this into just initialSiteData
 declare var walInitialState: any;
@@ -29,8 +31,9 @@ const initialState: SiteData = {
 export function reducer(state = initialState, action: siteData.Actions): SiteData {
 	switch(action.type) {
 		case siteData.ActionTypes.ADD_ROUTES: {
+			const payload = <Route[]>action.payload;
 			return Object.assign({}, state, {
-				routes: [...state.routes, ...action.payload]
+				routes: [...state.routes, ...payload]
 			});
 		}
 		case siteData.ActionTypes.ADD_ANIMATION: {

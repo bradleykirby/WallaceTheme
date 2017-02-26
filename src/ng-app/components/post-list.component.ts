@@ -1,4 +1,4 @@
-import {Component, Input, Output, ViewChild, ElementRef, NgZone,
+import {Component, Input, Output, ViewChild, ElementRef, NgZone, SimpleChanges,
 	EventEmitter,  trigger, state, style, transition, animate, ChangeDetectionStrategy, ChangeDetectorRef, AnimationTransitionEvent} from '@angular/core';
 import { Store } from '@ngrx/store';
 import {Subscription} from 'rxjs/Subscription';
@@ -33,7 +33,6 @@ export class PostListComponent{
 	private fireTransition: string;
 	private prepareAnimation: boolean = false;
 	private activeTransitionAnimation: boolean;
-
 	private animSub: Subscription;
 
 	constructor(private cd: ChangeDetectorRef, private store: Store<AppState>, private _ngZone: NgZone) {
@@ -50,6 +49,12 @@ export class PostListComponent{
 		else{
 			this.fireTransition = 'in';
 		}
+		
+	}
+
+	ngOnChanges(changes: SimpleChanges){
+		console.log(changes);
+		console.log(this.posts[0].newImageUploadProgress);
 	}
 
 	ngAfterViewInit(){
@@ -78,10 +83,10 @@ export class PostListComponent{
 		this.cd.detach();
 
 		//for this component
-		this.store.dispatch(new siteDataActions.AddBlockingAnimationAction());
+		this.store.dispatch(new siteDataActions.AddBlockingAnimationAction(null));
 
 		//for child component
-		this.store.dispatch(new siteDataActions.AddBlockingAnimationAction());
+		this.store.dispatch(new siteDataActions.AddBlockingAnimationAction(null));
 		
 		this.fireTransition = 'out';
 		this.cd.detectChanges();
@@ -91,14 +96,14 @@ export class PostListComponent{
 	handleTransitionDone($event: AnimationTransitionEvent){
 		if($event.fromState !== 'void'){
 			if($event.toState === 'out'){
-				this.store.dispatch(new siteDataActions.RemoveBlockingAnimationAction());
+				this.store.dispatch(new siteDataActions.RemoveBlockingAnimationAction(null));
 			}
 		}
 	}
 
 	handleItemAnimationDone($event: AnimationTransitionEvent){
 		if($event.fromState !== 'void'){
-			this.store.dispatch(new siteDataActions.RemoveBlockingAnimationAction());
+			this.store.dispatch(new siteDataActions.RemoveBlockingAnimationAction(null));
 		}
 	}
 

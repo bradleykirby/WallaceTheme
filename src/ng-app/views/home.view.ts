@@ -43,6 +43,9 @@ export class HomeViewComponent {
 
 	constructor(private store: Store<AppState>, private router: Router, private cd: ChangeDetectorRef){
 		this.posts$ = store.let(appSelectors.getPosts);
+
+		
+
 		this.logoSrc$ = store.let(appSelectors.getSiteIconSrc);
 		this.siteTitle$ = store.let(appSelectors.getSiteTitle);
 		this.postsLoading$ = store.let(appSelectors.getPostsLoading);
@@ -84,6 +87,10 @@ export class HomeViewComponent {
 		}
 	}
 
+	ngOnChanges(){
+		console.log('tick');
+	}
+
 	ngAfterViewInit(){
 
 		if(this.activeTransitionAnimation){
@@ -103,7 +110,7 @@ export class HomeViewComponent {
 		this.store.dispatch(new postActions.SelectPostAction(post));
 
 		this.fireTransition = 'out';
-		this.store.dispatch(new siteDataActions.AddBlockingAnimationAction());
+		this.store.dispatch(new siteDataActions.AddBlockingAnimationAction(null));
 
 		this.subscriptions.push(this.store.let(appSelectors.getAnimationData).subscribe( data => {
 			if(data.blockingAnimations === 0){
@@ -119,7 +126,7 @@ export class HomeViewComponent {
 				this.store.dispatch(new siteDataActions.SetTransitionAction(false));
 			}
 			else if($event.toState === 'out'){
-				this.store.dispatch(new siteDataActions.RemoveBlockingAnimationAction());
+				this.store.dispatch(new siteDataActions.RemoveBlockingAnimationAction(null));
 			}
 		}
 	}

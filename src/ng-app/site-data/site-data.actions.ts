@@ -27,12 +27,12 @@ export class AddRoutesAction implements Action {
 
 export class AddBlockingAnimationAction implements Action {
 	type = ActionTypes.ADD_ANIMATION;
-	constructor(){}
+	constructor(public payload: null){}
 }
 
 export class RemoveBlockingAnimationAction implements Action {
 	type = ActionTypes.REMOVE_ANIMATION;
-	constructor(){}
+	constructor(public payload: null){}
 }
 
 export class SetTransitionAction implements Action {

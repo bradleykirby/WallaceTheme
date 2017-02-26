@@ -1,6 +1,8 @@
 import 'rxjs/add/operator/mergeMap';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/startWith';
+import { of } from 'rxjs/observable/of';
+
 
 import { Injectable } from '@angular/core';
 import { Effect, Actions } from '@ngrx/effects';
@@ -68,6 +70,36 @@ export class PostEffects {
 			}
 			
 		});
+
+	@Effect()
+	uploadFeaturedImage$: Observable<Action> = this.actions$
+		.ofType(postActions.ActionTypes.UPLOAD_FEATURED_IMAGE)
+		.map((action: postActions.UploadFeaturedImageAction) => action.payload)
+		.mergeMap( data => {
+			return this.postService.uploadMedia(data.file)
+			.map(resp => {
+				console.log(resp);
+				return new postActions.UploadFeaturedImageCompleteAction({postId: data.postId, mediaId: resp});
+			})
+			.catch(err => {
+				console.log(err);
+				return of(new postActions.UploadFeaturedImageFailedAction(data.postId));
+			})
+		});
+
+	@Effect()
+	uploadFeaturedImageComplete$: Observable<Action> = this.actions$
+		.ofType(postActions.ActionTypes.UPLOAD_FEATURED_IMAGE_COMPLETE)
+		.map((action: postActions.UploadFeaturedImageCompleteAction) => action.payload)
+		.mergeMap( data => {
+			return this.postService.testService2()
+			.map(postId => {
+				console.log(postId);
+				return new postActions.AssociateFeaturedImageCompleteAction(data.postId);
+			})
+		});
+
+	
 		
 
 		
