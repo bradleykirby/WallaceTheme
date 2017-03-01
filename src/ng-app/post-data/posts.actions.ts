@@ -13,7 +13,9 @@ export const ActionTypes = {
   UPLOAD_FEATURED_IMAGE: type('[Posts] Upload Featured Image'),
   UPLOAD_FEATURED_IMAGE_FAILED: type('[Posts] Upload Featured Image Failed'),
   UPLOAD_FEATURED_IMAGE_COMPLETE: type('[Posts] Upload Featured Image Complete'),
-  ASSOCIATE_FEATURED_IMAGE_COMPLETE: type('[Posts] Associate Featured Image Complete')
+  ASSOCIATE_FEATURED_IMAGE_FAILED: type('[Posts] Associate Featured Image Complete'),
+  ASSOCIATE_FEATURED_IMAGE_COMPLETE: type('[Posts] Associate Featured Image Failed'),
+  UPDATE_FEATURED_IMAGE_REF: type('[Posts] Update Source References to Featured Image')
 };
 
 
@@ -50,7 +52,7 @@ export class DisplayImagePreviewAction implements Action {
 
 export class ShowEditPostMenuAction implements Action {
   type = ActionTypes.SHOW_EDIT_MENU;
-  constructor(public payload: {postId: string, editing: {active: boolean, target: string}}){}
+  constructor(public payload: {postId: string, editing: {active: boolean, target: string, error: string}}){}
 }
 
 export class UploadFeaturedImageAction implements Action {
@@ -65,16 +67,28 @@ export class UploadFeaturedImageFailedAction implements Action {
   constructor(public payload: string){}
 }
 
+export class AssociateFeaturedImageFailedAction implements Action {
+  type = ActionTypes.ASSOCIATE_FEATURED_IMAGE_FAILED;
+  constructor(public payload: string){}
+}
+
 
 export class UploadFeaturedImageCompleteAction implements Action {
   type = ActionTypes.UPLOAD_FEATURED_IMAGE_COMPLETE;
-  constructor(public payload: {postId: string, mediaId: string}){}
+  constructor(public payload: {postId: string, mediaSources: {id: string, loRes: string, hiRes: string}}){}
 }
 
 export class AssociateFeaturedImageCompleteAction implements Action {
   type = ActionTypes.ASSOCIATE_FEATURED_IMAGE_COMPLETE;
   constructor(public payload: string){}
 }
+
+export class UpdateFeaturedImageRef implements Action {
+  type = ActionTypes.UPDATE_FEATURED_IMAGE_REF;
+  constructor(public payload: string){}
+}
+
+
 
 
 export type Actions
@@ -88,4 +102,6 @@ export type Actions
   | UploadFeaturedImageAction
   | UploadFeaturedImageFailedAction
   | UploadFeaturedImageCompleteAction
-  | AssociateFeaturedImageCompleteAction;
+  | AssociateFeaturedImageFailedAction
+  | AssociateFeaturedImageCompleteAction
+  | UpdateFeaturedImageRef;

@@ -17,8 +17,9 @@ export interface Post {
 	navigatingTo: boolean,
 	loadedAfterBootstrap: boolean,
 	newImageURL: string,
+	newImageSources: {loRes: string, hiRes: string},
 	newImageUploadProgress: number,
-	editing: {active: boolean, target: string}
+	editing: {active: boolean, target: string, error: string}
 }
 
 export interface Posts {

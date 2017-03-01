@@ -47,7 +47,27 @@ export const animations = [
 		transition('off => on-red', animate('0.5s')),
 
 		]),
+	trigger('flashGreen', [
+		state('off', style({backgroundColor: '#262626'})),
+		state('on', style({backgroundColor: 'green'})),
 
+
+
+		transition('off => on', animate('0.5s', keyframes([
+			style({backgroundColor: '#262626', offset: 0}),
+			style({backgroundColor: '#00b300', offset: 0.5}),
+			style({backgroundColor: 'green', offset: 1}),
+		])))
+	]),
+
+	trigger('progressSlide', [
+		state('0', style({transform: 'translateX(0%)'})),
+		state('1', style({transform: 'translateX(30%)'})),
+		state('2', style({transform: 'translateX(70%)'})),
+		state('3', style({transform: 'translateX(100%)'})),
+		transition('* => *', animate('0.25s'))
+
+		]),
 
 	trigger('heightEnter', [
 		state('void', style({height: '0px'})),

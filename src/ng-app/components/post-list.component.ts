@@ -52,10 +52,7 @@ export class PostListComponent{
 		
 	}
 
-	ngOnChanges(changes: SimpleChanges){
-		console.log(changes);
-		console.log(this.posts[0].newImageUploadProgress);
-	}
+	
 
 	ngAfterViewInit(){
 		if(this.activeTransitionAnimation){

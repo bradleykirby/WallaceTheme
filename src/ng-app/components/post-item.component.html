@@ -56,7 +56,7 @@
 		*ngIf='post.editing.target==="FEATURED_IMAGE_ERROR"'>
 			<div class='error-message'>
 				<h3>Error</h3>
-				<p>Invalid File Type. Please use an image with extention: jpg, jpeg, png, gif, or ico</p>
+				<p>{{post.editing.error}}</p>
 			</div>
 			<button (click)="cancelPreview()">
 				<svg class="add-image-container">
@@ -68,9 +68,12 @@
 
 		<div [@simpleSlide]='true' class='action-button-collection' (click)="cancelPreview()"
 		*ngIf='post.editing.target==="FEATURED_IMAGE_UPLOAD"'>
-			<div class='progress-indicator'>
+			<div class='progress-indicator' [@flashGreen]='flashGreen' (@flashGreen.done)='flashGreenDone($event)'>
 				<h3>Uploading Image...</h3>
-				<p>{{getProgress()}}
+				<div id='progress-bar'>
+					<div id='progress-shield' [@progressSlide]='calcProgressTransform()' (@progressSlide.done)='progressSlideDone($event)'></div>
+				</div>
+
 			</div>
 
 		</div>
@@ -119,7 +122,7 @@
 		*ngIf='post.editing.target==="FEATURED_IMAGE_ERROR"'>
 			<div class='error-message'>
 				<h3>Error</h3>
-				<p>Invalid File Type. Please use an image with extention: jpg, jpeg, png, gif, or ico</p>
+				<p>{{post.editing.error}}</p>
 			</div>
 			<button (click)="cancelPreview()">
 				<svg class="add-image-container">
@@ -130,8 +133,11 @@
 		</div>
 		<div [@simpleSlide]='true' class='action-button-collection' (click)="cancelPreview()"
 		*ngIf='post.editing.target==="FEATURED_IMAGE_UPLOAD"'>
-			<div class='progress-indicator'>
+			<div class='progress-indicator' [@flashGreen]='flashGreen' (@flashGreen.done)='flashGreenDone($event)'>
 				<h3>Uploading Image...</h3>
+				<div id='progress-bar'>
+					<div id='progress-shield' [@progressSlide]='calcProgressTransform()' (@progressSlide.done)='progressSlideDone($event)'></div>
+				</div>
 
 			</div>
 

@@ -79,7 +79,7 @@ export class PostEffects {
 			return this.postService.uploadMedia(data.file)
 			.map(resp => {
 				console.log(resp);
-				return new postActions.UploadFeaturedImageCompleteAction({postId: data.postId, mediaId: resp});
+				return new postActions.UploadFeaturedImageCompleteAction({postId: data.postId, mediaSources: resp});
 			})
 			.catch(err => {
 				console.log(err);
@@ -92,10 +92,14 @@ export class PostEffects {
 		.ofType(postActions.ActionTypes.UPLOAD_FEATURED_IMAGE_COMPLETE)
 		.map((action: postActions.UploadFeaturedImageCompleteAction) => action.payload)
 		.mergeMap( data => {
-			return this.postService.testService2()
+			return this.postService.associateMedia(data.postId, data.mediaSources.id)
 			.map(postId => {
 				console.log(postId);
 				return new postActions.AssociateFeaturedImageCompleteAction(data.postId);
+			})
+			.catch(err => {
+				console.log(err);
+				return of(new postActions.AssociateFeaturedImageFailedAction(data.postId));
 			})
 		});
 

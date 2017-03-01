@@ -55,6 +55,25 @@ $body-bg: #FFFFF7;
         text-align: left;
         padding: 5px 0 0 5px;
       }
+
+      #progress-bar{
+        height: 8px;
+        width: 80%;
+        margin: 35px auto;
+        align-self: center;
+        background-color: darken(white, 15%);
+        position: relative;
+        overflow: hidden;
+        border-radius: 6px;
+        transition: background-color 0.25s;
+          #progress-shield{
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-color: grey;
+            transition: transform 0.5s;
+          }
+      }
     }
 
     .error-message{
@@ -64,6 +83,7 @@ $body-bg: #FFFFF7;
        display: flex;
       justify-content: center;
       flex-direction: column;
+      padding: 0 10px;
       h3{
         margin-bottom: 10px;
       }

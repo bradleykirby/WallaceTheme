@@ -44,10 +44,15 @@ export class PostService{
 	uploadMedia(file: File){
 		console.log(file);
 
-		var uploadFilePromise = new Promise<string>((resolve, reject) => {
-				this.wp.media().file('notafile').create().then(resp => {
+		var uploadFilePromise = new Promise<{id: string, loRes: string, hiRes: string}>((resolve, reject) => {
+				this.wp.media().file(file).create().then(resp => {
 					console.log(resp);
-					resolve(resp.id);
+					var mediaSources = {
+						id: resp.id,
+						loRes: resp.media_details.sizes.medium.source_url,
+						hiRes: resp.media_details.sizes.large.source_url
+					}
+					resolve(mediaSources);
 				}).catch(err => {
 					console.log(typeof(err));
 					reject(err);
@@ -59,16 +64,18 @@ export class PostService{
 	}
 
 	associateMedia(postId: string, mediaId: string){
-		return Observable.fromPromise(<Promise<string>>this.wp.posts().id('-2').update({
-            featured_media: mediaId
-        }).then(resp => {
-	    		console.log(resp);
-	    		return resp.id;
-        	
-        }).catch(err => {
-        	console.log(err);
-        	return err;
-        }));
+
+		var associateMediaPromise = new Promise<string>((resolve, reject) => {
+			this.wp.posts().id(postId).update({
+				featured_media: mediaId
+			}).then(resp => {
+				resolve(resp.id);
+			}).catch(err => {
+				reject(err);
+			})
+		});
+
+		return Observable.from(associateMediaPromise);
 	}
 
 	testService1(){

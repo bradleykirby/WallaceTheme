@@ -46,9 +46,12 @@ export class PostItemComponent{
 	showEditPostMenu: boolean = false;
 	adminIcon = 'thin-x';
 	flash = 'off';
+	flashGreen = 'off';
 	previewImgRep: string;
 	localFile: File;
-
+	IMAGE_VALIDATION_ERROR: string = 'Invalid File Type. Please use an image with extention: jpg, jpeg, png, gif, or ico';
+	IMAGE_UPLOAD_ERROR: string = 'Image Upload Failed. Check your Internet connection. If error persists, try using the regular wp-admin dashboard';
+	IMAGE_ASSOCIATE_ERROR: string = "Image uploaded successfully, but failed to attach to post. If error persists, try using the regular wp-admin dashboard";
 
 	constructor(private ds: DomSanitizer, private _ngZone: NgZone, private store: Store<AppState>, private changeRef: ChangeDetectorRef){
 		
@@ -82,7 +85,6 @@ export class PostItemComponent{
 	}
 
 	ngOnChanges(){
-		console.log(this.post.newImageUploadProgress);
 		if(this.post.editing.target === 'FEATURED_IMAGE_ACTION'){
 			this.adminIcon = 'gear';
 		}
@@ -95,7 +97,12 @@ export class PostItemComponent{
 		else if(this.post.editing.target ==='FEATURED_IMAGE_ERROR'){
 			this.adminIcon = 'error';
         	this.flash = 'on-red';
-			
+        	if(this.post.editing.error === 'UPLOAD_FAILED'){
+				this.post.editing.error = this.IMAGE_UPLOAD_ERROR;
+			}
+			else if(this.post.editing.error === "ASSOCIATE_FAILED"){
+				this.post.editing.error = this.IMAGE_ASSOCIATE_ERROR;
+			}
 		}
 			
 		
@@ -118,8 +125,46 @@ export class PostItemComponent{
 
 	}
 
-	getProgress(){
-		return this.post.newImageUploadProgress;
+	calcProgressTransform(){
+		switch(this.post.newImageUploadProgress){
+			case 0: {return '0'}
+			case 0.3: {return '1'}
+			case 0.7: {return '2'}
+			case 1: {return '3'}
+			default: {return '0'}
+		}
+	}
+
+	progressSlideDone($event: AnimationTransitionEvent){
+		if($event.toState === '3'){
+			console.log('progress complete');
+			var newImage = new Image();
+			newImage.onload = (() => {
+				console.log(this);
+				this.flash = 'on-white';
+				this.flashGreen = 'on';
+	        	this.changeRef.markForCheck();
+				
+			});
+			if(this.post.featured){
+				newImage.src = this.post.newImageSources.hiRes;
+			}
+			else{
+				newImage.src = this.post.newImageSources.loRes;
+			}
+
+			
+
+		}
+	}
+
+	flashGreenDone($event: AnimationTransitionEvent){
+		if($event.toState === 'on'){
+			this.store.dispatch(new postActions.ShowEditPostMenuAction({postId: this.post.id, editing: {active: false, target: 'null', error: ''}}));
+			this.store.dispatch(new postActions.UpdateFeaturedImageRef(this.post.id));
+
+			this.flashGreen = 'off';
+		}
 	}
 
 	// ngOnChanges(){
@@ -143,7 +188,7 @@ export class PostItemComponent{
 		if(this.adminState.adminMode){
 			let editingTarget = this.post.editing.target === 'null'? 'FEATURED_IMAGE_ACTION' : this.post.editing.target;
 			let editingActive = !this.post.editing.active;
-			this.store.dispatch(new postActions.ShowEditPostMenuAction({postId: this.post.id, editing: {active: editingActive, target: editingTarget}}));
+			this.store.dispatch(new postActions.ShowEditPostMenuAction({postId: this.post.id, editing: {active: editingActive, target: editingTarget, error: ''}}));
 		}
 		else{
 			this.prepareAnimation = true;
@@ -160,7 +205,7 @@ export class PostItemComponent{
 	}
 
 	startImageUpload(){
-		this.store.dispatch(new postActions.ShowEditPostMenuAction({postId: this.post.id, editing: {active: true, target: 'FEATURED_IMAGE_UPLOAD'}}));
+		this.store.dispatch(new postActions.ShowEditPostMenuAction({postId: this.post.id, editing: {active: true, target: 'FEATURED_IMAGE_UPLOAD', error: ''}}));
     	this.store.dispatch(new postActions.UploadFeaturedImageAction({postId: this.post.id, file: this.localFile}));
     	// setTimeout(() => {
     	// 	// this.changeRef.markForCheck();
@@ -169,7 +214,7 @@ export class PostItemComponent{
 	}
 
 	cancelPreview(){
-		this.store.dispatch(new postActions.ShowEditPostMenuAction({postId: this.post.id, editing: {active: true, target: 'FEATURED_IMAGE_ACTION'}}));
+		this.store.dispatch(new postActions.ShowEditPostMenuAction({postId: this.post.id, editing: {active: true, target: 'FEATURED_IMAGE_ACTION', error: ''}}));
     	this.store.dispatch(new postActions.DisplayImagePreviewAction({postId: this.post.id, imgUrl: 'null'}));
     	this.flash = 'off';
 
@@ -197,7 +242,7 @@ export class PostItemComponent{
 		   else{
 		   	console.log('invalid file type');
 		   	this.store.dispatch(new postActions.ShowEditPostMenuAction(
-				{postId: this.post.id, editing: {active: true, target: 'FEATURED_IMAGE_ERROR'}}
+				{postId: this.post.id, editing: {active: true, target: 'FEATURED_IMAGE_ERROR', error: this.IMAGE_VALIDATION_ERROR}}
 				));
 
 		   }
@@ -207,13 +252,24 @@ export class PostItemComponent{
 
 	onFlash(event){
 		if(event.toState === 'on-white'){
-        	this.store.dispatch(new postActions.DisplayImagePreviewAction({postId: this.post.id, imgUrl: this.previewImgRep}));
-			this.store.dispatch(new postActions.ShowEditPostMenuAction(
-				{postId: this.post.id, editing: {active: true, target: 'FEATURED_IMAGE_PREVIEW'}}
-				));
-			this.flash = 'off';
+
+			if(this.post.editing.target != 'FEATURED_IMAGE_ACTION'){
+
+
+				this.flash = 'off';
+	        	this.changeRef.markForCheck();
+
+			}
+			else{
+	        	this.store.dispatch(new postActions.DisplayImagePreviewAction({postId: this.post.id, imgUrl: this.previewImgRep}));
+				this.store.dispatch(new postActions.ShowEditPostMenuAction(
+					{postId: this.post.id, editing: {active: true, target: 'FEATURED_IMAGE_PREVIEW', error: ''}}
+					));
+				this.flash = 'off';
+	        	
+	        	this.changeRef.markForCheck();
+			}
         	
-        	this.changeRef.markForCheck();
 		}
 		else if(event.toState ==='off'){
 			

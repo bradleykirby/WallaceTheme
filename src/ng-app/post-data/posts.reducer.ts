@@ -112,7 +112,7 @@ export function reducer(state = initialState, action: posts.Actions): Posts {
 			const payload = <{postId: string, file: File}>action.payload;
 			const idOfPost = payload.postId;
 			const postEntityToUpdate = state.entities[idOfPost];
-			const updatedPost = Object.assign({}, postEntityToUpdate, {newImageUploadProgress: 0.1});
+			const updatedPost = Object.assign({}, postEntityToUpdate, {newImageUploadProgress: 0.3});
 			return Object.assign({}, state, {
 				entities: Object.assign({}, state.entities, {
 					[idOfPost]: updatedPost
@@ -124,7 +124,7 @@ export function reducer(state = initialState, action: posts.Actions): Posts {
 
 			const idOfPost = <string>action.payload;
 			const postEntityToUpdate = state.entities[idOfPost];
-			const updatedPost = Object.assign({}, postEntityToUpdate, {editing:{active: true, target: 'FEATURED_IMAGE_ERROR'}, newImageUploadProgress: 0});
+			const updatedPost = Object.assign({}, postEntityToUpdate, {editing:{active: true, target: 'FEATURED_IMAGE_ERROR', error: "UPLOAD_FAILED"}, newImageUploadProgress: 0});
 			return Object.assign({}, state, {
 				entities: Object.assign({}, state.entities, {
 					[idOfPost]: updatedPost
@@ -133,11 +133,24 @@ export function reducer(state = initialState, action: posts.Actions): Posts {
 		}
 		case posts.ActionTypes.UPLOAD_FEATURED_IMAGE_COMPLETE: {
 
-			const payload = <{postId: string, mediaId: string}>action.payload;
+			const payload = <{postId: string, mediaSources: {id: string, loRes: string, hiRes: string}}>action.payload;
 			const idOfPost = payload.postId;
 			const postEntityToUpdate = state.entities[idOfPost];
 			const newVal = postEntityToUpdate.newImageUploadProgress+0.1;
-			const updatedPost = Object.assign({}, postEntityToUpdate, {newImageUploadProgress: 0.3});
+			const updatedPost = Object.assign({}, postEntityToUpdate, {
+				newImageUploadProgress: 0.7, 
+				newImageSources: {loRes: payload.mediaSources.loRes, hiRes: payload.mediaSources.hiRes}
+			});
+			return Object.assign({}, state, {
+				entities: Object.assign({}, state.entities, {
+					[idOfPost]: updatedPost
+				})
+			});
+		}
+		case posts.ActionTypes.ASSOCIATE_FEATURED_IMAGE_FAILED: {
+			const idOfPost = <string>action.payload;
+			const postEntityToUpdate = state.entities[idOfPost];
+			const updatedPost = Object.assign({}, postEntityToUpdate, {editing:{active: true, target: 'FEATURED_IMAGE_ERROR', error: "ASSOCIATE_FAILED"}, newImageUploadProgress: 0});
 			return Object.assign({}, state, {
 				entities: Object.assign({}, state.entities, {
 					[idOfPost]: updatedPost
@@ -147,13 +160,31 @@ export function reducer(state = initialState, action: posts.Actions): Posts {
 		case posts.ActionTypes.ASSOCIATE_FEATURED_IMAGE_COMPLETE: {
 			const idOfPost = <string>action.payload;
 			const postEntityToUpdate = state.entities[idOfPost];
-			const updatedPost = Object.assign({}, postEntityToUpdate, {newImageUploadProgress: 0.6, ree: 'reeee'});
+			const updatedPost = Object.assign({}, postEntityToUpdate, {newImageUploadProgress: 1});
 			return Object.assign({}, state, {
 				entities: Object.assign({}, state.entities, {
 					[idOfPost]: updatedPost
 				})
 			});
 		}
+
+		case posts.ActionTypes.UPDATE_FEATURED_IMAGE_REF: {
+			const idOfPost = <string>action.payload;
+			const postEntityToUpdate = state.entities[idOfPost];
+			const updatedPost = Object.assign({}, postEntityToUpdate, {
+				imageURLLowRes: postEntityToUpdate.newImageSources.loRes,
+				imageURLHiRes: postEntityToUpdate.newImageSources.hiRes,
+				newImageSources: {loRes: '', hiRes: ''},
+				newImageUploadProgress: 0,
+				newImageURL: 'null'
+			});
+			return Object.assign({}, state, {
+				entities: Object.assign({}, state.entities, {
+					[idOfPost]: updatedPost
+				})
+			});
+		}
+
 		default: {
       		return state;
 		}
@@ -166,7 +197,10 @@ function getPostEntitiesFromPostArray(posts: Post[]){
 	return posts.reduce((entities: { [id: string]: Post}, post: Post) => {
 		return Object.assign(entities, {
 			[post.id]: Object.assign({}, post, {newImageURL: 'null', 
-				editing: {active: false, target: 'null'}, newImageUploadProgress: 0})
+				editing: {active: false, target: 'null', error: 'null'}, 
+				newImageUploadProgress: 0, 
+				newImageSources: {loRes: '', hiRes: ''}
+			})
 		});
 	}, {});
 }
