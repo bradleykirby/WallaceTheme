@@ -28,7 +28,7 @@
     "html-loader": "^0.4.4",
     "json-loader": "^0.5.4",
     "modularscale-sass": "^2.1.1",
-    "node-sass": "^3.11.1",
+    "node-sass": "^4.5.0",
     "postcss-loader": "^1.2.1",
     "postcss-object-fit-images": "^1.1.2",
     "raw-loader": "0.5.1",
@@ -58,7 +58,7 @@
     "core-js": "^2.4.1",
     "object-fit-images": "^2.5.9",
     "reflect-metadata": "^0.1.8",
-    "rxjs": "^5.0.1",
+    "rxjs": "^5.2.0",
     "web-animations-js": "^2.2.2",
     "wpapi": "^1.0.1",
     "zone.js": "^0.7.6"
