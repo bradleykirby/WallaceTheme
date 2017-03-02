@@ -20,7 +20,7 @@ module.exports = {
          loaders: [
          { 
          	test: /\.scss$/, 
-         	loader: ExtractTextPlugin.extract('css-loader?sourceMap!sass-loader?sourceMap') 
+         	loader: ExtractTextPlugin.extract('css-loader?sourceMap!postcss-loader!sass-loader?sourceMap') 
          },
          {
             test: /\.ts$/,

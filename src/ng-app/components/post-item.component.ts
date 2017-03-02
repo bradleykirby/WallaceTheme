@@ -193,6 +193,8 @@ export class PostItemComponent{
 		else{
 			this.prepareAnimation = true;
 			this.timerSub = Observable.timer(50).subscribe(() => {
+		console.log('click');
+				
 				this.fireAnimation = true;
 				this.itemClickedEvent.emit(this.post);
 			});
