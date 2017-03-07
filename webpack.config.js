@@ -35,7 +35,7 @@ module.exports = {
          ]
        },
        plugins: [
-             new ExtractTextPlugin("styles.css"),
+             new ExtractTextPlugin("styles.css")
              // new ngTools.AotPlugin({
              //       tsConfigPath: path.join(process.cwd(), 'tsconfig.aot.json'),
              //       baseDir: process.cwd(),

@@ -30,10 +30,14 @@ export const animations = [
 
 		]),
 	trigger('simpleSlide', [
-		state('void', style({transform: 'translateY(-100%'})),
-		state('*', style({transform: 'translateY(0)'})),
+		state('void', style({transform: 'translate(0%, -100%)'})),
+		state('*', style({transform: 'translate(0%, 0%)'})),
 		transition('void => *', animate('.5s')),
-		transition(':leave', [animate(500, style({transform: 'translateY(100%)'}))])
+		transition('* => void', animate('.5s', keyframes([
+			style({transform: 'translate(0%, 0%)'}),
+			style({transform: 'translate(0%, 100%)'})
+			])
+		))
 
 		]),
 	trigger('flash', [

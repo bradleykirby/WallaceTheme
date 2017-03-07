@@ -52,6 +52,10 @@ export class PostListComponent{
 		
 	}
 
+	ngOnChanges(){
+		console.log(this.posts);
+	}
+
 	
 
 	ngAfterViewInit(){

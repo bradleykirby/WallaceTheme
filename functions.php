@@ -2,7 +2,7 @@
 
 require_once 'src/wp-app/wallace-util.php';
 require_once 'src/wp-app/endpoints.php';
-
+require_once 'php-libs/image-fixer.php';
 
 
 if (!class_exists('Twig_Autoloader')){

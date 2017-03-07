@@ -5,7 +5,6 @@ import 'rxjs/add/operator/let';
 
 import { Route } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
-import { Component } from '@angular/core';
 
 import {AppState} from '../app.state';
 import {Post, Posts} from './posts.model';
@@ -50,11 +49,7 @@ export function reducer(state = initialState, action: posts.Actions): Posts {
 			});
 			const featuredPostIncluded = posts.filter(post => post.featured).length > 0 ? true : false;
 			const newPostIds = newPosts.map(post => post.id);
-			const newPostEntities = newPosts.reduce((entities: { [id: string]: Post}, post:Post) => {
-				return Object.assign(entities, {
-					[post.id]: post
-				});
-			}, {});
+			const newPostEntities = getPostEntitiesFromPostArray(newPosts);
 			return {
 				ids: [...state.ids, ...newPostIds ],
 				entities: Object.assign({}, state.entities, newPostEntities),
