@@ -14,36 +14,34 @@
 .gear-container{
 	width: 50%;
 	height: 50%;
-	position: absolute;
-	left: 50%;
-	top: 50%;
-	transform: translate(-50%, -50%);
-	animation: spin linear infite;
+	//position: absolute;
+	//left: 50%;
+	//top: 50%;
+	animation: spin 10s linear infinite;
 
 }
 
 .cloud-container{
 	width: 50%;
 	height: 50%;
-	position: absolute;
-	left: 50%;
-	top: 50%;
-	transform: translate(-50%, -50%);
+	// position: absolute;
+	// left: 50%;
+	// top: 50%;
 	animation: pulse 2s linear infinite;
 
 }
 
 @keyframes spin{
-	0% {transform: translate(-50%, -50%) rotate(0deg)}
-	100% {transform: translate(-50%, -50%) rotate(360deg)}
+	0% {transform: rotate(0deg)}
+	100% {transform: rotate(360deg)}
 
 }
 
 
 @keyframes pulse {
-	0% {opacity: 0.75}
-	50% {opacity: 1}
-	100% {opacity: 0.75}
+	0% {opacity: 0.75; transform: scale(1)}
+	50% {opacity: 1; transform: scale(1.2)}
+	100% {opacity: 0.75; transform: scale(1)}
 
 }
 

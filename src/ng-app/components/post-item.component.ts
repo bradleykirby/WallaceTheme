@@ -160,11 +160,13 @@ export class PostItemComponent{
 
 	flashGreenDone($event: AnimationTransitionEvent){
 		if($event.toState === 'on'){
+
+			this.flashGreen = 'off';
 			this.store.dispatch(new postActions.ShowEditPostMenuAction({postId: this.post.id, editing: {active: false, target: 'null', error: ''}}));
 			this.store.dispatch(new postActions.UpdateFeaturedImageRef(this.post.id));
 
-			this.flashGreen = 'off';
 		}
+		
 	}
 
 	// ngOnChanges(){
