@@ -7,7 +7,7 @@ Wallace is an experimental next-generation WordPress blogging theme built with t
 
 Wallace uses an API-first approach for rendering both on the server and client. You get all the performance of a single page app with all the SEO benefits and wp-admin compatibility of a traditional server-rendered theme. 
 
-**Notice: Requires WordPress version 4.7 or higher and "pretty" (no "?") permalinks. Some plugins may be incompatible with this theme - particularly those that make heavy modifications to the structure of the site like page builders. Plugins that only modify the content and/or introduce code to the `<head>` and `<footer>` should work properly.** 
+**Notice: Requires WordPress version 4.7 or higher and "pretty" permalinks. Some plugins may be incompatible with this theme - particularly those that make heavy modifications to the structure of the site like page builders. Plugins that only modify the data of a website (rather than its structure) and plugins that introduce code to the `<head>` and `<footer>` (like an SEO plugin) should work properly.** 
 
 This project is under active development and updates may introduce breaking changes or changes that alter the structure and design of your site. If you prefer, you can wait for a more stable 2.0 release. 
 
@@ -18,15 +18,13 @@ A fully built and ready-to-install .zip is available at https://wallacetheme.com
 
 
 Navigate to your WP theme directory and run:
-
 `git clone https://github.com/bkirby989/WallaceTheme`
 
 navigate to the Wallace theme folder and run: 
-
 `npm install`
+
 To develop with automatic compilation:
 `webpack --watch`
-
 
 To make a production build:
 `npm run build-prod`
