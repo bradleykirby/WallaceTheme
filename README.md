@@ -21,7 +21,7 @@ Navigate to your WP theme directory and run:
 `git clone https://github.com/bkirby989/WallaceTheme`
 
 navigate to the Wallace theme folder and run: 
-`npm install`
+`sudo npm install`
 
 To develop with automatic compilation:
 `webpack --watch`
