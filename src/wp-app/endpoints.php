@@ -21,7 +21,7 @@ add_action('rest_api_init', function(){
 	));
 
 	
-});
+}, 9999);
 
 function wal_request_site_data($request){
 	$site_data = [
@@ -52,8 +52,9 @@ function wal_request_post($request){
 		$post_request = new WP_REST_Request('GET', '/wp/v2/posts/' . $id);
 		$post_request->set_query_params($request->get_query_params() );
 				
-		$response = rest_get_server()->dispatch($post_request);
-		$raw_post= $response->data;
+		$response = rest_do_request($post_request);
+		$raw_post= $response->get_data();
+		//var_dump($raw_post);
 		$new_response = array();
 		$post = wal_modify_post($raw_post, true);
 
@@ -82,6 +83,7 @@ function wal_modify_post($raw_post, $get_content){
 		  }
 		}   
 		if($get_content){
+
 			$post['content'] = $raw_post['content']['rendered'];
 	        $post['contentLoaded'] = true;
 		}

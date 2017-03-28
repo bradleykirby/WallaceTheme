@@ -15,7 +15,10 @@ $wal_twig = new Twig_Environment($wal_loader, array(
     //'cache' => get_template_directory() . '/src/wp-app/templates/template-cache',
 ));
 
-
+function add_something($content) {
+    return "test";
+}
+//add_filter( 'the_content', 'add_something', 9999); 
 
 
 function wal_init(){
@@ -25,6 +28,7 @@ function wal_init(){
 	$featured_post_id = -1;
 	if(wp_count_posts()->publish > 0){
 		$sticky_posts = get_option( 'sticky_posts' );
+		// TODO: check to make sure sticky posts are published
 		$most_recent_post_id = wp_get_recent_posts(array(
 				'numberposts' => 1,
 				'post_type' => 'post'))[0]['ID'];

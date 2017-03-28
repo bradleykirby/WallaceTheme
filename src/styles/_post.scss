@@ -97,6 +97,8 @@ article{
 		}
 		img{
 			margin-top: ms(1);
+			height: auto;
+			max-width: 90vw;
 		}
 		&.no-image{
 			top: 0;
