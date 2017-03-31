@@ -1,6 +1,6 @@
 {
   "name": "wallace-theme",
-"version":"1.1.2",
+  "version": "1.1.2",
   "description": "A next-generation WordPress theme powered by the WP Rest API and Angular2",
   "main": "index.php",
   "scripts": {
@@ -57,6 +57,7 @@
     "autoprefixer": "^6.7.6",
     "core-js": "^2.4.1",
     "object-fit-images": "^2.5.9",
+    "prismjs": "^1.6.0",
     "reflect-metadata": "^0.1.8",
     "rxjs": "^5.2.0",
     "web-animations-js": "^2.2.2",

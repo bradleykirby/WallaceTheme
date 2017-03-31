@@ -14,6 +14,12 @@ import * as appSelectors from '../app.selectors';
 import {animations} from './post.animations';
 import * as siteDataActions from '../site-data/site-data.actions';
 
+import Prism from 'prismjs';
+import 'prismjs/components/prism-php';
+import 'prismjs/components/prism-twig';
+import 'prismjs/components/prism-typescript';
+
+
 @Component({
 	selector: 'wal-post-view',
 	templateUrl: 'post.view.html',
@@ -56,6 +62,7 @@ export class PostViewComponent {
 				this.post = selectedPost;
 				this.safeTitle = this.ds.bypassSecurityTrustHtml(this.post.title);
 				this.safeContent = this.ds.bypassSecurityTrustHtml(this.post.content);
+				
 			}
 			else{
 				this.animSub2 = this.store.let(appSelectors.getAnimationData).subscribe(animationData => {
@@ -64,6 +71,7 @@ export class PostViewComponent {
 						this.post = selectedPost;
 						this.safeTitle = this.ds.bypassSecurityTrustHtml(this.post.title);
 						this.safeContent = this.ds.bypassSecurityTrustHtml(this.post.content);
+						
 					}
 				});
 					
@@ -91,6 +99,7 @@ export class PostViewComponent {
 			window.scrollTo(0,0);
 			this.fireAnimation = 'in';			
 		}
+		Prism.highlightAll();
 		
 	}
 

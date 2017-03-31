@@ -2,6 +2,7 @@ $ms-base:  1rem;
 
 @import 'reset';
 @import '~modularscale-sass/stylesheets/modular-scale';
+@import '~prismjs/themes/prism-okaidia';
 @import 'icons';
 @import 'home-view';
 @import 'post-list';
@@ -36,6 +37,7 @@ html{
 	@media screen and (min-width: 975px){
 		font-size: 13px;
 	}
+
 
 	//font-family: Futura;
 	font-family: 'Fjord One', sans-serif;

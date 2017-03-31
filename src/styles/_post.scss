@@ -86,7 +86,8 @@ article{
 	.post-content{
 		width: 90vw;
 		max-width: 750px;
-		font-size: ms(1);
+		font-size: 16px;
+
 		margin-top: ms(2);
 		padding: 0 ms(1);
 		position: relative;
@@ -120,10 +121,10 @@ article{
 		}
 
 		code{
-			font-size: ms(1)*0.8;
-			background: $header-bg;
-			color: $body-bg;
-			padding: 0px 5px;
+			 font-size: 14px;
+			// background: $header-bg;
+			// color: $body-bg;
+			// padding: 0px 5px;
 		}
     	//font-weight: 300;
 
