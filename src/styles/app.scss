@@ -85,20 +85,42 @@ body{
 	margin: 0;
 }
 
-#admin-button{
+#admin-button-container{
 	position: fixed;
 	bottom: 10px;
 	left: 10px;
 	z-index: 99;
+	height: 45px;
+	display: flex;
+	flex-direction: row;
+
+}
+
+#admin-button{
+	
 	background-color: rgba($header-bg, 0.8);
 	padding: 10px;
 	border: none;
 	border-radius: 2px;
 	color: $body-bg;
 	transition: background-color 0.5s;
+	flex: 1 1 auto;
+	margin: 0;
+	z-index: 2;
 	&:hover{
 		cursor: pointer;
 	}
+
+}
+
+#customize-button{
+	background-color: rgba($header-bg, 0.8);
+	border: none;
+	border-radius: 0px 2px 2px 0px;
+	flex: 1 1 auto;
+	margin: 0;
+	z-index: 1;
+
 
 }
 

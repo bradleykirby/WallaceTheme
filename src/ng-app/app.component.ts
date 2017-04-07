@@ -9,14 +9,30 @@ import * as postActions from './post-data/posts.actions';
 import * as siteActions from './site-data/site-data.actions';
 import { AppState } from './app.state';
 import { SiteDataService } from './site-data/site-data.service';
+import { animations } from './app.animations';
 
 @Component({
   selector: 'wallace',
+  animations: animations,
+
   //changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-  <button *ngIf='isAdmin' [style.background-color]="adminButtonBackground" (click)='toggleAdmin()' id='admin-button'>{{adminButtonMessage}}</button>
-  <router-outlet></router-outlet>
-  `
+  <div id='admin-button-container' *ngIf='isAdmin'>
+	  <button 
+	  	 [style.background-color]="adminButtonBackground" 
+	  	(click)='toggleAdmin()' id='admin-button'>
+	  		{{adminButtonMessage}}
+	  		
+	  </button>
+	  <button id='customize-button' *ngIf='adminModeActive' [@simpleSlide]='true'>
+		  <svg class="customize-container">
+		      <use xlink:href="#customize"></use>
+		  </svg>
+	  </button>
+</div>
+
+<router-outlet></router-outlet>
+ `
 })
 
 export class AppComponent {
@@ -35,6 +51,8 @@ export class AppComponent {
 
 		store.let(appSelectors.getSiteDataState).subscribe(siteData => {
 			this.isAdmin = siteData.isAdmin;
+			// this.adminModeActive = siteData.adminModeActive;
+			// console.log(this.adminModeActive);
 		});
 
 		store.let(appSelectors.getSiteDataState).subscribe(siteData => {
@@ -60,8 +78,9 @@ export class AppComponent {
 		}
 	}
 
-	toggleAdmin(){
+	
 
+	toggleAdmin(){
 		this.store.dispatch(new siteActions.ToggleAdminAction(!this.adminModeActive));
 	}
 }
