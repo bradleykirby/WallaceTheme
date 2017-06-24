@@ -18,6 +18,8 @@ import { initialRoutes } from './app.routes';
 import { PostEffects } from './post-data/posts.effects';
 import { CanDeactivateHomeGuard, CanDeactivatePostGuard } from './views/guards';
 
+
+
 @NgModule({
   bootstrap:    [ AppComponent ],
   imports:      [ 
@@ -45,4 +47,5 @@ import { CanDeactivateHomeGuard, CanDeactivatePostGuard } from './views/guards';
 })
 
 export class AppModule {
+
 }
