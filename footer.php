@@ -3,6 +3,6 @@
 		</div>
 		<?php wp_footer(); ?>
 	
-	a
+	
 	</body>
 </html>

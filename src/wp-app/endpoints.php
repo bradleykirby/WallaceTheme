@@ -125,6 +125,7 @@ function wal_request_posts($request){
 	
 	
 	$response = rest_get_server()->dispatch($post_request);
+
 	$data = $response->data;
 	$new_response = array();
 	$posts = array();
@@ -136,12 +137,15 @@ function wal_request_posts($request){
 		}
 
 	}
-	foreach ($data as $raw_post){
-		if($raw_post['id'] !== Wallace::get_featured_post_id()){
-			$post = wal_modify_post($raw_post, false);
-			array_push($posts, $post);
+	if(!$response->is_error()){
+		foreach ($data as $raw_post){
+			if($raw_post['id'] !== Wallace::get_featured_post_id()){
+				$post = wal_modify_post($raw_post, false);
+				array_push($posts, $post);
+			}
 		}
 	}
+	
 
 	$new_response['posts'] = $posts;
 	if($currentApiPage !== null){
