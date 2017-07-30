@@ -8,18 +8,26 @@ class Wallace{
 		if($view === 'home'){
 			$app_state = [
 				'posts' => self::get_initial_posts(true),
+				'pages' => self::get_initial_pages(),
 				'site_data'=> self::get_site_data(),
 			];
 			return $app_state;
 		}
-		elseif ($view === 'post') {
+		elseif ($view === 'post' || $view === 'page') {
 			$app_state = [
-				'posts' => self::get_post($id),
+				'posts' => $view === 'post' ? self::get_post($id) : array(),
+				'pages' => $view === 'page' ? self::get_page($id) : array(),
 				'site_data'=> self::get_site_data(),
 			];
 			return $app_state;
 
 		}
+	}
+	
+	public static function get_page($id){
+		$request = new WP_REST_Request('GET', '/wallace/v1/pages/'.$id);
+		$response = rest_get_server()->dispatch($request);
+		return $response->data['pages'];
 	}
 
 	public static function get_post($id){
@@ -54,6 +62,13 @@ class Wallace{
 		
 		$response = rest_get_server()->dispatch($request);
 		return $response->data['posts'];
+	}
+	
+	public static function get_initial_pages(){
+		$request = new WP_REST_Request('GET', '/wallace/v1/pages');
+		
+		$response = rest_get_server()->dispatch($request);
+		return $response->data['pages'];
 	}
 
 	public static function set_featured_post_id($id){

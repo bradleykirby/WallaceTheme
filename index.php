@@ -18,7 +18,7 @@
 
 			var walInitialState = <?php echo json_encode($wal_app_state); ?>;
 			walInitialState.selectedPostId = -1;
-
+			walInitialState.selectedPageId = -1;
 		</script>
 
 <?php get_footer(); ?>

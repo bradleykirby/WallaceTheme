@@ -1,0 +1,19 @@
+<div>
+    <article>
+		{% if page.imageURLHiRes != 'NONE' %}
+	        <div class="header-image-wrapper">
+	            <img src="{{page.imageURLHiRes}}" class="post-image"/>
+	                <a  class="site-logo-anchor" href="{{siteData.pathToIndex}}"><img class="site-logo" src="{{siteData.iconUrl}}"/></a>
+	            <h1 class="post-title">{{page.title|raw}}</h1>
+	        </div>
+        	<div class="post-content" >{{page.content|raw}}</div>
+		{% endif %}
+		{% if page.imageURLHiRes == 'NONE' %}
+			<a  class="site-logo-anchor" href="{{siteData.pathToIndex}}"><img class="site-logo" src="{{siteData.iconUrl}}"/></a>
+            <h1 class="post-title no-image">{{page.title|raw}}</h1>
+        	<div class="post-content no-image" >{{page.content|raw}}</div>
+		{% endif %}
+
+    </article>
+
+</div>

@@ -14,12 +14,23 @@ add_action('rest_api_init', function(){
 
 	));
 
+	register_rest_route( 'wallace/v1','pages', array(
+							'methods'         => 'GET',
+							'callback'        => 'wal_request_pages',
+
+	));
+
 	register_rest_route( 'wallace/v1','posts' . '/(?P<id>[\d]+)', array(
 							'methods'         => 'GET',
 							'callback'        => 'wal_request_post',
 
 	));
 
+	register_rest_route( 'wallace/v1','pages' . '/(?P<id>[\d]+)', array(
+							'methods'         => 'GET',
+							'callback'        => 'wal_request_page',
+
+	));
 	
 }, 9999);
 
@@ -43,6 +54,25 @@ function wal_get_index(){
 		$index = substr($home_url, 1);
 	}
 	return $index;
+}
+
+function wal_request_page($request){
+
+		$id = (int) $request['id'];
+
+		$post_request = new WP_REST_Request('GET', '/wp/v2/pages/' . $id);
+		$post_request->set_query_params($request->get_query_params() );
+				
+		$response = rest_do_request($post_request);
+		$raw_post= $response->get_data();
+		//var_dump($raw_post);
+		$new_response = array();
+		$page = wal_modify_post($raw_post, true);
+
+		$pages[0] = $page;
+
+		$new_response['pages'] = $pages;
+		return $new_response;
 }
 
 function wal_request_post($request){
@@ -158,10 +188,38 @@ function wal_request_posts($request){
 	return $new_response;
 }
 
+function wal_request_pages($request){
 
+	$currentApiPage = $request->get_param('page');
 
+	$post_request = new WP_REST_Request('GET', '/wp/v2/pages');
+	$post_request->set_query_params($request->get_query_params() );
+	$post_request->set_param("per_page", 4);
 	
+	$response = rest_get_server()->dispatch($post_request);
 
+	$data = $response->data;
+	$new_response = array();
+	$pages = array();
+	
+	if(!$response->is_error()){
+		foreach ($data as $raw_post){
+			//if($raw_post['id'] !== Wallace::get_featured_post_id()){
+			$page = wal_modify_post($raw_post, false);
+			array_push($pages, $page);
+			//}
+		}
+	}
 
+	$new_response['pages'] = $pages;
+	if($currentApiPage !== null){
+		$new_response['api_page'] = $currentApiPage;
+	}
+	else{
+		$new_response['api_page'] = 1;
+	}
+	$new_response['total_api_pages'] = $response->get_headers()['X-WP-TotalPages'];
+	return $new_response;
+}
 
 ?>
