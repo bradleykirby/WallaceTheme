@@ -11,7 +11,7 @@ export function ComplexUrlMatcher(paramName: string, regex: RegExp) {
         const consumed: UrlSegment[] = [];
 
         let currentIndex = 0,
-        	path = segments.join('/');
+        	path = '/' + segments.join('/') + '/';
         	
         if (!regex.test(path)) {
             return null;

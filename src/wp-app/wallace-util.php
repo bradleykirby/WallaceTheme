@@ -9,6 +9,7 @@ class Wallace{
 			$app_state = [
 				'posts' => self::get_initial_posts(true),
 				'pages' => self::get_initial_pages(),
+				'post_matcher' => self::get_matcher(),
 				'site_data'=> self::get_site_data(),
 			];
 			return $app_state;
@@ -17,11 +18,46 @@ class Wallace{
 			$app_state = [
 				'posts' => $view === 'post' ? self::get_post($id) : array(),
 				'pages' => $view === 'page' ? self::get_page($id) : array(),
+				'post_matcher' => self::get_matcher(),
 				'site_data'=> self::get_site_data(),
 			];
 			return $app_state;
 
 		}
+	}
+	
+	public static function get_matcher(){
+		$permalink_regex = '';
+		$permalink_structure = explode( '/', get_option( 'permalink_structure' ) );
+		
+		foreach ($permalink_structure as $part){
+			if ($part !== ''){
+				switch ($part){
+					case '%year%':
+						$permalink_regex .= '[0-9]{4}\/';
+						break;
+					case '%monthnum%':
+					case '%day%':
+					case '%hour%':
+					case '%minute%':
+					case '%second%':
+						$permalink_regex .= '[0-9]{2}\/';
+						break;
+					case '%post_id%':
+						$permalink_regex .= '[0-9]+\/';
+						break;
+					case '%postname%':
+					case '%category%':
+					case '%author%':
+						$permalink_regex .= '.+\/';
+						break;
+					default:
+						$permalink_regex .= $part.'\/';
+				}
+			}
+		}
+		
+		return ($permalink_regex!==''?'\/':'').$permalink_regex;
 	}
 	
 	public static function get_page($id){
