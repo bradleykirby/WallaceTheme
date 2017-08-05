@@ -200,7 +200,7 @@ function wal_request_pages($request){
 		if ( ! $menu_obj ) {
 			$menu_obj = get_term_by( 'name', $locations[ 'primary' ], 'nav_menu' );
 		}
-		if ( $menu_obj ) {
+		if ( $menu_obj && !is_wp_error( $menu_obj ) ) {
 			$per_page = $menu_obj->count < 4 ? 4 : $menu_obj->count;
 			
 			foreach( wp_get_nav_menu_items( $locations[ 'primary' ] ) as $page){
