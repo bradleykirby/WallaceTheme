@@ -43,7 +43,7 @@ function wal_init(){
 	}
 		Wallace::set_featured_post_id($featured_post_id);
 
-	
+	register_nav_menu( 'primary', __( 'Primary Menu', 'wallacetheme' ) );
 
 }
 

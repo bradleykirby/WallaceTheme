@@ -9,9 +9,11 @@ import { Observable } from 'rxjs/Observable';
 import { AppState } from '../app.state';
 import * as appSelectors from '../app.selectors';
 import * as postActions from '../post-data/posts.actions';
+import * as pageActions from '../page-data/pages.actions';
 import * as siteDataActions from '../site-data/site-data.actions';
 import { SiteData } from '../site-data/site-data.model';
 import { Post, Posts } from '../post-data/posts.model';
+import { Page, Pages } from '../page-data/pages.model';
 import { animations } from './post.animations';
 
 @Component({
@@ -25,10 +27,12 @@ export class HomeViewComponent {
 	logoSrc$: Observable<string>;
 	siteTitle$: Observable<string>;
 	posts$: Observable<Post[]>;
+	pages$: Observable<Page[]>;
 	allPreviewsLoaded$: Observable<boolean>;
 	selectedPostId$: Observable<string>;
 	postsLoading$: Observable<boolean>;
 	getAdminState$: Observable<{adminMode: boolean, editMode: boolean}>;
+	siteMenus$: Observable<{id : number, parent: number, title: string}[]>;
 
 	allPreviewsLoaded: boolean;
 	loadingPostPreviews: boolean;
@@ -43,8 +47,8 @@ export class HomeViewComponent {
 
 	constructor(private store: Store<AppState>, private router: Router, private cd: ChangeDetectorRef){
 		this.posts$ = store.let(appSelectors.getPosts);
-
-		
+		this.pages$ = store.let(appSelectors.getPages);
+		this.siteMenus$ = store.let(appSelectors.getSiteMenus);
 
 		this.logoSrc$ = store.let(appSelectors.getSiteIconSrc);
 		this.siteTitle$ = store.let(appSelectors.getSiteTitle);
@@ -118,6 +122,30 @@ export class HomeViewComponent {
 			}
 		}));
 		
+	}
+	
+	navigateToPage(id: number){
+		let pageToNavigate:Page;
+		
+		this.pages$.subscribe(pages => {
+			pages.forEach(page => {
+				if ( id == parseInt( page.id ) ){
+					pageToNavigate = page;
+				}
+			});
+		});
+		
+		this.store.dispatch(new siteDataActions.SetTransitionAction(true));
+		this.store.dispatch(new pageActions.SelectPageAction(pageToNavigate));
+
+		this.fireTransition = 'out';
+		this.store.dispatch(new siteDataActions.AddBlockingAnimationAction(null));
+
+		this.subscriptions.push(this.store.let(appSelectors.getAnimationData).subscribe( data => {
+			if(data.blockingAnimations === 0){
+				this.router.navigateByUrl(pageToNavigate.path);
+			}
+		}));
 	}
 
 	animationDone($event: AnimationTransitionEvent){

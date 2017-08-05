@@ -38,3 +38,7 @@ export function getAdminState(siteData$: Observable<SiteData>){
 		
 
 }
+
+export function getSiteMenus(siteData$: Observable<SiteData>){
+	return siteData$.select(siteData => siteData.menus);
+}

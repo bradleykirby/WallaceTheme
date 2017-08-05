@@ -189,12 +189,32 @@ function wal_request_posts($request){
 }
 
 function wal_request_pages($request){
-
+	
+	$per_page = 4;
+	$pages_array = array();
+	if ( ( $locations = get_nav_menu_locations() ) && isset( $locations[ 'primary' ] ) ) {
+		$menu_obj = get_term( $locations[ 'primary' ], 'nav_menu' );
+		if ( ! $menu_obj ) {
+			$menu_obj = get_term_by( 'slug', $locations[ 'primary' ], 'nav_menu' );
+		}
+		if ( ! $menu_obj ) {
+			$menu_obj = get_term_by( 'name', $locations[ 'primary' ], 'nav_menu' );
+		}
+		if ( $menu_obj ) {
+			$per_page = $menu_obj->count < 4 ? 4 : $menu_obj->count;
+			
+			foreach( wp_get_nav_menu_items( $locations[ 'primary' ] ) as $page){
+				array_push( $pages_array, $page->object_id );
+			}
+		}
+	}
+	
 	$currentApiPage = $request->get_param('page');
 
 	$post_request = new WP_REST_Request('GET', '/wp/v2/pages');
 	$post_request->set_query_params($request->get_query_params() );
-	$post_request->set_param("per_page", 4);
+	$post_request->set_param("per_page", $per_page);
+	$post_request->set_param("include", $pages_array);
 	
 	$response = rest_get_server()->dispatch($post_request);
 
@@ -204,10 +224,8 @@ function wal_request_pages($request){
 	
 	if(!$response->is_error()){
 		foreach ($data as $raw_post){
-			//if($raw_post['id'] !== Wallace::get_featured_post_id()){
 			$page = wal_modify_post($raw_post, false);
 			array_push($pages, $page);
-			//}
 		}
 	}
 
