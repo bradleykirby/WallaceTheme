@@ -57,22 +57,45 @@ function wal_get_index(){
 }
 
 function wal_request_page($request){
+	
+	$id = $request['id'];
+	$pages_array = wal_request_menu_pages();
+	
+	if ( !in_array($id, $pages_array) ){
+		array_push($pages_array, $id);
+	}
+	
+	$per_page = count($pages_array);
+	
+	$post_request = new WP_REST_Request('GET', '/wp/v2/pages');
+	$post_request->set_query_params($request->get_query_params() );
+	$post_request->set_param("per_page", $per_page);
+	$post_request->set_param("include", $pages_array);
+	
+	$response = rest_get_server()->dispatch($post_request);
 
-		$id = (int) $request['id'];
-
-		$post_request = new WP_REST_Request('GET', '/wp/v2/pages/' . $id);
-		$post_request->set_query_params($request->get_query_params() );
-				
-		$response = rest_do_request($post_request);
-		$raw_post= $response->get_data();
-		//var_dump($raw_post);
-		$new_response = array();
-		$page = wal_modify_post($raw_post, true);
-
-		$pages[0] = $page;
-
-		$new_response['pages'] = $pages;
-		return $new_response;
+	$data = $response->data;
+	$pages = array();
+	
+	if(!$response->is_error()){
+		foreach ($data as $raw_post){
+		
+			//var_dump($raw_post);
+			if ( $raw_post['id'] == (int)$id ) {
+				$page = wal_modify_post($raw_post, true);
+				array_unshift($pages, $page);
+			}
+			else {
+				$page = wal_modify_post($raw_post, false);
+				array_push($pages, $page);
+			}
+			
+		}
+	}
+	
+	$new_response['pages'] = $pages;
+	return $new_response;
+	
 }
 
 function wal_request_post($request){
@@ -190,24 +213,8 @@ function wal_request_posts($request){
 
 function wal_request_pages($request){
 	
-	$per_page = 4;
-	$pages_array = array();
-	if ( ( $locations = get_nav_menu_locations() ) && isset( $locations[ 'primary' ] ) ) {
-		$menu_obj = get_term( $locations[ 'primary' ], 'nav_menu' );
-		if ( ! $menu_obj ) {
-			$menu_obj = get_term_by( 'slug', $locations[ 'primary' ], 'nav_menu' );
-		}
-		if ( ! $menu_obj ) {
-			$menu_obj = get_term_by( 'name', $locations[ 'primary' ], 'nav_menu' );
-		}
-		if ( $menu_obj && !is_wp_error( $menu_obj ) ) {
-			$per_page = $menu_obj->count < 4 ? 4 : $menu_obj->count;
-			
-			foreach( wp_get_nav_menu_items( $locations[ 'primary' ] ) as $page){
-				array_push( $pages_array, $page->object_id );
-			}
-		}
-	}
+	$pages_array = wal_request_menu_pages();
+	$per_page = count($pages_array) < 4 ? 4 : count($pages_array);
 	
 	$currentApiPage = $request->get_param('page');
 
@@ -238,6 +245,29 @@ function wal_request_pages($request){
 	}
 	$new_response['total_api_pages'] = $response->get_headers()['X-WP-TotalPages'];
 	return $new_response;
+}
+
+function wal_request_menu_pages() {
+
+	$pages_array = array();
+	
+	if ( ( $locations = get_nav_menu_locations() ) && isset( $locations[ 'primary' ] ) ) {
+		$menu_obj = get_term( $locations[ 'primary' ], 'nav_menu' );
+		if ( ! $menu_obj ) {
+			$menu_obj = get_term_by( 'slug', $locations[ 'primary' ], 'nav_menu' );
+		}
+		if ( ! $menu_obj ) {
+			$menu_obj = get_term_by( 'name', $locations[ 'primary' ], 'nav_menu' );
+		}
+		if ( $menu_obj && !is_wp_error( $menu_obj ) ) {
+			
+			foreach( wp_get_nav_menu_items( $locations[ 'primary' ] ) as $page){
+				array_push( $pages_array, $page->object_id );
+			}
+		}
+	}
+	
+	return $pages_array;
 }
 
 ?>

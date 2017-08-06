@@ -18,7 +18,7 @@ class Wallace{
 		elseif ($view === 'post' || $view === 'page') {
 			$app_state = [
 				'posts' => $view === 'post' ? self::get_post($id) : array(),
-				'pages' => $view === 'page' ? self::get_page($id) : array(),
+				'pages' => $view === 'page' ? self::get_page($id) : self::get_initial_pages(),
 				'post_matcher' => self::get_matcher(),
 				'menu_items' => self::get_menu('primary'),
 				'site_data'=> self::get_site_data(),
