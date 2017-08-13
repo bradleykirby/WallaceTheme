@@ -12,6 +12,8 @@ class Wallace{
 				'post_matcher' => self::get_matcher(),
 				'menu_items' => self::get_menu('primary'),
 				'site_data'=> self::get_site_data(),
+				'frontpage_id' => (int)get_option( 'page_on_front' ),
+				'blog_id' => (int)get_option( 'page_for_posts' )
 			];
 			return $app_state;
 		}
@@ -22,6 +24,8 @@ class Wallace{
 				'post_matcher' => self::get_matcher(),
 				'menu_items' => self::get_menu('primary'),
 				'site_data'=> self::get_site_data(),
+				'frontpage_id' => (int)get_option( 'page_on_front' ),
+				'blog_id' => (int)get_option( 'page_for_posts' )
 			];
 			return $app_state;
 

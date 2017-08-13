@@ -25,6 +25,8 @@ export const getAnimationData = compose(fromSiteData.getAnimationData, getSiteDa
 export const getPathToIndex = compose(fromSiteData.getPathToIndex, getSiteDataState);
 export const getAdminState = compose(fromSiteData.getAdminState, getSiteDataState);
 export const getSiteMenus = compose(fromSiteData.getSiteMenus, getSiteDataState);
+export const getFrontPageId = compose(fromSiteData.getFrontPageId, getSiteDataState);
+export const getBlogPageId = compose(fromSiteData.getBlogPageId, getSiteDataState);
 
 export const getPostEntities = compose(fromPosts.getPostEntities, getPostsState);
 export const getPosts = compose(fromPosts.getPosts, getPostsState);

@@ -65,6 +65,12 @@ function wal_request_page($request){
 		array_push($pages_array, $id);
 	}
 	
+	$frontpage = get_option( 'page_on_front' );
+	
+	if ($frontpage !== "0" && !in_array($frontpage, $pages_array)){
+		array_push($pages_array, $frontpage);
+	}
+	
 	$per_page = count($pages_array);
 	
 	$post_request = new WP_REST_Request('GET', '/wp/v2/pages');
@@ -147,8 +153,9 @@ function wal_modify_post($raw_post, $get_content){
 
 		$post['loadedAfterBootstrap'] = false;
 		
-      	$post['date'] = get_the_date();
-        $post['path'] = substr(parse_url($raw_post['link'], PHP_URL_PATH), 1, -1);
+		$path = substr(parse_url($raw_post['link'], PHP_URL_PATH), 1, -1);
+		$post['date'] = get_the_date();
+        $post['path'] = $path == false ? '' : $path;
         $post['itemVisible'] = 'visible';
         $post['navigatingTo'] = false;
 		
@@ -214,6 +221,12 @@ function wal_request_posts($request){
 function wal_request_pages($request){
 	
 	$pages_array = wal_request_menu_pages();
+	$frontpage = get_option( 'page_on_front' );
+	
+	if ($frontpage !== "0" && !in_array($frontpage, $pages_array)){
+		array_push($pages_array, $frontpage);
+	}
+	
 	$per_page = count($pages_array) < 4 ? 4 : count($pages_array);
 	
 	$currentApiPage = $request->get_param('page');

@@ -6,13 +6,14 @@ import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
 import { Subscription } from 'rxjs/Subscription';
 
-import { Router } from '@angular/router';
+import { Router, NavigationStart } from '@angular/router';
 
-import { Page } from '../page-data/pages.model';
+import { Page, Pages } from '../page-data/pages.model';
 import { AppState } from '../app.state';
 import * as appSelectors from '../app.selectors';
 import { animations } from './post.animations';
 import * as siteDataActions from '../site-data/site-data.actions';
+import * as pageActions from '../page-data/pages.actions';
 
 import Prism from 'prismjs';
 import 'prismjs/components/prism-php';
@@ -27,7 +28,9 @@ import 'prismjs/components/prism-typescript';
 
 export class PageViewComponent {
 	page: Page;
+	pages$: Observable<Page[]>;
 	logoSrc$: Observable<string>;
+	siteFrontPage$: Observable<number>;
 
 	private timer: NodeJS.Timer;
 	private activeLocalAnimation$: Subject<boolean> = new Subject();
@@ -36,17 +39,38 @@ export class PageViewComponent {
 	private deferredPage:Page;
 	private activeTransitionAnimation: boolean;
 	private pathToIndex: string;
+	private currentUrl: string;
 
 	subscriptions: Subscription[] = [];
 
 	pageSub: Subscription;
+	paramSub: Subscription;
 	animSub: Subscription;
 	animSub2: Subscription;
 
 	safeTitle: SafeHtml;
 	safeContent: SafeHtml
 
-	constructor(private store: Store<AppState>, private router: Router, private ds: DomSanitizer){}
+	constructor(private store: Store<AppState>, private router: Router, private ds: DomSanitizer){
+		this.paramSub = router.events.subscribe(event => {
+			if(event instanceof NavigationStart) {
+				this.currentUrl = event.url;
+				
+				let pageNavigatedTo:Page;
+				this.pages$.subscribe(pages => {
+					pages.forEach(page => {
+						if ( this.currentUrl == '/' + page.path ){
+							pageNavigatedTo = page;
+						}
+					});
+				});
+				
+				if (pageNavigatedTo != undefined){
+					this.store.dispatch(new pageActions.SelectPageAction(pageNavigatedTo));
+				}
+			}
+		});
+	}
 	
 	ngOnInit(){
 
@@ -73,6 +97,8 @@ export class PageViewComponent {
 			}
 		});
 		this.logoSrc$ = this.store.let(appSelectors.getSiteIconSrc);
+		this.pages$ = this.store.let(appSelectors.getPages);
+		this.siteFrontPage$ = this.store.let(appSelectors.getFrontPageId);
 		this.store.let(appSelectors.getPathToIndex).subscribe(_pathToIndex => {
 			this.pathToIndex = _pathToIndex;
 		})
@@ -97,9 +123,27 @@ export class PageViewComponent {
 	}
 
 	goHome($event: Event){
-		$event.preventDefault();
-		this.fireAnimation = 'out';
-		this.store.dispatch(new siteDataActions.SetTransitionAction(true));
+		let frontPageId:number;
+		this.siteFrontPage$.subscribe( id => {frontPageId = id;});
+	
+		if (parseInt(this.page.id) !== frontPageId){		
+			$event.preventDefault();
+			this.fireAnimation = 'out';
+			this.store.dispatch(new siteDataActions.SetTransitionAction(true));
+			if (frontPageId !== 0){
+				let frontPage:Page;
+		
+				this.pages$.subscribe(pages => {
+					pages.forEach(page => {
+						if ( frontPageId == parseInt( page.id ) ){
+							frontPage = page;
+						}
+					});
+				});
+			
+				this.store.dispatch(new pageActions.SelectPageAction(frontPage));
+			}
+		}
 	}
 
 	animationComplete($event: AnimationTransitionEvent){
@@ -109,7 +153,7 @@ export class PageViewComponent {
 				this.store.dispatch(new siteDataActions.SetTransitionAction(false));
 			}
 			else if($event.toState === 'out'){
-		 		this.router.navigateByUrl(this.pathToIndex);
+				this.router.navigateByUrl(this.pathToIndex);
 			}
 		}
 	}
@@ -117,6 +161,6 @@ export class PageViewComponent {
 	ngOnDestroy(){
 		this.pageSub.unsubscribe();
 		this.animSub.unsubscribe();
-		
+		this.paramSub.unsubscribe();
 	}
 }

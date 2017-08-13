@@ -9,7 +9,9 @@ export interface SiteData {
 	isAdmin: boolean,
 	adminModeActive: boolean,
 	editModeActive: boolean,
-	menus: {id: number, parent: number, title: string}[]
+	menus: {id: number, parent: number, title: string}[],
+	frontPage: number,
+	blogPage: number
 }
 
 export interface AnimationData {

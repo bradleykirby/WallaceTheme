@@ -19,7 +19,7 @@
     	<script>
 			var walInitialState = <?php echo json_encode($wal_app_state); ?>;
 			walInitialState.selectedPostId = -1;
-			walInitialState.selectedPageId = -1;
+			walInitialState.selectedPageId = <?php echo get_option( 'page_on_front' ) == "0" ? -1 : (int)get_option( 'page_on_front' ) ?>;
 		</script>
 
 <?php get_footer(); ?>

@@ -24,7 +24,9 @@ const initialState: SiteData = {
 	isAdmin: window.WP_API_Settings.isAdmin === 'true' ? true : false,
 	adminModeActive: false,
 	editModeActive: false,
-	menus: walInitialState.menu_items
+	menus: walInitialState.menu_items,
+	frontPage: walInitialState.frontpage_id,
+	blogPage: walInitialState.blog_id
 }
 
 export function reducer(state = initialState, action: siteData.Actions): SiteData {
