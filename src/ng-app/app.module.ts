@@ -41,6 +41,7 @@ import { CanDeactivateHomeGuard, CanActivatePostGuard, CanDeactivatePostGuard, C
 	  PostItemComponent,
 	  MenuComponent
   ],
+  entryComponents: [ HomeViewComponent ],
   providers: [
     AppService,
     SiteDataService,

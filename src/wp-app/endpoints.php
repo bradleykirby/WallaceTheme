@@ -71,6 +71,12 @@ function wal_request_page($request){
 		array_push($pages_array, $frontpage);
 	}
 	
+	$blogpage = get_option( 'page_for_posts' );
+	
+	if ($blogpage !== "0" && !in_array($blogpage, $pages_array)){
+		array_push($pages_array, $blogpage);
+	}
+	
 	$per_page = count($pages_array);
 	
 	$post_request = new WP_REST_Request('GET', '/wp/v2/pages');
@@ -225,6 +231,12 @@ function wal_request_pages($request){
 	
 	if ($frontpage !== "0" && !in_array($frontpage, $pages_array)){
 		array_push($pages_array, $frontpage);
+	}
+	
+	$blogpage = get_option( 'page_for_posts' );
+	
+	if ($blogpage !== "0" && !in_array($blogpage, $pages_array)){
+		array_push($pages_array, $blogpage);
 	}
 	
 	$per_page = count($pages_array) < 4 ? 4 : count($pages_array);

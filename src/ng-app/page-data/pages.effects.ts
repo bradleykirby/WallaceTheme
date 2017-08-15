@@ -5,14 +5,16 @@ import { of } from 'rxjs/observable/of';
 
 import { Injectable } from '@angular/core';
 import { Effect, Actions } from '@ngrx/effects';
-import { Action } from '@ngrx/store';
+import { Action, Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 import { Route } from '@angular/router';
 
 import * as pageActions from './pages.actions';
 import * as siteData from '../site-data/site-data.actions';
+import { AppState } from '../app.state';
+import * as appSelectors from '../app.selectors';
 import { PageService } from './pages.service';
-import { PageViewComponent } from '../views/page.view';
+import { PageViewComponent, HomeViewComponent } from '../views';
 import { Page } from './pages.model';
 
 declare const walInitialState: any;
@@ -20,7 +22,13 @@ const initialPages: Page[] = walInitialState.pages;
 
 @Injectable()
 export class PageEffects {
-	constructor(private actions$: Actions, private pageService: PageService){}
+	siteBlogPage: number;
+	
+	constructor(private store: Store<AppState>, private actions$: Actions, private pageService: PageService){
+		this.store.let(appSelectors.getBlogPageId).subscribe( blogId => {
+			this.siteBlogPage = blogId;
+		});
+	}
 
 	@Effect()
 	loadPagePreviews$: Observable<Action> = this.actions$
@@ -47,9 +55,10 @@ export class PageEffects {
 			const routes = pages.map(page => {
 				return Object.assign({}, {
 					path: page.path,
-					component: PageViewComponent
+					component: (this.siteBlogPage == parseInt(page.id) ? HomeViewComponent : PageViewComponent)
 				})
 			});
+			
 			return new siteData.AddRoutesAction(routes)
 		});
 
