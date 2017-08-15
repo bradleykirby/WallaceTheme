@@ -34,7 +34,7 @@ export function reducer(state = initialState, action: siteData.Actions): SiteDat
 		case siteData.ActionTypes.ADD_ROUTES: {
 			const payload = <Route[]>action.payload;
 			return Object.assign({}, state, {
-				routes: [...state.routes, ...payload]
+				routes: [...payload, ...state.routes]
 			});
 		}
 		case siteData.ActionTypes.ADD_ANIMATION: {
