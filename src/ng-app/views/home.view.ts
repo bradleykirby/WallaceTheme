@@ -24,6 +24,11 @@ import { animations } from './post.animations';
 
 export class HomeViewComponent {
 
+	pathToIndex: string;
+	siteBlogPage$: Observable<number>;
+	siteFrontPage$: Observable<number>;
+	shouldNavigate
+	
 	logoSrc$: Observable<string>;
 	siteTitle$: Observable<string>;
 	posts$: Observable<Post[]>;
@@ -50,6 +55,11 @@ export class HomeViewComponent {
 		this.pages$ = store.let(appSelectors.getPages);
 		this.siteMenus$ = store.let(appSelectors.getSiteMenus);
 
+		this.store.let(appSelectors.getPathToIndex).subscribe(_pathToIndex => {
+			this.pathToIndex = _pathToIndex;
+		});
+		this.siteBlogPage$ = this.store.let(appSelectors.getBlogPageId);
+		this.siteFrontPage$ = this.store.let(appSelectors.getFrontPageId);
 		this.logoSrc$ = store.let(appSelectors.getSiteIconSrc);
 		this.siteTitle$ = store.let(appSelectors.getSiteTitle);
 		this.postsLoading$ = store.let(appSelectors.getPostsLoading);
@@ -146,6 +156,38 @@ export class HomeViewComponent {
 				this.router.navigateByUrl(pageToNavigate.path);
 			}
 		}));
+	}
+	
+	goHome($event: Event){
+		let blogPageId:number,
+			frontPageId:number;
+		this.siteBlogPage$.subscribe( id => {blogPageId = id;});
+		this.siteFrontPage$.subscribe( id => {frontPageId = id;});
+	
+		if (blogPageId !== 0 && frontPageId != 0){		
+			$event.preventDefault();
+			let homePage:Page;
+		
+			this.pages$.subscribe(pages => {
+				pages.forEach(page => {
+					if ( '' == page.path ){
+						homePage = page;
+					}
+				});
+			});
+			
+			this.store.dispatch(new siteDataActions.SetTransitionAction(true));
+			this.store.dispatch(new pageActions.SelectPageAction(homePage));
+			
+			this.fireTransition = 'out';
+			this.store.dispatch(new siteDataActions.AddBlockingAnimationAction(null));
+			
+			this.subscriptions.push(this.store.let(appSelectors.getAnimationData).subscribe( data => {
+				if(data.blockingAnimations === 0){
+					this.router.navigateByUrl(homePage.path);
+				}
+			}));
+		}
 	}
 
 	animationDone($event: AnimationTransitionEvent){
