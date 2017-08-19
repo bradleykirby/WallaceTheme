@@ -63,6 +63,47 @@
 		}
 
 	}
+
+	.menu-container {
+		padding: 0;
+		position: relative;
+		right: 0;
+		bottom: 0;
+		display: inline-block;
+		float: left;
+		margin-right: 215px;
+		
+		ul.menu {
+			li {
+				position: relative;
+				float: left;
+				margin: 0;
+				cursor: pointer;
+				a {
+					font-size: 16px;
+					font-weight: 400;
+					color: #FFFFFF;
+					padding: 0 18px 0;
+					display: block;
+					float: left;
+					text-transform: none;
+					line-height: 100px;
+				}
+				&:hover{
+					a {
+						color:#bbbbbb;
+					}
+					ul.sub-menu {
+						top: 96px;
+						border-top: 4px solid #dc4637;
+						-moz-background-clip: padding-box;
+						-webkit-background-clip: padding-box;
+						background-clip: padding-box;
+					}
+				}
+			}	
+		}
+	}
 }
 
 nav{

@@ -9,9 +9,11 @@ import { Observable } from 'rxjs/Observable';
 import { AppState } from '../app.state';
 import * as appSelectors from '../app.selectors';
 import * as postActions from '../post-data/posts.actions';
+import * as pageActions from '../page-data/pages.actions';
 import * as siteDataActions from '../site-data/site-data.actions';
 import { SiteData } from '../site-data/site-data.model';
 import { Post, Posts } from '../post-data/posts.model';
+import { Page, Pages } from '../page-data/pages.model';
 import { animations } from './post.animations';
 
 @Component({
@@ -22,13 +24,20 @@ import { animations } from './post.animations';
 
 export class HomeViewComponent {
 
+	pathToIndex: string;
+	siteBlogPage$: Observable<number>;
+	siteFrontPage$: Observable<number>;
+	shouldNavigate
+	
 	logoSrc$: Observable<string>;
 	siteTitle$: Observable<string>;
 	posts$: Observable<Post[]>;
+	pages$: Observable<Page[]>;
 	allPreviewsLoaded$: Observable<boolean>;
 	selectedPostId$: Observable<string>;
 	postsLoading$: Observable<boolean>;
 	getAdminState$: Observable<{adminMode: boolean, editMode: boolean}>;
+	siteMenus$: Observable<{id : number, parent: number, title: string}[]>;
 
 	allPreviewsLoaded: boolean;
 	loadingPostPreviews: boolean;
@@ -43,9 +52,14 @@ export class HomeViewComponent {
 
 	constructor(private store: Store<AppState>, private router: Router, private cd: ChangeDetectorRef){
 		this.posts$ = store.let(appSelectors.getPosts);
+		this.pages$ = store.let(appSelectors.getPages);
+		this.siteMenus$ = store.let(appSelectors.getSiteMenus);
 
-		
-
+		this.store.let(appSelectors.getPathToIndex).subscribe(_pathToIndex => {
+			this.pathToIndex = _pathToIndex;
+		});
+		this.siteBlogPage$ = this.store.let(appSelectors.getBlogPageId);
+		this.siteFrontPage$ = this.store.let(appSelectors.getFrontPageId);
 		this.logoSrc$ = store.let(appSelectors.getSiteIconSrc);
 		this.siteTitle$ = store.let(appSelectors.getSiteTitle);
 		this.postsLoading$ = store.let(appSelectors.getPostsLoading);
@@ -118,6 +132,62 @@ export class HomeViewComponent {
 			}
 		}));
 		
+	}
+	
+	navigateToPage(id: number){
+		let pageToNavigate:Page;
+		
+		this.pages$.subscribe(pages => {
+			pages.forEach(page => {
+				if ( id == parseInt( page.id ) ){
+					pageToNavigate = page;
+				}
+			});
+		});
+		
+		this.store.dispatch(new siteDataActions.SetTransitionAction(true));
+		this.store.dispatch(new pageActions.SelectPageAction(pageToNavigate));
+
+		this.fireTransition = 'out';
+		this.store.dispatch(new siteDataActions.AddBlockingAnimationAction(null));
+
+		this.subscriptions.push(this.store.let(appSelectors.getAnimationData).subscribe( data => {
+			if(data.blockingAnimations === 0){
+				this.router.navigateByUrl(pageToNavigate.path);
+			}
+		}));
+	}
+	
+	goHome($event: Event){
+		let blogPageId:number,
+			frontPageId:number;
+		this.siteBlogPage$.subscribe( id => {blogPageId = id;});
+		this.siteFrontPage$.subscribe( id => {frontPageId = id;});
+	
+		if (blogPageId !== 0 && frontPageId != 0){		
+			$event.preventDefault();
+			let homePage:Page;
+		
+			this.pages$.subscribe(pages => {
+				pages.forEach(page => {
+					if ( '' == page.path ){
+						homePage = page;
+					}
+				});
+			});
+			
+			this.store.dispatch(new siteDataActions.SetTransitionAction(true));
+			this.store.dispatch(new pageActions.SelectPageAction(homePage));
+			
+			this.fireTransition = 'out';
+			this.store.dispatch(new siteDataActions.AddBlockingAnimationAction(null));
+			
+			this.subscriptions.push(this.store.let(appSelectors.getAnimationData).subscribe( data => {
+				if(data.blockingAnimations === 0){
+					this.router.navigateByUrl(homePage.path);
+				}
+			}));
+		}
 	}
 
 	animationDone($event: AnimationTransitionEvent){

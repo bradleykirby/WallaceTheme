@@ -8,18 +8,80 @@ class Wallace{
 		if($view === 'home'){
 			$app_state = [
 				'posts' => self::get_initial_posts(true),
+				'pages' => self::get_initial_pages(),
+				'menu_items' => self::get_menu('primary'),
 				'site_data'=> self::get_site_data(),
+				'frontpage_id' => (int)get_option( 'page_on_front' ),
+				'blog_id' => (int)get_option( 'page_for_posts' )
 			];
 			return $app_state;
 		}
-		elseif ($view === 'post') {
+		elseif ($view === 'post' || $view === 'page') {
 			$app_state = [
-				'posts' => self::get_post($id),
+				'posts' => $view === 'post' ? self::get_post($id) : array(),
+				'pages' => $view === 'page' ? self::get_page($id) : self::get_initial_pages(),
+				'menu_items' => self::get_menu('primary'),
 				'site_data'=> self::get_site_data(),
+				'frontpage_id' => (int)get_option( 'page_on_front' ),
+				'blog_id' => (int)get_option( 'page_for_posts' )
 			];
 			return $app_state;
 
 		}
+	}
+	
+	public static function get_menu($theme_location, $raw = false){
+		if ( !( ( $locations = get_nav_menu_locations() ) && isset( $locations[ $theme_location ] ) ) ){
+			return $raw ? '' : array();
+		}
+		
+		$menu = wp_get_nav_menu_object( $locations[ $theme_location ] );
+		
+		if ( !$menu ) {
+			return $raw ? '' : array();
+		}
+		
+		$menu_items = wp_get_nav_menu_items( $menu->term_id, array( 'update_post_term_cache' => false ) );
+		
+		$sorted_menu_items = $menu_items_with_children = array();
+		foreach ( (array) $menu_items as $menu_item ) {
+			$sorted_menu_items[ $menu_item->menu_order ] = $menu_item;
+			if ( $menu_item->menu_item_parent )
+				$menu_items_with_children[ $menu_item->menu_item_parent ] = true;
+		}
+
+		if ( $menu_items_with_children ) {
+			foreach ( $sorted_menu_items as &$menu_item ) {
+				if ( isset( $menu_items_with_children[ $menu_item->ID ] ) )
+					$menu_item->classes[] = 'menu-item-has-children';
+			}
+		}
+		
+		if (!$raw){
+			$items = array();
+			
+			foreach ( (array) $menu_items as $menu_item ) {
+				array_push($items, array(
+					"id" => (int)$menu_item->object_id,
+					"parent" => (int)$menu_item->menu_item_parent,
+					"title" => $menu_item->title
+				));
+			}
+			
+			return $items;
+		}
+		
+		$items = '<div class="menu-container"><ul id="'.$theme_location.'-menu" class="menu">';
+		$items .= walk_nav_menu_tree( $sorted_menu_items, 0, array() );
+		$items .= '</ul></div>';
+		
+		return $items;
+	}
+	
+	public static function get_page($id){
+		$request = new WP_REST_Request('GET', '/wallace/v1/pages/'.$id);
+		$response = rest_get_server()->dispatch($request);
+		return $response->data['pages'];
 	}
 
 	public static function get_post($id){
@@ -54,6 +116,13 @@ class Wallace{
 		
 		$response = rest_get_server()->dispatch($request);
 		return $response->data['posts'];
+	}
+	
+	public static function get_initial_pages(){
+		$request = new WP_REST_Request('GET', '/wallace/v1/pages');
+		
+		$response = rest_get_server()->dispatch($request);
+		return $response->data['pages'];
 	}
 
 	public static function set_featured_post_id($id){

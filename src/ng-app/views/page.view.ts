@@ -1,18 +1,17 @@
-import {Component, AnimationTransitionEvent} from '@angular/core';
+import { Component, AnimationTransitionEvent } from '@angular/core';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
-import {Subject} from 'rxjs/Subject';
-import {Subscription} from 'rxjs/Subscription';
+import { Subject } from 'rxjs/Subject';
+import { Subscription } from 'rxjs/Subscription';
 
-import { Router } from '@angular/router';
+import { Router, NavigationStart } from '@angular/router';
 
 import { Page, Pages } from '../page-data/pages.model';
-import { Post } from '../post-data/posts.model';
-import {AppState} from '../app.state';
+import { AppState } from '../app.state';
 import * as appSelectors from '../app.selectors';
-import {animations} from './post.animations';
+import { animations } from './post.animations';
 import * as siteDataActions from '../site-data/site-data.actions';
 import * as pageActions from '../page-data/pages.actions';
 
@@ -22,13 +21,13 @@ import 'prismjs/components/prism-twig';
 import 'prismjs/components/prism-typescript';
 
 @Component({
-	selector: 'wal-post-view',
-	templateUrl: 'post.view.html',
+	selector: 'wal-page-view',
+	templateUrl: 'page.view.html',
 	animations: animations
 })
 
-export class PostViewComponent {
-	post: Post;
+export class PageViewComponent {
+	page: Page;
 	pages$: Observable<Page[]>;
 	logoSrc$: Observable<string>;
 	siteFrontPage$: Observable<number>;
@@ -37,20 +36,41 @@ export class PostViewComponent {
 	private activeLocalAnimation$: Subject<boolean> = new Subject();
 	private activeLocalAnimation: boolean;
 	private fireAnimation: string;
-	private deferredPost:Post;
+	private deferredPage:Page;
 	private activeTransitionAnimation: boolean;
 	private pathToIndex: string;
+	private currentUrl: string;
 
 	subscriptions: Subscription[] = [];
 
-	postSub: Subscription;
+	pageSub: Subscription;
+	paramSub: Subscription;
 	animSub: Subscription;
 	animSub2: Subscription;
 
 	safeTitle: SafeHtml;
 	safeContent: SafeHtml
 
-	constructor(private store: Store<AppState>, private router: Router, private ds: DomSanitizer){}
+	constructor(private store: Store<AppState>, private router: Router, private ds: DomSanitizer){
+		this.paramSub = router.events.subscribe(event => {
+			if(event instanceof NavigationStart) {
+				this.currentUrl = event.url;
+				
+				let pageNavigatedTo:Page;
+				this.pages$.subscribe(pages => {
+					pages.forEach(page => {
+						if ( this.currentUrl == '/' + page.path ){
+							pageNavigatedTo = page;
+						}
+					});
+				});
+				
+				if (pageNavigatedTo != undefined){
+					this.store.dispatch(new pageActions.SelectPageAction(pageNavigatedTo));
+				}
+			}
+		});
+	}
 	
 	ngOnInit(){
 
@@ -58,22 +78,22 @@ export class PostViewComponent {
 			this.activeTransitionAnimation = animationData.pageTransitionActive;
 		});
 
-		this.postSub = this.store.let(appSelectors.getSelectedPost).subscribe(selectedPost => {
-			if((!this.activeTransitionAnimation) || this.post==undefined){
-				this.post = selectedPost;
-				this.safeTitle = this.ds.bypassSecurityTrustHtml(this.post.title);
-				this.safeContent = this.ds.bypassSecurityTrustHtml(this.post.content);
+		this.pageSub = this.store.let(appSelectors.getSelectedPage).subscribe(selectedPage => {
+			if((!this.activeTransitionAnimation) || this.page==undefined){
+				this.page = selectedPage;
+				this.safeTitle = this.ds.bypassSecurityTrustHtml(this.page.title);
+				this.safeContent = this.ds.bypassSecurityTrustHtml(this.page.content);
 			}
 			else{
 				this.animSub2 = this.store.let(appSelectors.getAnimationData).subscribe(animationData => {
 					this.activeTransitionAnimation = animationData.pageTransitionActive;
 					if(!this.activeTransitionAnimation){
-						this.post = selectedPost;
-						this.safeTitle = this.ds.bypassSecurityTrustHtml(this.post.title);
-						this.safeContent = this.ds.bypassSecurityTrustHtml(this.post.content);
-						
+						this.page = selectedPage;
+						this.safeTitle = this.ds.bypassSecurityTrustHtml(this.page.title);
+						this.safeContent = this.ds.bypassSecurityTrustHtml(this.page.content);
 					}
 				});
+					
 			}
 		});
 		this.logoSrc$ = this.store.let(appSelectors.getSiteIconSrc);
@@ -82,7 +102,7 @@ export class PostViewComponent {
 		this.store.let(appSelectors.getPathToIndex).subscribe(_pathToIndex => {
 			this.pathToIndex = _pathToIndex;
 		})
-		
+
 		if(this.activeTransitionAnimation){
 			this.fireAnimation = 'out';
 		}
@@ -106,21 +126,23 @@ export class PostViewComponent {
 		let frontPageId:number;
 		this.siteFrontPage$.subscribe( id => {frontPageId = id;});
 	
-		$event.preventDefault();
-		this.fireAnimation = 'out';
-		this.store.dispatch(new siteDataActions.SetTransitionAction(true));
-		if (frontPageId !== 0){
-			let frontPage:Page;
+		if (parseInt(this.page.id) !== frontPageId){		
+			$event.preventDefault();
+			this.fireAnimation = 'out';
+			this.store.dispatch(new siteDataActions.SetTransitionAction(true));
+			if (frontPageId !== 0){
+				let frontPage:Page;
 		
-			this.pages$.subscribe(pages => {
-				pages.forEach(page => {
-					if ( frontPageId == parseInt( page.id ) ){
-						frontPage = page;
-					}
+				this.pages$.subscribe(pages => {
+					pages.forEach(page => {
+						if ( frontPageId == parseInt( page.id ) ){
+							frontPage = page;
+						}
+					});
 				});
-			});
 			
-			this.store.dispatch(new pageActions.SelectPageAction(frontPage));
+				this.store.dispatch(new pageActions.SelectPageAction(frontPage));
+			}
 		}
 	}
 
@@ -131,14 +153,14 @@ export class PostViewComponent {
 				this.store.dispatch(new siteDataActions.SetTransitionAction(false));
 			}
 			else if($event.toState === 'out'){
-		 		this.router.navigateByUrl(this.pathToIndex);
+				this.router.navigateByUrl(this.pathToIndex);
 			}
 		}
 	}
 
 	ngOnDestroy(){
-		this.postSub.unsubscribe();
+		this.pageSub.unsubscribe();
 		this.animSub.unsubscribe();
-		
+		this.paramSub.unsubscribe();
 	}
 }

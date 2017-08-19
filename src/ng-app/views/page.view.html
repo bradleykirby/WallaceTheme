@@ -1,0 +1,39 @@
+<div>
+    <article *ngIf="page.imageURLHiRes !== 'NONE'">
+        <div class="header-image-wrapper" [@flyOutTop]='fireAnimation' (@flyOutTop.done)='animationComplete($event)' [class.change-opacity]='true'>
+            <img [src]="page.imageURLHiRes" class="post-image"/>
+                <a class="site-logo-anchor" href="{{pathToIndex}}" (click)='goHome($event)'><img class="site-logo" [src]="logoSrc$ | async"/></a>
+            <h1 class="post-title" [innerHTML]="safeTitle"></h1>
+        </div>
+        <div class="post-content" [@contentLoaded]='true' *ngIf="page.contentLoaded" [innerHTML]="safeContent"  [@flyOutBottom]='fireAnimation' [class.change-opacity]='true'></div>
+        <div class="content-loading" [@contentLoaded]='true' *ngIf="!page.contentLoaded" >Loading Page...</div>
+    </article>
+
+    <article *ngIf="page.imageURLHiRes == 'NONE'">
+        <a  class="site-logo-anchor" href="{{pathToIndex}}" (click)='goHome($event)'><img class="site-logo" [src]="logoSrc$ | async"/></a>
+        <h1 class="post-title no-image" [innerHTML]="page.title" [@flyOutTop]='fireAnimation' (@flyOutTop.done)='animationComplete($event)'></h1>
+
+        <div class="post-content no-image" [innerHTML]="safeContent" *ngIf="page.contentLoaded" [@flyOutBottom]='fireAnimation'></div>
+        <div class="content-loading" *ngIf="!page.contentLoaded">Loading Page...</div>
+
+    </article>
+
+</div>
+<!-- <div *ngIf="activePage.imageURL === 'NONE'" >
+    <header id='home-header'> 
+        <a routerLink="/"><img [src]="logoSrc"/></a>
+        <h1 id="site-title">{{siteTitle}}</h1>
+        <button id="page-menu-button">Menu</button>
+    </header>
+    <nav id="page-links">
+        <a href='' class="page-item">Legal</a> 
+    </nav>
+    <article>
+        <div class="header-image-wrapper no-image">
+            <h1 class="post-title" [innerHTML]="activePage.title"></h1>
+        </div>
+        <div class="post-content" [innerHTML]="activePage.content"></div>'
+
+    </article>
+</div> -->
+

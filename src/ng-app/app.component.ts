@@ -5,6 +5,7 @@ import { Router, Route} from '@angular/router';
 import { Store } from '@ngrx/store';
 
 import * as appSelectors from './app.selectors';
+import * as pageActions from './page-data/pages.actions';
 import * as postActions from './post-data/posts.actions';
 import * as siteActions from './site-data/site-data.actions';
 import { AppState } from './app.state';

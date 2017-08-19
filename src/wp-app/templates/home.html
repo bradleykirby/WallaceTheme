@@ -1,6 +1,7 @@
 <header id='home-header'> 
     <a href="/"><img src="{{siteData.iconUrl}}"/></a>
     <h1 id="site-title">{{siteData.title}}</h1>
+    {{headerMenu | raw}}
 </header>
 
 {{ include('post-list.html') }}
