@@ -1,9 +1,18 @@
+{% if headerMenu != '' %}
+<header id='home-header'> 
+    <a href="/"><img src="{{siteData.iconUrl}}"/></a>
+    <h1 id="site-title">{{siteData.title}}</h1>
+    {{headerMenu | raw}}
+</header>
+{% endif %}
 <div>
     <article>
 		{% if page.imageURLHiRes != 'NONE' %}
 	        <div class="header-image-wrapper">
 	            <img src="{{page.imageURLHiRes}}" class="post-image"/>
+	            {% if headerMenu == '' %}
 	                <a  class="site-logo-anchor" href="{{siteData.pathToIndex}}"><img class="site-logo" src="{{siteData.iconUrl}}"/></a>
+	            {% endif %}
 	            <h1 class="post-title">{{page.title|raw}}</h1>
 	        </div>
         	<div class="post-content" >{{page.content|raw}}</div>

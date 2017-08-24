@@ -1,8 +1,14 @@
+<header *ngIf="hasMenus" id='home-header' [@flyOutTop]='fireAnimation' (@flyOutTop.done)="animationComplete($event)" [class.change-opacity]='true'> 
+    <a href="{{pathToIndex}}" (click)='goHome($event)'><img [src]="logoSrc$ | async"></a>
+    <h1 id="site-title">{{siteTitle$ | async}}</h1>
+    <wal-menu [menus]="siteMenus$ | async" (activatePageEvent)=navigateToPage($event)></wal-menu>
+    <button id="page-menu-button" style='display: none'>Menu</button>
+</header>
 <div>
     <article *ngIf="page.imageURLHiRes !== 'NONE'">
         <div class="header-image-wrapper" [@flyOutTop]='fireAnimation' (@flyOutTop.done)='animationComplete($event)' [class.change-opacity]='true'>
             <img [src]="page.imageURLHiRes" class="post-image"/>
-                <a class="site-logo-anchor" href="{{pathToIndex}}" (click)='goHome($event)'><img class="site-logo" [src]="logoSrc$ | async"/></a>
+                <a *ngIf="!hasMenus" class="site-logo-anchor" href="{{pathToIndex}}" (click)='goHome($event)'><img class="site-logo" [src]="logoSrc$ | async"/></a>
             <h1 class="post-title" [innerHTML]="safeTitle"></h1>
         </div>
         <div class="post-content" [@contentLoaded]='true' *ngIf="page.contentLoaded" [innerHTML]="safeContent"  [@flyOutBottom]='fireAnimation' [class.change-opacity]='true'></div>

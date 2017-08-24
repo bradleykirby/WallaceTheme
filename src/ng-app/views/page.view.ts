@@ -6,7 +6,7 @@ import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
 import { Subscription } from 'rxjs/Subscription';
 
-import { Router, NavigationStart } from '@angular/router';
+import { Router } from '@angular/router';
 
 import { Page, Pages } from '../page-data/pages.model';
 import { AppState } from '../app.state';
@@ -30,7 +30,10 @@ export class PageViewComponent {
 	page: Page;
 	pages$: Observable<Page[]>;
 	logoSrc$: Observable<string>;
+	siteTitle$: Observable<string>;
 	siteFrontPage$: Observable<number>;
+	siteMenus$: Observable<{id : number, parent: number, title: string}[]>;
+	hasMenus: Boolean;
 
 	private timer: NodeJS.Timer;
 	private activeLocalAnimation$: Subject<boolean> = new Subject();
@@ -39,36 +42,21 @@ export class PageViewComponent {
 	private deferredPage:Page;
 	private activeTransitionAnimation: boolean;
 	private pathToIndex: string;
-	private currentUrl: string;
 
 	subscriptions: Subscription[] = [];
 
 	pageSub: Subscription;
-	paramSub: Subscription;
 	animSub: Subscription;
 	animSub2: Subscription;
 
 	safeTitle: SafeHtml;
 	safeContent: SafeHtml
 
-	constructor(private store: Store<AppState>, private router: Router, private ds: DomSanitizer){
-		this.paramSub = router.events.subscribe(event => {
-			if(event instanceof NavigationStart) {
-				this.currentUrl = event.url;
-				
-				let pageNavigatedTo:Page;
-				this.pages$.subscribe(pages => {
-					pages.forEach(page => {
-						if ( this.currentUrl == '/' + page.path ){
-							pageNavigatedTo = page;
-						}
-					});
-				});
-				
-				if (pageNavigatedTo != undefined){
-					this.store.dispatch(new pageActions.SelectPageAction(pageNavigatedTo));
-				}
-			}
+	constructor(private store: Store<AppState>, private router: Router, private ds: DomSanitizer){	
+		this.siteTitle$ = store.let(appSelectors.getSiteTitle);
+		this.siteMenus$ = this.store.let(appSelectors.getSiteMenus);
+		this.siteMenus$.subscribe(menus => {
+			this.hasMenus = menus.length > 0;
 		});
 	}
 	
@@ -121,15 +109,47 @@ export class PageViewComponent {
 		Prism.highlightAll();
 		
 	}
+	
+	navigateToPage(id: number){
+		
+		if (parseInt(this.page.id) !== id){
+
+			let pageToNavigate:Page;
+		
+			this.pages$.subscribe(pages => {
+				pages.forEach(page => {
+					if ( id == parseInt( page.id ) ){
+						pageToNavigate = page;
+					}
+				});
+			});
+		
+			this.store.dispatch(new siteDataActions.SetTransitionAction(true));
+			this.store.dispatch(new pageActions.SelectPageAction(pageToNavigate));
+
+			this.fireAnimation = 'out';
+			this.store.dispatch(new siteDataActions.AddBlockingAnimationAction(null));
+			this.store.dispatch(new siteDataActions.AddBlockingAnimationAction(null));
+
+			this.subscriptions.push(this.store.let(appSelectors.getAnimationData).subscribe( data => {
+				if(data.blockingAnimations === 0){
+					this.router.navigateByUrl(pageToNavigate.path);
+				}
+			}));
+		}
+	}
 
 	goHome($event: Event){
 		let frontPageId:number;
 		this.siteFrontPage$.subscribe( id => {frontPageId = id;});
 	
-		if (parseInt(this.page.id) !== frontPageId){		
+		if (parseInt(this.page.id) !== frontPageId){
 			$event.preventDefault();
 			this.fireAnimation = 'out';
 			this.store.dispatch(new siteDataActions.SetTransitionAction(true));
+			if (this.hasMenus){
+				this.store.dispatch(new siteDataActions.AddBlockingAnimationAction(null));
+			}
 			if (frontPageId !== 0){
 				let frontPage:Page;
 		
@@ -142,6 +162,21 @@ export class PageViewComponent {
 				});
 			
 				this.store.dispatch(new pageActions.SelectPageAction(frontPage));
+				this.store.dispatch(new siteDataActions.AddBlockingAnimationAction(null));
+			
+				this.subscriptions.push(this.store.let(appSelectors.getAnimationData).subscribe( data => {
+					if(data.blockingAnimations === 0){
+						this.router.navigateByUrl(frontPage.path);
+					}
+				}));
+			}
+			else {
+				this.store.dispatch(new siteDataActions.AddBlockingAnimationAction(null));
+				this.subscriptions.push(this.store.let(appSelectors.getAnimationData).subscribe( data => {
+					if(data.blockingAnimations === 0){
+						this.router.navigateByUrl(this.pathToIndex);
+					}
+				}));
 			}
 		}
 	}
@@ -153,7 +188,7 @@ export class PageViewComponent {
 				this.store.dispatch(new siteDataActions.SetTransitionAction(false));
 			}
 			else if($event.toState === 'out'){
-				this.router.navigateByUrl(this.pathToIndex);
+				this.store.dispatch(new siteDataActions.RemoveBlockingAnimationAction(null));
 			}
 		}
 	}
@@ -161,6 +196,8 @@ export class PageViewComponent {
 	ngOnDestroy(){
 		this.pageSub.unsubscribe();
 		this.animSub.unsubscribe();
-		this.paramSub.unsubscribe();
+		this.subscriptions.map(sub => {
+			sub.unsubscribe();
+		});
 	}
 }
