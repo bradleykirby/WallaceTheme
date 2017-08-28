@@ -6,7 +6,7 @@ import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
 import { Subscription } from 'rxjs/Subscription';
 
-import { Router } from '@angular/router';
+import { Router, NavigationStart } from '@angular/router';
 
 import { Page, Pages } from '../page-data/pages.model';
 import { AppState } from '../app.state';
@@ -42,17 +42,37 @@ export class PageViewComponent {
 	private deferredPage:Page;
 	private activeTransitionAnimation: boolean;
 	private pathToIndex: string;
+	private currentUrl: string;
 
 	subscriptions: Subscription[] = [];
 
 	pageSub: Subscription;
+	paramSub: Subscription;
 	animSub: Subscription;
 	animSub2: Subscription;
 
 	safeTitle: SafeHtml;
 	safeContent: SafeHtml
 
-	constructor(private store: Store<AppState>, private router: Router, private ds: DomSanitizer){	
+	constructor(private store: Store<AppState>, private router: Router, private ds: DomSanitizer){
+		this.paramSub = router.events.subscribe(event => {
+			if(event instanceof NavigationStart) {
+				this.currentUrl = event.url;
+				
+				let pageNavigatedTo:Page;
+				this.pages$.subscribe(pages => {
+					pages.forEach(page => {
+						if ( this.currentUrl == '/' + page.path ){
+							pageNavigatedTo = page;
+						}
+					});
+				});
+				
+				if (pageNavigatedTo != undefined){
+					this.store.dispatch(new pageActions.SelectPageAction(pageNavigatedTo));
+				}
+			}
+		});	
 		this.siteTitle$ = store.let(appSelectors.getSiteTitle);
 		this.siteMenus$ = this.store.let(appSelectors.getSiteMenus);
 		this.siteMenus$.subscribe(menus => {
