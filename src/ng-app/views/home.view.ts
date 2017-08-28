@@ -135,7 +135,8 @@ export class HomeViewComponent {
 	}
 	
 	navigateToPage(id: number){
-		let pageToNavigate:Page;
+		let blogPageId:number,
+			pageToNavigate:Page;
 		
 		this.pages$.subscribe(pages => {
 			pages.forEach(page => {
@@ -145,17 +146,22 @@ export class HomeViewComponent {
 			});
 		});
 		
-		this.store.dispatch(new siteDataActions.SetTransitionAction(true));
-		this.store.dispatch(new pageActions.SelectPageAction(pageToNavigate));
+		this.siteBlogPage$.subscribe( id => {blogPageId = id;});
+	
+		if (blogPageId !== parseInt(pageToNavigate.id)){	
+		
+			this.store.dispatch(new siteDataActions.SetTransitionAction(true));
+			this.store.dispatch(new pageActions.SelectPageAction(pageToNavigate));
 
-		this.fireTransition = 'out';
-		this.store.dispatch(new siteDataActions.AddBlockingAnimationAction(null));
+			this.fireTransition = 'out';
+			this.store.dispatch(new siteDataActions.AddBlockingAnimationAction(null));
 
-		this.subscriptions.push(this.store.let(appSelectors.getAnimationData).subscribe( data => {
-			if(data.blockingAnimations === 0){
-				this.router.navigateByUrl(pageToNavigate.path);
-			}
-		}));
+			this.subscriptions.push(this.store.let(appSelectors.getAnimationData).subscribe( data => {
+				if(data.blockingAnimations === 0){
+					this.router.navigateByUrl(pageToNavigate.path);
+				}
+			}));
+		}
 	}
 	
 	goHome($event: Event){

@@ -22,13 +22,13 @@ export const animations = [
 		transition('in <=> out', animate('.45s')),
 		]),
 	trigger('flyOutTop', [
-		state('in', style({transform: 'translateY(0%)'})),
-		state('out', style({transform: 'translateY(-100%)'})),
+		state('in', style({opacity: 1, transform: 'translateY(0%)'})),
+		state('out', style({opacity: 0, transform: 'translateY(-100%)'})),
 		transition('in <=> out', animate('.45s')),
 		]),
 	trigger('flyOutBottom', [
-		state('in', style({transform: 'translateY(0vh)'})),
-		state('out', style({transform: 'translateY(33vh)'})),
+		state('in', style({opacity: 1, transform: 'translateY(0vh)'})),
+		state('out', style({opacity: 0, transform: 'translateY(33vh)'})),
 		transition('in <=> out', animate('.45s')),
 		]),
 	trigger('toHome', [

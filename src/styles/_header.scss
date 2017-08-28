@@ -69,9 +69,12 @@
 		position: relative;
 		right: 0;
 		bottom: 0;
-		display: inline-block;
+		display: none;
 		float: left;
-		margin-right: 215px;
+		
+		@media screen and (min-width: 600px){
+			display: inline-block;
+		}
 		
 		ul.menu {
 			li {
