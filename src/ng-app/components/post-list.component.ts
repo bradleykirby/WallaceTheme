@@ -1,4 +1,4 @@
-import {Component, Input, Output, ViewChild, ElementRef, NgZone, SimpleChanges,
+import {Component, Input, Output, ViewChild, ElementRef, NgZone, SimpleChange,
 	EventEmitter,  trigger, state, style, transition, animate, ChangeDetectionStrategy, ChangeDetectorRef, AnimationTransitionEvent} from '@angular/core';
 import { Store } from '@ngrx/store';
 import {Subscription} from 'rxjs/Subscription';
@@ -23,6 +23,7 @@ export class PostListComponent{
 	@Input() posts: Post[];
 	@Input() allPreviewsLoaded: boolean;
 	@Input() postsLoading: boolean;
+	@Input() willNavigateToPage: boolean;
 	@Input() adminState: Observable<{adminMode: boolean, editMode: boolean}>;
 	@Output() endOfListReachedEvent = new EventEmitter();
 	@Output() activatePostPreviewEvent = new EventEmitter<Post>();
@@ -31,6 +32,7 @@ export class PostListComponent{
 	private timer: Observable<number>;
 	private scrollCheck: Subscription;
 	private fireTransition: string;
+	private startup: string;
 	private prepareAnimation: boolean = false;
 	private activeTransitionAnimation: boolean;
 	private animSub: Subscription;
@@ -39,7 +41,7 @@ export class PostListComponent{
 		this.animSub = store.let(appSelectors.getAnimationData).subscribe( data => {
 			this.activeTransitionAnimation = data.pageTransitionActive;
 		});
-
+		this.startup = 'void';
 	}
 	ngOnInit(){
 
@@ -52,8 +54,13 @@ export class PostListComponent{
 		
 	}
 
-	ngOnChanges(){
-		console.log(this.posts);
+	ngOnChanges(changes: {[propKey: string]: SimpleChange}){
+		if (typeof changes['willNavigateToPage'] !== "undefined" && !changes['willNavigateToPage'].isFirstChange()) {
+			this.store.dispatch(new siteDataActions.AddBlockingAnimationAction(null));
+			this.prepareAnimation = true;
+			this.startup = 'true';
+			this.fireTransition = 'out';
+		}
 	}
 
 	

@@ -7,9 +7,9 @@ export const animations = [
    		transition('0 <=> 1', animate('.5s'))
 		]),
 	trigger('postEnter', [
-		state('void', style({opacity: 0, transform: 'scale(0.8) translateY(-20%)'})),
-		state('true', style({opacity: 1, transform: 'scale(1) translateY(0%)'})),
-		transition('void => 1', animate('.5s'))
+		state('void', style({transform: 'translateY(0%)'})),
+		state('true', style({transform: 'translateY(-20%)'})),
+		transition('void => true', animate('.5s'))
 		]),
 	trigger('fadeOut', [
 		state('in', style({transform: 'translateY(0px)', opacity: 1})),

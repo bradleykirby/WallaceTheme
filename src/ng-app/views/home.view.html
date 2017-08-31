@@ -10,5 +10,6 @@
 [allPreviewsLoaded]="allPreviewsLoaded$ | async"
 [postsLoading]="postsLoading$ | async"
 [adminState]="getAdminState$"
+[willNavigateToPage]="willNavigateToPage"
 (endOfListReachedEvent)=endOfListReachedEvent() 
 (activatePostPreviewEvent)=navigateToPost($event)></wal-post-list>

@@ -38,7 +38,8 @@ export class HomeViewComponent {
 	postsLoading$: Observable<boolean>;
 	getAdminState$: Observable<{adminMode: boolean, editMode: boolean}>;
 	siteMenus$: Observable<{id : number, parent: number, title: string}[]>;
-
+	
+	willNavigateToPage: boolean;
 	allPreviewsLoaded: boolean;
 	loadingPostPreviews: boolean;
 	featuredPostLoaded: boolean;
@@ -54,6 +55,7 @@ export class HomeViewComponent {
 		this.posts$ = store.let(appSelectors.getPosts);
 		this.pages$ = store.let(appSelectors.getPages);
 		this.siteMenus$ = store.let(appSelectors.getSiteMenus);
+		this.willNavigateToPage = false;
 
 		this.store.let(appSelectors.getPathToIndex).subscribe(_pathToIndex => {
 			this.pathToIndex = _pathToIndex;
@@ -149,7 +151,8 @@ export class HomeViewComponent {
 		this.siteBlogPage$.subscribe( id => {blogPageId = id;});
 	
 		if (blogPageId !== parseInt(pageToNavigate.id)){	
-		
+			
+			this.willNavigateToPage = true;
 			this.store.dispatch(new siteDataActions.SetTransitionAction(true));
 			this.store.dispatch(new pageActions.SelectPageAction(pageToNavigate));
 
