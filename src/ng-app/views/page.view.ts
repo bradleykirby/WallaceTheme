@@ -216,9 +216,10 @@ export class PageViewComponent {
 	ngOnDestroy(){
 		this.pageSub.unsubscribe();
 		this.animSub.unsubscribe();
-		
 		this.paramSub.unsubscribe();
-		this.animSub2.unsubscribe();
+		if (typeof this.animSub2 !== "undefined"){
+			this.animSub2.unsubscribe();
+		}
 		
 		this.subscriptions.map(sub => {
 			sub.unsubscribe();
