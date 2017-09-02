@@ -52,6 +52,11 @@
 		padding: ms(1);
 		padding-left: ms(1) + ms(1)/5;
 		transition: color 0.5s, background-color 0.5s;
+		
+		@media screen and (min-width: 600px){
+			display: none;
+		}
+		
 		&:hover{
 			cursor: hand;
 			color: #040430;
@@ -66,31 +71,63 @@
 
 	.menu-container {
 		padding: 0;
-		position: relative;
+		top: 75px;
+		left: 0;
 		right: 0;
-		bottom: 0;
-		display: none;
 		float: left;
+		display: block;
+		position: absolute;
+		background: #4E5052;
+    	overflow: hidden;
+    	transform: scaleY(0);
+    	transform-origin: top;
 		
 		@media screen and (min-width: 600px){
 			display: inline-block;
+			position: relative;
+			background: none;
+			top: initial;
+			left: initial;
+			bottom: 0;
+			transform: scaleY(1) !important;
+			opacity: 1 !important;
+	    	overflow: initial;
 		}
 		
 		ul.menu {
 			li {
 				position: relative;
-				float: left;
+				float: none;
 				margin: 0;
 				cursor: pointer;
+				overflow: hidden;
+				border-bottom: 1px solid #3D3F41;
+				border-top: 1px solid #5E5F61;
+				margin: 0 auto;
+				max-width: 380px;
+				
+				@media screen and (min-width: 600px){
+					float: left;
+					overflow: initial;
+					border: none;
+					margin: 0;
+					max-width: initial;
+				}
+				
 				a {
 					font-size: 16px;
 					font-weight: 400;
-					color: #FFFFFF;
-					padding: 0 18px 0;
+					color: #CCCCCC;
+					padding: 10px 5px;
 					display: block;
-					float: left;
 					text-transform: none;
-					line-height: 100px;
+					
+					@media screen and (min-width: 600px){
+						float: left;
+						padding: 0 18px 0;
+						line-height: 100px;
+						color: #FFFFFF;
+					}
 				}
 				&:hover{
 					a {
@@ -104,6 +141,9 @@
 						background-clip: padding-box;
 					}
 				}
+			}
+			li:first-child {
+				border-top: none;
 			}	
 		}
 	}

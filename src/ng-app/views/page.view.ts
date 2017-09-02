@@ -34,6 +34,7 @@ export class PageViewComponent {
 	siteFrontPage$: Observable<number>;
 	siteMenus$: Observable<{id : number, parent: number, title: string}[]>;
 	hasMenus: Boolean;
+	menuIsVisible: boolean;
 
 	private timer: NodeJS.Timer;
 	private activeLocalAnimation$: Subject<boolean> = new Subject();
@@ -72,7 +73,8 @@ export class PageViewComponent {
 					this.store.dispatch(new pageActions.SelectPageAction(pageNavigatedTo));
 				}
 			}
-		});	
+		});
+		this.menuIsVisible = false;
 		this.siteTitle$ = store.let(appSelectors.getSiteTitle);
 		this.siteMenus$ = this.store.let(appSelectors.getSiteMenus);
 		this.siteMenus$.subscribe(menus => {
@@ -200,6 +202,10 @@ export class PageViewComponent {
 			}
 		}
 	}
+	
+	showMenu($event: Event){
+		this.menuIsVisible = !this.menuIsVisible;
+	}
 
 	animationComplete($event: AnimationTransitionEvent){
 
@@ -216,6 +222,11 @@ export class PageViewComponent {
 	ngOnDestroy(){
 		this.pageSub.unsubscribe();
 		this.animSub.unsubscribe();
+		this.paramSub.unsubscribe();
+		if (typeof this.animSub2 !== "undefined"){
+			this.animSub2.unsubscribe();
+		}
+		
 		this.subscriptions.map(sub => {
 			sub.unsubscribe();
 		});

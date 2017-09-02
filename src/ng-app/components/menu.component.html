@@ -1,4 +1,4 @@
-<div class="menu-container" *ngIf="menus.length > 0">
+<div class="menu-container" *ngIf="menus.length > 0" [@appearTopBottom]='fireTransition' (@appearTopBottom.done) = "handleTransitionDone($event)"  [class.change-opacity]='prepareAnimation'>
 	<ul class="menu" id="primary-menu">
 		<ng-container *ngFor='let item of menus;'>
 			<li [attr.id]="'menu-item-' + item.id" [attr.class]="'menu-item-' + item.id"><a (click)="handleItemClick(item.id)">{{item.title}}</a></li>
