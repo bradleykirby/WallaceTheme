@@ -35,6 +35,7 @@ export class PostViewComponent {
 	siteFrontPage$: Observable<number>;
 	siteMenus$: Observable<{id : number, parent: number, title: string}[]>;
 	hasMenus: Boolean;
+	menuIsVisible: boolean;
 
 	private timer: NodeJS.Timer;
 	private activeLocalAnimation$: Subject<boolean> = new Subject();
@@ -53,7 +54,8 @@ export class PostViewComponent {
 	safeTitle: SafeHtml;
 	safeContent: SafeHtml
 
-	constructor(private store: Store<AppState>, private router: Router, private ds: DomSanitizer){	
+	constructor(private store: Store<AppState>, private router: Router, private ds: DomSanitizer){
+		this.menuIsVisible = false;
 		this.siteTitle$ = store.let(appSelectors.getSiteTitle);
 		this.siteMenus$ = this.store.let(appSelectors.getSiteMenus);
 		this.siteMenus$.subscribe(menus => {
@@ -176,6 +178,10 @@ export class PostViewComponent {
 				}
 			}));
 		}
+	}
+	
+	showMenu($event: Event){
+		this.menuIsVisible = !this.menuIsVisible;
 	}
 
 	animationComplete($event: AnimationTransitionEvent){

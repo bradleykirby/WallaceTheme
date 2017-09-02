@@ -22,6 +22,12 @@ export const animations = [
 				]))
 		])
 		]),
+	trigger('appearTopBottom', [
+		state('in', style({transform: 'scaleY(1)', opacity: 1})),
+		state('out', style({transform: 'scaleY(0)', opacity: 0})),
+		transition('out => in', animate('.45s')),
+		transition('in => out', animate('.45s')),
+		]),
 	trigger('simpleFade', [
 		state('void', style({opacity: 0})),
 		state('*', style({opacity: 1})),

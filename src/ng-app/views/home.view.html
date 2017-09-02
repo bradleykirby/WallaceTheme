@@ -2,8 +2,8 @@
 [class.change-opacity]='true'> 
     <a href="{{pathToIndex}}" (click)='goHome($event)'><img [src]="logoSrc$ | async"></a>
     <h1 id="site-title">{{siteTitle$ | async}}</h1>
-    <wal-menu [menus]="siteMenus$ | async" (activatePageEvent)=navigateToPage($event)></wal-menu>
-    <button id="page-menu-button" style='display: none'>Menu</button>
+    <wal-menu [menus]="siteMenus$ | async" (activatePageEvent)=navigateToPage($event) [menuIsVisible]="menuIsVisible"></wal-menu>
+    <button id="page-menu-button" (click)='showMenu($event)' *ngIf="hasMenus">Menu</button>
 </header>
 	
 <wal-post-list  [posts]="posts$ | async"

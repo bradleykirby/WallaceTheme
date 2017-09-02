@@ -39,6 +39,8 @@ export class HomeViewComponent {
 	getAdminState$: Observable<{adminMode: boolean, editMode: boolean}>;
 	siteMenus$: Observable<{id : number, parent: number, title: string}[]>;
 	
+	hasMenus: Boolean;
+	menuIsVisible: boolean;
 	willNavigateToPage: boolean;
 	allPreviewsLoaded: boolean;
 	loadingPostPreviews: boolean;
@@ -55,7 +57,11 @@ export class HomeViewComponent {
 		this.posts$ = store.let(appSelectors.getPosts);
 		this.pages$ = store.let(appSelectors.getPages);
 		this.siteMenus$ = store.let(appSelectors.getSiteMenus);
+		this.siteMenus$.subscribe(menus => {
+			this.hasMenus = menus.length > 0;
+		});
 		this.willNavigateToPage = false;
+		this.menuIsVisible = false;
 
 		this.store.let(appSelectors.getPathToIndex).subscribe(_pathToIndex => {
 			this.pathToIndex = _pathToIndex;
@@ -197,6 +203,10 @@ export class HomeViewComponent {
 				}
 			}));
 		}
+	}
+	
+	showMenu($event: Event){
+		this.menuIsVisible = !this.menuIsVisible;
 	}
 
 	animationDone($event: AnimationTransitionEvent){
