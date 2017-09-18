@@ -47,8 +47,8 @@ export class PageService{
 					console.log(resp);
 					var mediaSources = {
 						id: resp.id,
-						loRes: resp.media_details.sizes.medium.source_url,
-						hiRes: typeof resp.media_details.sizes.large === 'undefined' ? resp.media_details.sizes.medium.source_url: resp.media_details.sizes.large.source_url
+						loRes: typeof resp.media_details.sizes.medium === 'undefined' ? resp.media_details.sizes.thumbnail.source_url : resp.media_details.sizes.medium.source_url,
+						hiRes: typeof resp.media_details.sizes.large === 'undefined' ? ( typeof resp.media_details.sizes.medium === 'undefined' ? resp.media_details.sizes.full.source_url : resp.media_details.sizes.medium.source_url ): resp.media_details.sizes.large.source_url
 					}
 					resolve(mediaSources);
 				}).catch(err => {
