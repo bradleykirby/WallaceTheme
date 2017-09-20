@@ -11,6 +11,7 @@ import { RouterLink, Router } from '@angular/router';
 import { animations } from './post-list.animations';
 import * as postActions from '../post-data/posts.actions';
 import * as siteActions from '../site-data/site-data.actions';
+import { EditorDirective } from '../directives/tiny.directive';
 
 
 @Component({
@@ -176,12 +177,13 @@ export class PostItemComponent{
 	postItemClick($event: Event){
 
 		$event.preventDefault();
-		this.prepareAnimation = true;
-		this.timerSub = Observable.timer(50).subscribe(() => {
-			this.fireAnimation = true;
-			this.itemClickedEvent.emit(this.post);
-		});
-		
+		if(!this.adminState.adminMode){
+			this.prepareAnimation = true;
+			this.timerSub = Observable.timer(50).subscribe(() => {
+				this.fireAnimation = true;
+				this.itemClickedEvent.emit(this.post);
+			});
+		}
 
 
 	}
@@ -206,6 +208,15 @@ export class PostItemComponent{
 	activateFilePicker(){
 		this.filePicker.nativeElement.value = null;
 		this.filePicker.nativeElement.click();
+	}
+	
+	postAttributesUpdated(changeObject: any, attribute: string){
+		if (attribute == 'title' && this.post.title != changeObject.content){
+			this.store.dispatch(new postActions.UpdatePostTitleAction({postId: this.post.id, postTitle: changeObject.content}));
+		}
+		else if (attribute == 'excerpt' && this.post.excerpt != changeObject.content){
+			this.store.dispatch(new postActions.UpdatePostExcerptAction({postId: this.post.id, postExcerpt: changeObject.content}));
+		}
 	}
 
 	startImageUpload(){

@@ -4,6 +4,12 @@ import { Post } from './posts.model';
 
 export const ActionTypes = {
   SELECT_POST:   type('[Posts] Select Post'),
+  UPDATE_POST_TITLE: type('[Posts] Update Post title'),
+  UPDATE_POST_TITLE_FAILED: type('[Posts] Update Post title Failed'),
+  UPDATE_POST_TITLE_COMPLETE: type('[Posts] Update Post title Complete'),
+  UPDATE_POST_EXCERPT: type('[Posts] Update Post excerpt'),
+  UPDATE_POST_EXCERPT_FAILED: type('[Posts] Update Post excerpt Failed'),
+  UPDATE_POST_EXCERPT_COMPLETE: type('[Posts] Update Post excerpt Complete'),
   LOAD_POST_PREVIEWS: type('[Posts] Load Posts'), 
   LOAD_POST_PREVIEWS_COMPLETE: type('[Posts] Load Posts Complete') ,
   ALL_POST_PREVIEWS_LOADED: type('[Posts] All Posts Loaded'),
@@ -22,6 +28,36 @@ export const ActionTypes = {
 export class SelectPostAction implements Action {
   type = ActionTypes.SELECT_POST;
   constructor(public payload: Post){}
+}
+
+export class UpdatePostTitleAction implements Action {
+	type = ActionTypes.UPDATE_POST_TITLE;
+	constructor(public payload: {postId: string, postTitle: string}){}
+}
+
+export class UpdatePostTitleFailedAction implements Action {
+  type = ActionTypes.UPDATE_POST_TITLE_FAILED;
+  constructor(public payload: string){}
+}
+
+export class UpdatePostTitleCompleteAction implements Action {
+  type = ActionTypes.UPDATE_POST_TITLE_COMPLETE;
+  constructor(public payload: string){}
+}
+
+export class UpdatePostExcerptAction implements Action {
+	type = ActionTypes.UPDATE_POST_EXCERPT;
+	constructor(public payload: {postId: string, postExcerpt: string}){}
+}
+
+export class UpdatePostExcerptFailedAction implements Action {
+  type = ActionTypes.UPDATE_POST_EXCERPT_FAILED;
+  constructor(public payload: string){}
+}
+
+export class UpdatePostExcerptCompleteAction implements Action {
+  type = ActionTypes.UPDATE_POST_EXCERPT_COMPLETE;
+  constructor(public payload: string){}
 }
 
 export class LoadPostPreviewsAction implements Action {
@@ -93,6 +129,12 @@ export class UpdateFeaturedImageRef implements Action {
 
 export type Actions
   = SelectPostAction
+  | UpdatePostTitleAction
+  | UpdatePostTitleFailedAction
+  | UpdatePostTitleCompleteAction
+  | UpdatePostExcerptAction
+  | UpdatePostExcerptFailedAction
+  | UpdatePostExcerptCompleteAction
   | LoadPostPreviewsAction
   | LoadPostPreviewsCompleteAction
   | AllPostsLoadedAction

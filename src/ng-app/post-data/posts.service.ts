@@ -77,6 +77,36 @@ export class PostService{
 
 		return Observable.from(associateMediaPromise);
 	}
+	
+	updatePostTitle(postId: string, postTitle: string){
+
+		var updatePostTitlePromise = new Promise<string>((resolve, reject) => {
+			this.wp.posts().id(postId).update({
+				title: postTitle
+			}).then(resp => {
+				resolve(resp.id);
+			}).catch(err => {
+				reject(err);
+			})
+		});
+
+		return Observable.from(updatePostTitlePromise);
+	}
+	
+	updatePostExcerpt(postId: string, postExcerpt: string){
+
+		var updatePostExcerptPromise = new Promise<string>((resolve, reject) => {
+			this.wp.posts().id(postId).update({
+				excerpt: postExcerpt
+			}).then(resp => {
+				resolve(resp.id);
+			}).catch(err => {
+				reject(err);
+			})
+		});
+
+		return Observable.from(updatePostExcerptPromise);
+	}
 
 	testService1(){
 		return Observable.of('1');

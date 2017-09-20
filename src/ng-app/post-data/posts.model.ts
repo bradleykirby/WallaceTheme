@@ -16,6 +16,8 @@ export interface Post {
 	itemVisible: string,
 	navigatingTo: boolean,
 	loadedAfterBootstrap: boolean,
+	newTitle: string,
+	newExcerpt: string,
 	newImageURL: string,
 	newImageSources: {loRes: string, hiRes: string},
 	newImageUploadProgress: number,

@@ -22,7 +22,37 @@ const initialPosts: Post[] = walInitialState.posts;
 @Injectable()
 export class PostEffects {
 	constructor(private actions$: Actions, private postService: PostService){}
-
+	
+	@Effect()
+	updatePostTitle$: Observable<Action> = this.actions$
+		.ofType(postActions.ActionTypes.UPDATE_POST_TITLE)
+		.map((action: postActions.UpdatePostTitleAction) => action.payload)
+		.mergeMap( data => {
+			return this.postService.updatePostTitle(data.postId, data.postTitle)
+			.map(postId => {
+				console.log(postId);
+				return new postActions.UpdatePostTitleCompleteAction(data.postId);
+			}).catch(err => {
+				console.log(err);
+				return of(new postActions.UpdatePostTitleFailedAction(data.postId));
+			})
+		});
+		
+	@Effect()
+	updatePostExcerpt$: Observable<Action> = this.actions$
+		.ofType(postActions.ActionTypes.UPDATE_POST_EXCERPT)
+		.map((action: postActions.UpdatePostExcerptAction) => action.payload)
+		.mergeMap( data => {
+			return this.postService.updatePostExcerpt(data.postId, data.postExcerpt)
+			.map(postId => {
+				console.log(postId);
+				return new postActions.UpdatePostExcerptCompleteAction(data.postId);
+			}).catch(err => {
+				console.log(err);
+				return of(new postActions.UpdatePostExcerptFailedAction(data.postId));
+			})
+		});
+		
 	@Effect()
 	loadPostPreviews$: Observable<Action> = this.actions$
 		.ofType(postActions.ActionTypes.LOAD_POST_PREVIEWS)

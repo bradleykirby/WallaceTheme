@@ -36,6 +36,78 @@ export function reducer(state = initialState, action: posts.Actions): Posts {
 				selectedPostId: post.id
 			});
 		}
+		case posts.ActionTypes.UPDATE_POST_TITLE: {
+
+			const payload = <{postId: string, postTitle: string}>action.payload;
+			const idOfPost = payload.postId;
+			const newTitleOfPost = payload.postTitle;
+			const postEntityToUpdate = state.entities[idOfPost];
+			const updatedPost = Object.assign({}, postEntityToUpdate, {newTitle: newTitleOfPost});
+			return Object.assign({}, state, {
+				entities: Object.assign({}, state.entities, {
+					[idOfPost]: updatedPost
+				})
+			});
+		}
+		case posts.ActionTypes.UPDATE_POST_TITLE_FAILED: {
+			const idOfPost = <string>action.payload;
+			const postEntityToUpdate = state.entities[idOfPost];
+			const updatedPost = Object.assign({}, postEntityToUpdate);
+			return Object.assign({}, state, {
+				entities: Object.assign({}, state.entities, {
+					[idOfPost]: updatedPost
+				})
+			});
+		}
+		case posts.ActionTypes.UPDATE_POST_TITLE_COMPLETE: {
+			const idOfPost = <string>action.payload;
+			const postEntityToUpdate = state.entities[idOfPost];
+			const updatedPost = Object.assign({}, postEntityToUpdate, {
+				title: postEntityToUpdate.newTitle,
+				newTitle: ''
+			});
+			return Object.assign({}, state, {
+				entities: Object.assign({}, state.entities, {
+					[idOfPost]: updatedPost
+				})
+			});
+		}
+		case posts.ActionTypes.UPDATE_POST_EXCERPT: {
+
+			const payload = <{postId: string, postExcerpt: string}>action.payload;
+			const idOfPost = payload.postId;
+			const newExcerptOfPost = payload.postExcerpt;
+			const postEntityToUpdate = state.entities[idOfPost];
+			const updatedPost = Object.assign({}, postEntityToUpdate, {newExcerpt: newExcerptOfPost});
+			return Object.assign({}, state, {
+				entities: Object.assign({}, state.entities, {
+					[idOfPost]: updatedPost
+				})
+			});
+		}
+		case posts.ActionTypes.UPDATE_POST_EXCERPT_FAILED: {
+			const idOfPost = <string>action.payload;
+			const postEntityToUpdate = state.entities[idOfPost];
+			const updatedPost = Object.assign({}, postEntityToUpdate);
+			return Object.assign({}, state, {
+				entities: Object.assign({}, state.entities, {
+					[idOfPost]: updatedPost
+				})
+			});
+		}
+		case posts.ActionTypes.UPDATE_POST_EXCERPT_COMPLETE: {
+			const idOfPost = <string>action.payload;
+			const postEntityToUpdate = state.entities[idOfPost];
+			const updatedPost = Object.assign({}, postEntityToUpdate, {
+				excerpt: postEntityToUpdate.newExcerpt,
+				newExcerpt: ''
+			});
+			return Object.assign({}, state, {
+				entities: Object.assign({}, state.entities, {
+					[idOfPost]: updatedPost
+				})
+			});
+		}
 		case posts.ActionTypes.LOAD_POST_PREVIEWS: {
 			return Object.assign({}, state, {
 		        loadingPostPreviews: true
