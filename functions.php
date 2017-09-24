@@ -78,6 +78,8 @@ function wal_add_scripts_and_styles(){
 	wp_enqueue_style( 'wal-style', get_template_directory_uri() . 
 		'/dist/styles.css', false, Wallace::get_version(), false );
 	
+	wp_enqueue_script( 'angular-tinymce', get_template_directory_uri() . '/js/tinymce.min.js', false, Wallace::get_version(), false );
+	
 	if (is_customize_preview() === false){
 		wp_enqueue_script('wal-script', get_template_directory_uri() .
 		'/dist/app.bundle.js', false, Wallace::get_version(), true);

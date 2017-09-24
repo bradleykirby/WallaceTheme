@@ -21,7 +21,9 @@ $ms-base:  1rem;
 	transform: translateZ(0);
 }
 
-
+.mce-content-body {
+	outline: none;
+}
 
 html{
 

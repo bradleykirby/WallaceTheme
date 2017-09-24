@@ -19,7 +19,7 @@ import { initialRoutes } from './app.routes';
 import { PostEffects } from './post-data/posts.effects';
 import { PageEffects } from './page-data/pages.effects';
 import { CanDeactivateHomeGuard, CanActivatePostGuard, CanDeactivatePostGuard, CanDeactivatePageGuard } from './views/guards';
-
+import { EditorDirective } from './directives/tiny.directive';
 
 @NgModule({
   bootstrap:    [ AppComponent ],
@@ -39,7 +39,8 @@ import { CanDeactivateHomeGuard, CanActivatePostGuard, CanDeactivatePostGuard, C
 	  PageViewComponent,
 	  PostListComponent, 
 	  PostItemComponent,
-	  MenuComponent
+	  MenuComponent,
+	  EditorDirective
   ],
   entryComponents: [ HomeViewComponent, PostViewComponent, PageViewComponent ],
   providers: [

@@ -83,8 +83,10 @@
 		image/jpeg, image/png, image/gif, image/ico'>
 
 <a class="post-info" (click)="postItemClick($event)" href="{{post.path+'/'}}">
-	<h2 class="post-title" [innerHTML]="safeTitle"></h2>
-	<div  class="excerpt" [innerHTML]="safeExcerpt"></div>
+	<div class="title" [htmlEditor]="adminState.adminMode" (onEditorChange)='postAttributesUpdated($event, "title")'>
+		<h2 class="post-title" [innerHTML]="safeTitle"></h2>
+	</div>
+	<div class="excerpt" [innerHTML]="safeExcerpt" [htmlEditor]="adminState.adminMode" (onEditorChange)='postAttributesUpdated($event, "excerpt")'></div>
 	<div class="category">
 		<span [innerHTML]="safeCategoryTag">Category</span>
 	</div>

@@ -49,8 +49,8 @@ export class PostService{
 					console.log(resp);
 					var mediaSources = {
 						id: resp.id,
-						loRes: resp.media_details.sizes.medium.source_url,
-						hiRes: typeof resp.media_details.sizes.large === 'undefined' ? resp.media_details.sizes.medium.source_url: resp.media_details.sizes.large.source_url
+						loRes: typeof resp.media_details.sizes.medium === 'undefined' ? resp.media_details.sizes.thumbnail.source_url : resp.media_details.sizes.medium.source_url,
+						hiRes: typeof resp.media_details.sizes.large === 'undefined' ? ( typeof resp.media_details.sizes.medium === 'undefined' ? resp.media_details.sizes.full.source_url : resp.media_details.sizes.medium.source_url ): resp.media_details.sizes.large.source_url
 					}
 					resolve(mediaSources);
 				}).catch(err => {
@@ -76,6 +76,36 @@ export class PostService{
 		});
 
 		return Observable.from(associateMediaPromise);
+	}
+	
+	updatePostTitle(postId: string, postTitle: string){
+
+		var updatePostTitlePromise = new Promise<string>((resolve, reject) => {
+			this.wp.posts().id(postId).update({
+				title: postTitle
+			}).then(resp => {
+				resolve(resp.id);
+			}).catch(err => {
+				reject(err);
+			})
+		});
+
+		return Observable.from(updatePostTitlePromise);
+	}
+	
+	updatePostExcerpt(postId: string, postExcerpt: string){
+
+		var updatePostExcerptPromise = new Promise<string>((resolve, reject) => {
+			this.wp.posts().id(postId).update({
+				excerpt: postExcerpt
+			}).then(resp => {
+				resolve(resp.id);
+			}).catch(err => {
+				reject(err);
+			})
+		});
+
+		return Observable.from(updatePostExcerptPromise);
 	}
 
 	testService1(){
