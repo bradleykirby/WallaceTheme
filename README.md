@@ -1,5 +1,5 @@
 # WallaceTheme
-Wallace is an experimental WordPress blogging theme built with the Rest API and Angular2. It is no longer under active development.
+Wallace is an experimental WordPress blogging theme built with the Rest API and Angular 2. It is no longer under active development.
 
 Wallace uses an API-first approach for rendering both on the server and client. You get all the performance of a single page app with all the SEO benefits and wp-admin compatibility of a traditional server-rendered theme. 
 
