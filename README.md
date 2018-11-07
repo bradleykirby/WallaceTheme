@@ -10,8 +10,7 @@ Wallace uses an API-first approach for rendering both on the server and client. 
 This project is under active development and updates may introduce breaking changes or changes that alter the structure and design of your site. If you prefer, you can wait for a more stable 2.0 release. 
 
 ## Instructions for non-technical users
-A fully built and ready-to-install .zip is available at https://wallacetheme.com. Wallace is a basic blog theme that is uncommonly fast. If that's what you're looking for, read no further and simply download and install the theme as you would normally. If you experience any issues feel free to create an issue here or email me at bradley@wallacetheme.com 
-
+A fully built and ready-to-install .zip is available in the repository above. Download the Wallace.zip file and install the theme as you would normally. 
 ## Instructions for technical users
 
 
