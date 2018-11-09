@@ -7,7 +7,6 @@ Wallace uses an API-first approach for rendering both on the server and client. 
 
 **Notice: Requires WordPress version 4.7 or higher and "pretty" permalinks. Some plugins may be incompatible with this theme - particularly those that make heavy modifications to the structure of the site like page builders. Plugins that only modify the data of a website (rather than its structure) and plugins that introduce code to the `<head>` and `<footer>` (like an SEO plugin) should work properly.** 
 
-This project is under active development and updates may introduce breaking changes or changes that alter the structure and design of your site. If you prefer, you can wait for a more stable 2.0 release. 
 
 ## Instructions for non-technical users
 A fully built and ready-to-install .zip is available in the repository above. Download the Wallace.zip file and install the theme as you would normally. 
